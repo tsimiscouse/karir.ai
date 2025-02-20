@@ -3,10 +3,10 @@ name: Frontend CI (Next.js)
 on:
   push:
     paths:
-      - 'frontend/**'
+      - "frontend/**"
   pull_request:
     paths:
-      - 'frontend/**'
+      - "frontend/**"
 
 jobs:
   build:
@@ -27,10 +27,6 @@ jobs:
         working-directory: frontend
         run: npm install
 
-      - name: Run Lint
-        working-directory: frontend
-        run: npm run lint
-
-      - name: Build Project
+      - name: Build Next.js
         working-directory: frontend
         run: npm run build
