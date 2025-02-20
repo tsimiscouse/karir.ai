@@ -1,0 +1,29 @@
+name: Backend API CI (FastAPI)
+
+on:
+  push:
+    paths:
+      - "backend-api/**"
+  pull_request:
+    paths:
+      - "backend-api/**"
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install Dependencies
+        working-directory: backend-api
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt

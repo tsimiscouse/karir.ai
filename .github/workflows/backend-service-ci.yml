@@ -1,0 +1,28 @@
+name: Backend Service CI (Express.js)
+
+on:
+  push:
+    paths:
+      - "backend-services/**"
+  pull_request:
+    paths:
+      - "backend-services/**"
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: backend-services/package-lock.json
+
+      - name: Install Dependencies
+        working-directory: backend-services
+        run: npm install
