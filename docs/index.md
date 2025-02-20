@@ -4,34 +4,35 @@
 ## Muhammad Luthfi Attaqi - 22/496427/TK/54387
 ## Shafa Aura Yogadiasa - 22/496508/TK/54406
 
-# Project Senior Project TI
+## Project Senior Project TI
 
-# Departemen Teknologi Elektro dan Teknologi Informasi, Fakultas Teknik, Universitas Gadjah Mada
+## Departemen Teknologi Elektro dan Teknologi Informasi, Fakultas Teknik, Universitas Gadjah Mada
 
-# Nama Produk: karir.ai
+## Nama Produk: karir.ai
 
-# Latar Belakang:
+## Latar Belakang:
 Banyak individu, terutama fresh graduate dan profesional muda, mengalami kesulitan dalam menentukan jalur karir yang sesuai dengan pengalaman dan keterampilan yang mereka miliki. Selain itu, Job mismatch yang merupakan fenomena ketika kualifikasi, keterampilan, atau minat pekerja tidak sesuai dengan pekerjaan yang mereka jalani kerap kali dirasakan. Di Indonesia, masalah ini telah menjadi perhatian serius, terutama karena dampaknya terhadap produktivitas, kesejahteraan pekerja, dan pertumbuhan ekonomi.  
 
 Berdasarkan hasil laporan  “Fenomena Job Mismatch di Indonesia,” Menteri Ketenagakerjaan  (Menaker)  Periode 2019-2024, Ida Fauziyah menduga terdapat banyak penduduk muda Indonesia berusia 15-24 tahun atau Generasi Z yang menganggur tengah dalam proses mencari pekerjaan.  
 
  
+![Job-mismatch Data Populix](docs/populix.data.png)
 
 Sumber Grafis: Populix, Sumber Data: BPS 
 
 Berdasarkan hasil survei Populix, sebanyak 30% responden pencari kerja menyatakan bahwa mereka memiliki latar belakang pendidikan yang tidak sesuai dengan pekerjaan yang akan mereka lamar. Oleh karena itu, dibutuhkan solusi berbasis AI yang dapat membantu individu memahami potensi mereka dan merekomendasikan jalur karir terbaik berdasarkan lowongan pekerjaan yang tersedia. 
 
-# Permasalahan:
+## Permasalahan:
 1. Bagaimana cara membantu individu, terutama fresh graduate dan profesional muda, dalam memahami keterampilan utama yang mereka miliki berdasarkan resume mereka? 
 2. Bagaimana cara mencocokkan pengalaman dan keterampilan individu dengan peluang kerja yang tersedia di pasar kerja secara akurat? 
 3. Bagaimana cara memberikan rekomendasi jalur karir yang lebih sesuai dengan profil pengguna menggunakan kecerdasan buatan? 
 4. Bagaimana cara meningkatkan pemahaman individu terhadap potensi karir mereka melalui platform berbasis AI? 
 
-# Ide Solusi:
+## Ide Solusi:
 karir.ai sebagai sebuah platform web berbasis AI yang dapat menganalisis resume pengguna untuk memberikan rekomendasi karir yang sesuai. Dengan memanfaatkan Natural Language Processing, yaitu sentence-BERT dengan all-MiniLM-L6-v2 dan paraphrase-MiniLM-L6-v2. Nantinya, platform ini dapat membaca dan memahami pengalaman pengguna berdasarkan resume yang diberikan, kemudian mencocokkannya dengan pekerjaan yang sesuai berdasarkan data dari lowongan kerja yang tersedia.
 
-# Analisis Kompetitor
-## KOMPETITOR 1
+## Analisis Kompetitor
+**KOMPETITOR 1**
 
 | **Nama** | LinkedIn Job Recommendations |
 |----------|------------------------------|
@@ -52,7 +53,7 @@ karir.ai sebagai sebuah platform web berbasis AI yang dapat menganalisis resume 
 
 ---
 
-## KOMPETITOR 2
+**KOMPETITOR 2**
 
 | **Nama** | Jobstreet (LiNa AI) |
 |----------|---------------------|
@@ -73,7 +74,7 @@ karir.ai sebagai sebuah platform web berbasis AI yang dapat menganalisis resume 
 
 ---
 
-## KOMPETITOR 3
+**KOMPETITOR 3**
 
 | **Nama** | Resume Worded |
 |----------|--------------|
