@@ -60,11 +60,13 @@ karir.ai sebagai sebuah platform web berbasis AI yang dapat menganalisis resume 
 | **Jenis Kompetitor** | Direct |
 | **Jenis Produk** | Platform pencarian kerja dengan AI-based resume scoring |
 | **Target Customer** | *Profesional, fresh graduates, job seekers* |
+
 | **Kelebihan** | **Kekurangan** |
 |--------------|---------------|
 | Memiliki fitur LiNa AI yang memberikan rekomendasi pekerjaan berdasarkan CV yang diunggah. | Analisis resume masih berbasis *keyword matching*. |
 | Terintegrasi dengan banyak perusahaan di Asia Tenggara, meningkatkan peluang pencari kerja. | Tidak memberikan insight atau saran spesifik untuk meningkatkan kualitas CV pengguna. |
 | Memungkinkan pengguna melihat kecocokan antara CV mereka dengan lowongan kerja. |  |
+
 | **Key Competitive Advantage & Unique Value** |
 |--------------------------------------------|
 | karir.ai menggunakan NLP (sentence-BERT) untuk memahami pengalaman pengguna secara lebih kontekstual, bukan hanya sekadar mencocokkan kata kunci. |
@@ -79,11 +81,13 @@ karir.ai sebagai sebuah platform web berbasis AI yang dapat menganalisis resume 
 | **Jenis Kompetitor** | Indirect |
 | **Jenis Produk** | AI Resume Scoring & Career Feedback |
 | **Target Customer** | *Profesional, fresh graduates, job seekers* |
+
 | **Kelebihan** | **Kekurangan** |
 |--------------|---------------|
 | Menggunakan AI untuk memberikan skor CV berdasarkan aspek seperti keterbacaan, kata kunci, dan relevansi dengan industri. | Tidak secara langsung memberikan rekomendasi pekerjaan, hanya fokus pada analisis dan saran perbaikan CV. |
 | Memberikan *feedback* langsung untuk meningkatkan kualitas CV. | Fitur premium diperlukan untuk mendapatkan insight yang lebih mendalam. |
 | Memiliki fitur LinkedIn profile review untuk meningkatkan optimasi profil pengguna. | Tidak mempertimbangkan kesesuaian dengan *job market* secara *real-time*. |
+
 | **Key Competitive Advantage & Unique Value** |
 |--------------------------------------------|
 | Menggunakan NLP berbasis Sentence-BERT yang dapat memahami konteks pengalaman kerja pengguna. |
