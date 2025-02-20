@@ -5,10 +5,14 @@ layout: default
 
 # karir.ai
 
-Meet our Developers 👨‍💻👩‍💻
+Meet Our Developers 👨‍💻👩‍💻
+
 ✨ Behind every great innovation, there’s a passionate team! ✨
+
 Septian Eka Rahmadi - 22/496732/TK/54442
+
 Muhammad Luthfi Attaqi - 22/496427/TK/54387
+
 Shafa Aura Yogadiasa - 22/496508/TK/54406
 
 ## 🎯 Project Senior Project TI
@@ -43,8 +47,10 @@ karir.ai sebagai sebuah platform web berbasis AI yang dapat menganalisis resume 
 ## 📊 Analisis Kompetitor
 
 ### **KOMPETITOR 1: LinkedIn Job Recommendations**
+
+| **Nama** | LinkedIn Job Recommendations |
+|----------|------------------------------|
 | **Jenis Kompetitor** | Indirect |
-|----------------------|----------|
 | **Jenis Produk** | Platform *social media* dengan fitur rekomendasi pekerjaan |
 | **Target Customer** | *Profesional, fresh graduates, job seekers* |
 
@@ -62,8 +68,10 @@ karir.ai sebagai sebuah platform web berbasis AI yang dapat menganalisis resume 
 ---
 
 ### **KOMPETITOR 2: Jobstreet (LiNa AI)**
+
+| **Nama** | Jobstreet (LiNa AI) |
+|----------|---------------------|
 | **Jenis Kompetitor** | Direct |
-|----------------------|--------|
 | **Jenis Produk** | Platform pencarian kerja dengan AI-based resume scoring |
 | **Target Customer** | *Profesional, fresh graduates, job seekers* |
 
@@ -81,8 +89,10 @@ karir.ai sebagai sebuah platform web berbasis AI yang dapat menganalisis resume 
 ---
 
 ### **KOMPETITOR 3: Resume Worded**
+
+| **Nama** | Resume Worded |
+|----------|--------------|
 | **Jenis Kompetitor** | Indirect |
-|----------------------|----------|
 | **Jenis Produk** | AI Resume Scoring & Career Feedback |
 | **Target Customer** | *Profesional, fresh graduates, job seekers* |
 
