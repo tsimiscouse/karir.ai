@@ -1,3 +1,8 @@
+---
+title: karir.ai
+layout: default
+---
+
 # karir.ai
 
 ## Septian Eka Rahmadi - 22/496732/TK/54442
