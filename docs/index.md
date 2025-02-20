@@ -16,7 +16,7 @@ Banyak individu, terutama fresh graduate dan profesional muda, mengalami kesulit
 Berdasarkan hasil laporan  “Fenomena Job Mismatch di Indonesia,” Menteri Ketenagakerjaan  (Menaker)  Periode 2019-2024, Ida Fauziyah menduga terdapat banyak penduduk muda Indonesia berusia 15-24 tahun atau Generasi Z yang menganggur tengah dalam proses mencari pekerjaan.  
 
  
-![Job-mismatch Data Populix](docs/populix_data.png)
+![Job-mismatch Data Populix](populix_data.png)
 
 Sumber Grafis: Populix, Sumber Data: BPS 
 
