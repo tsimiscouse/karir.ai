@@ -80,6 +80,42 @@ export class UserInputController {
       res.status(400).json({ error: error instanceof Error ? error.message : 'Unknown error occurred' });
     }
   }
+
+  public async update(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const { email, expectedSalary, location } = req.body as CreateUserInputDTO;
+      const file = req.file;
+
+      const existingUserInput = await prisma.userInput.findUnique({
+        where: { id },
+      });
+
+      if (!existingUserInput) {
+        res.status(404).json({ error: 'User input not found' });
+        return;
+      }
+
+      if (file && existingUserInput.resume) {
+        fs.unlinkSync(existingUserInput.resume);
+      }
+
+      const updatedUserInput = await prisma.userInput.update({
+        where: { id },
+        data: {
+          email,
+          expectedSalary: expectedSalary ? parseInt(expectedSalary.toString()) : undefined,
+          location,
+          resume: file ? file.path : existingUserInput.resume,
+        },
+      });
+
+      res.json(updatedUserInput);
+    } catch (error) {
+      res.status(400).json({ error: error instanceof Error ? error.message : 'Unknown error occurred' });
+    }
+  }
+
 }
 
 export default new UserInputController();
