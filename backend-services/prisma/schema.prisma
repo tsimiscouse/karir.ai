@@ -1,0 +1,112 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserInput {
+  id              String            @id @default(uuid())
+  email           String            @db.VarChar(255)
+  emailStatus     Boolean
+  paymentToken    String?           @db.VarChar(255)
+  paymentStatus   Boolean
+  resume          String            @db.Text
+  expectedSalary  Int
+  location        String            @db.VarChar(255)
+  createdAt       DateTime          @default(now())
+  resumeAnalysis  ResumeAnalysis[]
+  recommendedJobs RecommendedJob[]
+
+  @@map("users_input")
+}
+
+model ResumeAnalysis {
+  id            String    @id @default(uuid())
+  userInputId   String
+  resumeScore   Float
+  analysis      String    @db.Text
+  createdAt     DateTime  @default(now())
+  userInput     UserInput @relation(fields: [userInputId], references: [id])
+
+  @@map("resume_analysis")
+}
+
+model JobTitle {
+  id            String            @id @default(uuid())
+  title         String            @db.VarChar(255)
+  description   String            @db.Text
+  tags          String            @db.Text
+  recommendedJobs RecommendedJob[]
+
+  @@map("job_titles")
+}
+
+model JobListing {
+  id              String            @id @default(uuid())
+  title           String            @db.VarChar(255)
+  companyName     String            @db.VarChar(255)
+  salaryMin       Int
+  salaryMax       Int
+  location        String            @db.VarChar(255)
+  employmentType  String            @db.VarChar(50)
+  experience      String            @db.Text
+  description     String            @db.Text
+  tags           String            @db.Text
+  createdAt       DateTime          @default(now())
+  recommendedListings RecommendedListing[]
+
+  @@map("job_listings")
+}
+
+model RecommendedJob {
+  id            String    @id @default(uuid())
+  userInputId   String
+  jobTitleId    String
+  createdAt     DateTime  @default(now())
+  userInput     UserInput @relation(fields: [userInputId], references: [id])
+  jobTitle      JobTitle  @relation(fields: [jobTitleId], references: [id])
+
+  @@map("recommended_jobs_title")
+}
+
+model RecommendedListing {
+  id            String    @id @default(uuid())
+  recommendedJobId String
+  jobListingId  String
+  createdAt     DateTime  @default(now())
+  jobListing    JobListing @relation(fields: [jobListingId], references: [id])
+
+  @@map("recommended_listing")
+}
+
+model JobScrape {
+  id            String    @id @default(uuid())
+  title         String    @db.VarChar(255)
+  companyName   String    @db.VarChar(255)
+  salaryMin     Int
+  salaryMax     Int
+  location      String    @db.VarChar(255)
+  employmentType String    @db.VarChar(50)
+  experience    String    @db.Text
+  description   String    @db.Text
+  jobTags       String    @db.Text
+  sourceId      Int
+  scrapeAt      DateTime  @default(now())
+  source        Source    @relation(fields: [sourceId], references: [id])
+
+  @@map("job_scrape")
+}
+
+model Source {
+  id          Int         @id @default(autoincrement())
+  sourceName  String      @db.VarChar(255)
+  sourceUrl   String      @db.Text
+  jobScrapes  JobScrape[]
+
+  @@map("source")
+}
