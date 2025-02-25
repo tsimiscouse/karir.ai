@@ -5,4 +5,4 @@ karir.ai merupakan sebuah platform web berbasis AI yang dapat menganalisis resum
 Ketua Kelompok:
 Anggota 1: Muhammad Luthfi Attaqi - 22/496427/TK/54387
 Anggota 2: Septian Eka Rahmadi - 22/496732/TK/54442
-Anggota 3: Shafa Aura Yogadiasa - 22/496508/TK?54406
+Anggota 3: Shafa Aura Yogadiasa - 22/496508/TK/54406
