@@ -17,11 +17,11 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className="fixed w-full bg-[#F4EFEB] shadow-md z-50 font-sans"
     >
-      <div className="flex justify-between items-center px-6 md:px-10 md:py-[1.5vw] py-8">
+      <div className="flex justify-between items-center mx-[10vw] md:ml-[12vw] md:mr-[12vw] md:px-10 md:py-[1.5vw] py-8">
         <Link href="/">
           <Image src="/logokarirmiring.png" alt="Karir.AI Logo" width={120} height={40} className="cursor-pointer" />
         </Link>
-        <div className="hidden md:flex space-x-[2vw] font-medium text-[1vw] text-gray-700">
+        <div className="hidden md:flex space-x-[4vw] font-medium text-[1vw] text-gray-700">
           <Link href="/resume-analysis" className="hover-underline transition">Analisa Resume</Link>
           <Link href="/jobs" className="hover-underline transition">Lowongan</Link>
           <Link href="/about" className="hover-underline transition">About</Link>
