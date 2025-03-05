@@ -12,3 +12,4 @@ logs/
 # Ignore build files
 dist/
 build/
+uploads/
