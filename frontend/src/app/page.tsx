@@ -9,17 +9,17 @@ export default function Home() {
   return (
     <div className={`font-righteous bg-background text-foreground`}>
       <Navbar />
-      <div className="container mx-auto flex-grow">
-        <div className="flex items-center justify-center px-[15vw] pt-[5vw] h-screen bg-white">
+      <div className="container flex-grow">
+        <div id="Hero" className="flex items-center justify-center px-[15vw] pt-[5vw] w-screen h-screen bg-white">
           <Hero />
         </div>
-        <div className="flex items-center justify-center h-screen bg-[#F4EFEB]">
+        <div id="opportunity-form" className="flex items-center justify-center w-screen h-screen bg-[#F4EFEB]">
           <OpportunityForm />
         </div>
-        <div className="flex items-center justify-center bg-white">
+        <div id="job-listing" className="flex items-center justify-center w-screen h-screen bg-white">
           <JobListingSection />
         </div>
-        <div className="flex items-center justify-center bg-[#F4EFEB]">
+        <div id="how-it-works" className="flex items-center justify-center w-screen h-screen bg-[#F4EFEB]">
           <HowItWorks />
         </div>
       </div>

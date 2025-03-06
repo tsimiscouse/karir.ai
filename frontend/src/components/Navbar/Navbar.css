@@ -1,3 +1,17 @@
+/* Navbar.css */
+
+/* Definisikan font Righteous */
+@font-face {
+    font-family: 'Righteous';
+    src: url('/fonts/Righteous-Regular.ttf') format('truetype'); /* Pastikan path sesuai dengan lokasi font */
+}
+
+/* Gaya untuk navbar */
+.navbar {
+    font-family: 'Righteous', sans-serif; /* Menggunakan font Righteous */
+}
+
+/* Hover underline style */
 .hover-underline {
     position: relative;
     color: black;
