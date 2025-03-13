@@ -16,7 +16,7 @@ const Hero = () => {
         <Feature />
       </div>
       <div className="md:w-1/2 flex justify-center">
-        <div className="h-[500px] w-[500px] bg-gray-200 rounded-lg flex items-center justify-center relative">
+        <div className="h-[610px] w-[500px] bg-gray-200 rounded-lg flex items-center justify-center relative">
           <Image
             src=""
             alt="Gambar ilustrasi Karir.AI"
