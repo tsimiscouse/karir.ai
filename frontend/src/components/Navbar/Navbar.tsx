@@ -15,7 +15,7 @@ const Navbar = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed w-full bg-[#F4EFEB] shadow-md z-50 navbar" // Menggunakan kelas navbar
+      className="fixed w-screen bg-[#F4EFEB] shadow-md z-50 navbar" // Menggunakan kelas navbar
     >
       <div className="flex justify-between items-center mx-[10vw] md:ml-[12vw] md:mr-[12vw] md:px-10 md:py-[1.5vw] py-8">
         <Link href="/">
