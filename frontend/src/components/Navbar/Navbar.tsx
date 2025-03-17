@@ -38,7 +38,7 @@ const Navbar = () => {
           initial={{ opacity: 0, height: 0 }} 
           animate={{ opacity: 1, height: 'auto' }} 
           transition={{ duration: 0.3 }}
-          className="md:hidden flex flex-col items-center space-y-4 py-4 bg-white shadow-md"
+          className="md:hidden flex flex-col items-center space-y-4 py-4 bg-[#F4EFEB] shadow-md"
         >
           <Link href="/resume-analysis" className="text-lg font-medium text-gray-700 hover-underline transition">Analisa Resume</Link>
           <Link href="/jobs" className="text-lg font-medium text-gray-700 hover-underline transition">Lowongan</Link>
