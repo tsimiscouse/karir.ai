@@ -77,8 +77,9 @@ def fetch_store_jobs(db: Session = Depends(get_db)):
     created_jobs = [crud.create_job(db, job) for job in new_jobs]
     return created_jobs
 
-@router.post("/fetch-store-jobs/{page}", response_model=List[JobResponse])
-def fetch_store_jobs(page: int, db: Session = Depends(get_db)):
+'''
+# @router.post("/fetch-store-jobs/{page}", response_model=List[JobResponse])
+# def fetch_store_jobs(page: int, db: Session = Depends(get_db)):
     """
     Fetch and store job listings from a specific page.
     Example: /fetch-store-jobs/1 fetches jobs from page 1.
@@ -132,6 +133,7 @@ def fetch_store_jobs(page: int, db: Session = Depends(get_db)):
     # Store only unique jobs
     created_jobs = [crud.create_job(db, job) for job in new_jobs]
     return created_jobs
+'''
 
 @router.post("/fetch-store-jobs/{country}", response_model=List[JobResponse])
 def fetch_store_jobs(country: str, db: Session = Depends(get_db)):
@@ -188,4 +190,16 @@ def fetch_store_jobs(country: str, db: Session = Depends(get_db)):
     # Store only unique jobs
     created_jobs = [crud.create_job(db, job) for job in new_jobs]
     return created_jobs
+
+@router.delete("/delete-all-jobs")
+def delete_all_jobs(db: Session = Depends(get_db)):
+    try:
+        deleted_rows = db.query(JobPosting).delete()  # Deletes all rows
+        db.commit()  # Commit the transaction
+
+        return {"message": f"Successfully deleted {deleted_rows} job postings"}
+    
+    except Exception as e:
+        db.rollback()  # Rollback if there's an error
+        raise HTTPException(status_code=500, detail=f"Error deleting jobs: {str(e)}")
 
