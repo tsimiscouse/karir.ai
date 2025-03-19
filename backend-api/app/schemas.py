@@ -24,3 +24,17 @@ class JobResponse(JobCreate):
 
     class Config:
         from_attributes = True
+
+class ResumeAnalysisBase(BaseModel):
+    userInputId: str
+    resumeScore: float
+    analysis: str
+
+class ResumeAnalysisCreate(ResumeAnalysisBase):
+    pass  # For creating a new record
+
+class ResumeAnalysisResponse(ResumeAnalysisBase):
+    createdAt: datetime
+
+    class Config:
+        from_attributes = True

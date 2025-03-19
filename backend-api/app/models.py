@@ -1,3 +1,4 @@
+from tokenize import Double
 import uuid
 from sqlalchemy import Column, String, Integer, Float, DateTime, Text, UUID, ForeignKey, JSON, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID 
@@ -61,4 +62,15 @@ class RecommendedJobsTitle(Base):
     userInputId = Column(String, ForeignKey("users_input.id"))
     jobListingId = Column(String, ForeignKey("job_listings.id"))
     similarity_score = Column(Float)
+
+class ResumeAnalysis(Base):
+    __tablename__ = "resume_analysis"
+
+    id = Column(String, primary_key=True, index=True)
+    userInputId = Column(String, ForeignKey("users_input.id"), nullable=False)
+    resumeScore = Column(Double, nullable=False)
+    analysis = Column(String, nullable=True)
+    createdAt = Column(TIMESTAMP, default=datetime.utcnow)
+
+    user = relationship("UsersInput", back_populates="resume_analysis")
 
