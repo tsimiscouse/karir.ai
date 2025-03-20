@@ -19,22 +19,30 @@ const SuccessPage: React.FC = () => {
         </div>
       </nav>
 
-      {/* Success Message */}
-      <main className="flex flex-col items-center justify-center flex-grow">
-        <div className="bg-[#2E4756] text-white p-8 rounded-lg shadow-lg text-center w-[90%] md:w-[50%] lg:w-[40%]">
-          <Image src="/fileberhasil.png" alt="Email Sent" width={50} height={50} className="mx-auto mb-4" />
-          <p className="text-lg mb-2">Hasil analisa telah berhasil dikirimkan</p>
-          <p className="text-sm mb-6">Cek email anda sekarang untuk melihat history</p>
-          <div className="flex justify-center space-x-4">
-            <button className="bg-red-600 px-6 py-2 text-white font-semibold rounded-full hover:bg-red-700 transition">
-              LIHAT HASIL ANALISIS
-            </button>
-            <button className="bg-[#5A7684] px-6 py-2 text-white font-semibold rounded-full hover:bg-[#49606E] transition">
-              KEMBALI KE HOME
-            </button>
-          </div>
+
+          {/* Success Message */}
+          <main className="flex flex-col items-center justify-center flex-grow">
+      <div className="bg-[#2E4756] text-white p-8 rounded-lg shadow-lg text-center w-[90%] md:w-[50%] lg:w-[40%]">
+        <Image src="/fileberhasil.png" alt="Email Sent" width={50} height={50} className="mx-auto mb-4" />
+        <p className="text-lg mb-2">Hasil analisa telah berhasil dikirimkan</p>
+        <p className="text-sm mb-6">Cek email anda sekarang untuk melihat history</p>
+        <div className="flex justify-center space-x-4">
+          <Link
+            href="/result"
+            className="bg-red-600 px-6 py-2 text-white font-semibold rounded-full hover:bg-red-700 transition"
+          >
+            LIHAT HASIL ANALISIS
+          </Link>
+          <Link
+            href="/dashboard"
+            className="bg-[#5A7684] px-6 py-2 text-white font-semibold rounded-full hover:bg-[#49606E] transition"
+          >
+            KEMBALI KE HOME
+          </Link>
         </div>
-      </main>
+      </div>
+    </main>
+
 
       {/* Footer */}
       <footer className="bg-[#2F4157] text-[#F4EFEB] py-6 px-10">

@@ -74,7 +74,7 @@ const Home: React.FC = () => {
           </div>
         </section>
 
-        /* Lowongan Tersedia Section */
+        {/* Lowongan Tersedia Section */}
 <section className="mt-12 p-6 bg-gray-50 rounded-xl shadow-lg">
   <h2 className="text-3xl font-semibold text-center text-[#333E50] mb-6 tracking-wide">
     LOWONGAN TERSEDIA
