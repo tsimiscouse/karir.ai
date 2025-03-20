@@ -1,10 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const SuccessPage: React.FC = () => {
+  const router = useRouter();
+  const [isFading, setIsFading] = useState(false);
+
+  const handleNavigation = (path: string) => {
+    setIsFading(true); // Aktifkan efek fade-out
+    setTimeout(() => {
+      router.push(path); // Redirect setelah animasi selesai
+    }, 500); // Durasi animasi 500ms
+  };
+
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#F0F0E8] text-[#2E2E2E] font-poppins">
       {/* Navbar */}
@@ -20,28 +31,28 @@ const SuccessPage: React.FC = () => {
       </nav>
 
 
-          {/* Success Message */}
-          <main className="flex flex-col items-center justify-center flex-grow">
-      <div className="bg-[#2E4756] text-white p-8 rounded-lg shadow-lg text-center w-[90%] md:w-[50%] lg:w-[40%]">
-        <Image src="/fileberhasil.png" alt="Email Sent" width={50} height={50} className="mx-auto mb-4" />
-        <p className="text-lg mb-2">Hasil analisa telah berhasil dikirimkan</p>
-        <p className="text-sm mb-6">Cek email anda sekarang untuk melihat history</p>
-        <div className="flex justify-center space-x-4">
-          <Link
-            href="/result"
-            className="bg-red-600 px-6 py-2 text-white font-semibold rounded-full hover:bg-red-700 transition"
-          >
-            LIHAT HASIL ANALISIS
-          </Link>
-          <Link
-            href="/dashboard"
-            className="bg-[#5A7684] px-6 py-2 text-white font-semibold rounded-full hover:bg-[#49606E] transition"
-          >
-            KEMBALI KE HOME
-          </Link>
+           {/* Success Message */}
+      <main className={`flex flex-col items-center justify-center flex-grow transition-opacity duration-500 ${isFading ? 'opacity-0' : 'opacity-100'}`}>
+        <div className="bg-[#2E4756] text-white p-8 rounded-lg shadow-lg text-center w-[90%] md:w-[50%] lg:w-[40%]">
+          <Image src="/fileberhasil.png" alt="Email Sent" width={50} height={50} className="mx-auto mb-4" />
+          <p className="text-lg mb-2">Hasil analisa telah berhasil dikirimkan</p>
+          <p className="text-sm mb-6">Cek email anda sekarang untuk melihat history</p>
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={() => handleNavigation('/result')}
+              className="bg-red-600 px-6 py-2 text-white font-semibold rounded-full hover:bg-red-700 transition"
+            >
+              LIHAT HASIL ANALISIS
+            </button>
+            <button
+              onClick={() => handleNavigation('/dashboard')}
+              className="bg-[#5A7684] px-6 py-2 text-white font-semibold rounded-full hover:bg-[#49606E] transition"
+            >
+              KEMBALI KE HOME
+            </button>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
 
 
       {/* Footer */}
