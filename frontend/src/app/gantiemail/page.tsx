@@ -16,7 +16,7 @@ export default function ChangeEmail() {
         </div>
         <div className="flex space-x-6 text-lg font-medium text-[#2F4157]">
           <Link href="/analisa" className="hover:text-gray-600">Analisa Resume</Link>
-          <Link href="/lowongan" className="hover:text-gray-600">Lowongan</Link>
+          <Link href="/joblistsearch" className="hover:text-gray-600">Lowongan</Link>
           <Link href="/about" className="hover:text-gray-600">About</Link>
         </div>
       </nav>
@@ -55,7 +55,7 @@ export default function ChangeEmail() {
           </div>
           <nav className="space-x-8">
             <a href="#" className="text-gray-400 hover:text-gray-200">Analisa Resume</a>
-            <a href="#" className="text-gray-400 hover:text-gray-200">Lowongan</a>
+            <a href="/joblistsearch" className="text-gray-400 hover:text-gray-200">Lowongan</a>
             <a href="#" className="text-gray-400 hover:text-gray-200">About</a>
           </nav>
         </div>

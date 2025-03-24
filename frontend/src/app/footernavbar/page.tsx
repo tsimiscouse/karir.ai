@@ -12,7 +12,7 @@ const NavbarFooterPage: React.FC = () => {
         </div>
         <div className="flex space-x-8 font-medium text-lg">
           <Link href="#" className="hover:underline">Analisa Resume</Link>
-          <Link href="#" className="hover:underline">Lowongan</Link>
+          <Link href="/joblistsearch" className="hover:underline">Lowongan</Link>
           <Link href="#" className="hover:underline">About</Link>
         </div>
       </nav>
@@ -33,7 +33,7 @@ const NavbarFooterPage: React.FC = () => {
         </div>
         <nav className="space-x-8">
           <a href="#" className="text-gray-400 hover:text-gray-200">Analisa Resume</a>
-          <a href="#" className="text-gray-400 hover:text-gray-200">Lowongan</a>
+          <a href="/joblistsearch" className="text-gray-400 hover:text-gray-200">Lowongan</a>
           <a href="#" className="text-gray-400 hover:text-gray-200">About</a>
         </nav>
       </div>

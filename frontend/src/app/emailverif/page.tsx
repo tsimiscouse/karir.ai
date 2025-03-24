@@ -13,7 +13,7 @@ export default function EmailVerification() {
         </div>
         <div className="flex space-x-6 text-lg font-medium text-[#2F4157]">
           <Link href="/analisa" className="hover:text-gray-600">Analisa Resume</Link>
-          <Link href="/lowongan" className="hover:text-gray-600">Lowongan</Link>
+          <Link href="/joblistsearch" className="hover:text-gray-600">Lowongan</Link>
           <Link href="/about" className="hover:text-gray-600">About</Link>
         </div>
       </nav>
@@ -35,9 +35,11 @@ export default function EmailVerification() {
             KIRIM ULANG KODE
           </button>
         </div>
+        <Link href="/gantiemail">
         <button className="mt-6 px-6 py-3 bg-[#C4C4C4] text-[#2F4157] rounded-lg hover:bg-[#B3B3B3]">
           GANTI EMAIL PENGIRIMAN
         </button>
+      </Link>
       </main>
 
       {/* Footer */}
@@ -56,7 +58,7 @@ export default function EmailVerification() {
           </div>
           <nav className="space-x-8">
             <a href="#" className="text-gray-400 hover:text-gray-200">Analisa Resume</a>
-            <a href="#" className="text-gray-400 hover:text-gray-200">Lowongan</a>
+            <a href="/joblistsearch" className="text-gray-400 hover:text-gray-200">Lowongan</a>
             <a href="#" className="text-gray-400 hover:text-gray-200">About</a>
           </nav>
         </div>

@@ -23,7 +23,7 @@ const Home: React.FC = () => {
         </div>
         <div className="flex space-x-8 font-medium text-lg">
           <Link href="#" className="hover:underline">Analisa Resume</Link>
-          <Link href="#" className="hover:underline">Lowongan</Link>
+          <Link href="/joblistsearch" className="hover:underline">Lowongan</Link>
           <Link href="#" className="hover:underline">About</Link>
         </div>
       </nav>
@@ -39,10 +39,16 @@ const Home: React.FC = () => {
             <button className="bg-[#577C8E] text-white px-6 py-2 rounded-full">COBA SEKARANG</button>
           </div>
           <div className="md:w-1/2 flex justify-center">
-            <div className="w-[300px] h-[300px] bg-gray-300 rounded-lg flex items-center justify-center">
-              <span className="text-gray-500">[ Image Placeholder ]</span>
-            </div>
+          <div className="w-[300px] h-[300px] rounded-lg flex items-center justify-center">
+            <Image 
+              src="/gambardashboard.png" 
+              alt="Dashboard Illustration" 
+              width={300} 
+              height={300} 
+              className="rounded-lg"
+            />
           </div>
+        </div>
         </section>
 
         {/* Form Section */}
@@ -180,7 +186,7 @@ const Home: React.FC = () => {
           </div>
           <nav className="space-x-8">
             <a href="#" className="text-gray-400 hover:text-gray-200">Analisa Resume</a>
-            <a href="#" className="text-gray-400 hover:text-gray-200">Lowongan</a>
+            <a href="/joblistsearch" className="text-gray-400 hover:text-gray-200">Lowongan</a>
             <a href="#" className="text-gray-400 hover:text-gray-200">About</a>
           </nav>
         </div>
