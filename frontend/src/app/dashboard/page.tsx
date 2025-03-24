@@ -40,13 +40,7 @@ const Home: React.FC = () => {
           </div>
           <div className="md:w-1/2 flex justify-center">
           <div className="w-[300px] h-[300px] rounded-lg flex items-center justify-center">
-            <Image 
-              src="/gambardashboard.png" 
-              alt="Dashboard Illustration" 
-              width={300} 
-              height={300} 
-              className="rounded-lg"
-            />
+          <Image src="/gambardashboard.png" alt="Gambar Dashboard" width={300} height={300} />
           </div>
         </div>
         </section>
