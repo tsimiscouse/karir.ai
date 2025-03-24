@@ -9,7 +9,7 @@ const Footer = () => {
       initial={{ opacity: 0, y: 20 }} 
       animate={{ opacity: 1, y: 0 }} 
       transition={{ duration: 0.5 }}
-      className="bg-[#2F4157] text-[#F4EFEB] py-[10vw] md:py-[4vw] px-6 md:px-[10vw] lg:px-[14vw] w-full"
+      className="bg-[#2F4157] text-[#F4EFEB] py-[10vw] md:py-[4vw] px-6 md:px-[10vw] lg:px-[14vw] w-screen"
     >
       <div className="container mx-auto flex flex-col md:flex-row items-center md:items-start justify-between w-full gap-8 md:gap-6">
         {/* Logo & Description Section */}

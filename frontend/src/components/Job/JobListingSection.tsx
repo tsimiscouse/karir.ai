@@ -13,7 +13,7 @@ interface Job {
 const JobListingSection: React.FC = () => {
   // Sample job data
   const initialJobs: Job[] = Array(9).fill({
-    title: 'Sales Promotion Boys',
+    title: 'Sales Promotion Girls',
     company: 'PT. Gadjah Mada UKT, TBK',
     location: 'Jalan Bulaksumur, No. 1, Sleman, DIY',
     jobType: 'Penuh Waktu',
@@ -27,13 +27,13 @@ const JobListingSection: React.FC = () => {
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setSearchTerm(value);
-    
+
     // In a real app, you might want to debounce this and/or call an API
     if (!value.trim()) {
       setJobs(initialJobs);
     } else {
       // Simple client-side filtering
-      const filtered = initialJobs.filter(job => 
+      const filtered = initialJobs.filter(job =>
         job.title.toLowerCase().includes(value.toLowerCase()) ||
         job.company.toLowerCase().includes(value.toLowerCase())
       );
@@ -47,13 +47,13 @@ const JobListingSection: React.FC = () => {
 
   return (
     <section className="my-[6vw] p-8 bg-white rounded-lg">
-      <h2 className="text-2xl font-bold text-center mb-8 text-black">LOWONGAN TERSEDIA</h2>
+      <h2 className="text-2xl font-bold text-center mb-4 text-black">LOWONGAN TERSEDIA</h2>
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
         <div className="relative w-full md:w-2/3">
-          <input 
-            type="text" 
-            placeholder="Cari Lowongan lainnya" 
-            className="w-full p-3 pl-10 rounded-lg border border-gray-300 text-black" 
+          <input
+            type="text"
+            placeholder="Cari Lowongan lainnya"
+            className="w-full p-3 pl-10 rounded-lg border border-gray-300 text-black"
             value={searchTerm}
             onChange={handleSearch}
           />
@@ -63,7 +63,7 @@ const JobListingSection: React.FC = () => {
             </svg>
           </div>
         </div>
-        <button 
+        <button
           onClick={toggleFilter}
           className="w-full md:w-1/3 p-3 bg-[#F4EFEB] rounded-lg flex items-center justify-center space-x-2 hover:bg-[#] transition-colors text-gray-700"
         >
@@ -98,7 +98,7 @@ const JobListingSection: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {jobs.map((job, index) => (
-          <JobCard 
+          <JobCard
             key={index}
             title={job.title}
             company={job.company}
@@ -107,6 +107,16 @@ const JobListingSection: React.FC = () => {
             salary={job.salary}
           />
         ))}
+      </div>
+
+      <div className="mt-5 flex justify-center">
+        <a href="/joblistsearch" class="flex items-center rounded-md border border-slate-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+          Lihat Selengkapnya
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ml-1.5">
+            <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+          </svg>
+        </a>
       </div>
     </section>
   );
