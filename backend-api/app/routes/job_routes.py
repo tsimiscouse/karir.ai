@@ -1,9 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException
+from typing import List, Optional
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
+from sqlalchemy import or_
 import requests
 from app.database import get_db
 import app.crud as crud 
-from app.schemas import JobCreate, JobResponse
+from app.schemas import JobCreate, JobListingResponse, JobResponse, PaginationMeta
 from app.models import JobPosting  
 from typing import List
 from uuid import uuid4
@@ -13,6 +15,27 @@ API_URL = "https://jobdataapi.com/api/jobs/?country_code=ID&max_age=30&page="
 
 router = APIRouter()
 
+def get_filtered_jobs(db: Session, page: int, limit: int, search: Optional[str], locations: Optional[str]):
+    query = db.query(JobPosting)
+
+    if search:
+        search_terms = search.replace("+", " ").split()
+        search_conditions = [JobPosting.title.ilike(f"%{term}%") for term in search_terms]
+        query = query.filter(or_(*search_conditions))
+
+    if locations:
+        location_list = [loc.strip() for loc in locations.split(",")]
+        location_conditions = [JobPosting.location.ilike(f"%{loc}%") for loc in location_list]
+        query = query.filter(or_(*location_conditions))
+
+    total_items = query.count()  # Get the total number of matching jobs
+    total_pages = (total_items // limit) + (1 if total_items % limit > 0 else 0)  # Calculate total pages
+
+    offset = (page - 1) * limit
+    jobs = query.offset(offset).limit(limit).all()
+
+    return jobs, total_items, total_pages
+
 @router.post("/store-job", response_model=JobResponse)
 def store_job(job: JobCreate, db: Session = Depends(get_db)):
     return crud.create_job(db, job)
@@ -21,9 +44,27 @@ def store_job(job: JobCreate, db: Session = Depends(get_db)):
 def store_jobs(jobs: List[JobCreate], db: Session = Depends(get_db)):
     return [crud.create_job(db, job) for job in jobs]
 
-@router.get("/jobs", response_model=List[JobResponse])
-def get_jobs(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    return crud.get_jobs(db, skip, limit)
+@router.get("/jobs", response_model=JobListingResponse)
+def get_jobs(
+    page: int = Query(1, alias="page", description="Page number"),
+    limit: int = Query(10, alias="limit", description="Number of jobs per page"),
+    search: Optional[str] = Query(None, alias="search", description="Search query for job title"),
+    locations: Optional[str] = Query(None, alias="locations", description="Comma-separated locations"),
+    db: Session = Depends(get_db),
+):
+    jobs, total_items, total_pages = get_filtered_jobs(db, page, limit, search, locations)
+
+    # Convert SQLAlchemy models to Pydantic response models
+    job_responses = [JobResponse(**job.__dict__) for job in jobs]
+
+    return JobListingResponse(
+        data=job_responses,
+        meta=PaginationMeta(
+            current_page=page,
+            total_pages=total_pages,
+            total_items=total_items
+        )
+    )
 
 @router.post("/fetch-store-jobs")
 def fetch_store_jobs(db: Session = Depends(get_db)):

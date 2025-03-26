@@ -4,10 +4,20 @@ import re
 import textstat
 import nltk
 from collections import defaultdict
+from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize FastAPI
 app = FastAPI()
 router = APIRouter()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # Load action verbs dataset
 nltk.download("words")

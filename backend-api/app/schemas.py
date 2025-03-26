@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import Optional
 from uuid import UUID
+from typing import List, Optional
 
 class JobCreate(BaseModel):
     id: UUID 
@@ -24,6 +25,15 @@ class JobResponse(JobCreate):
 
     class Config:
         from_attributes = True
+
+class PaginationMeta(BaseModel):
+    current_page: int
+    total_pages: int
+    total_items: int
+
+class JobListingResponse(BaseModel):
+    data: List[JobResponse]
+    meta: PaginationMeta
 
 class ResumeAnalysisBase(BaseModel):
     userInputId: str
