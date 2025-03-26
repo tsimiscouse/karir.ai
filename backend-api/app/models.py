@@ -1,6 +1,5 @@
-from tokenize import Double
 import uuid
-from sqlalchemy import Column, String, Integer, Float, DateTime, Text, UUID, ForeignKey, JSON, TIMESTAMP
+from sqlalchemy import Column, String, Float, DateTime, Text, ForeignKey, JSON, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID 
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -29,8 +28,8 @@ class JobEmbeddings(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     job_id = Column(UUID(as_uuid=True), ForeignKey("job_scrape.id", ondelete="CASCADE"), nullable=False)
     embedding = Column(JSON, nullable=False)
-    created_at = Column(TIMESTAMP, nullable=False)
-    updated_at = Column(TIMESTAMP, nullable=False)
+    created_at = Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
+    updated_at = Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
 
 class JobListing(Base):
     __tablename__ = "job_listings"
@@ -55,6 +54,8 @@ class UserInput(Base):
     id = Column(String, primary_key=True, index=True)
     resume = Column(String)
 
+    resume_analysis = relationship("ResumeAnalysis", back_populates="user")
+
 class RecommendedJobsTitle(Base):
     __tablename__ = "recommended_jobs_title"
 
@@ -68,9 +69,8 @@ class ResumeAnalysis(Base):
 
     id = Column(String, primary_key=True, index=True)
     userInputId = Column(String, ForeignKey("users_input.id"), nullable=False)
-    resumeScore = Column(Double, nullable=False)
+    resumeScore = Column(Float, nullable=False)
     analysis = Column(String, nullable=True)
     createdAt = Column(TIMESTAMP, default=datetime.utcnow)
 
-    user = relationship("UsersInput", back_populates="resume_analysis")
-
+    user = relationship("UserInput", back_populates="resume_analysis")
