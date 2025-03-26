@@ -7,19 +7,19 @@ import HowItWorks from "@/components/HowItWorks/HowItWorks";
 
 export default function Home() {
   return (
-    <div className={`font-righteous bg-background text-foreground`}>
+    <div className={`font-righteous text-foreground bg-[#F4EFEB] min-h-screen`}>
       <Navbar />
-      <div className="container mx-auto flex-grow">
-        <div className="flex items-center justify-center px-[15vw] pt-[5vw] h-screen bg-white">
+      <div className="w-full flex-grow">
+        <div className="w-full flex items-center justify-center px-[15vw] pt-[5vw] min-h-screen bg-white">
           <Hero />
         </div>
-        <div className="flex items-center justify-center h-screen bg-[#F4EFEB]">
+        <div className="w-full flex items-center justify-center min-h-screen bg-[#F4EFEB]">
           <OpportunityForm />
         </div>
-        <div className="flex items-center justify-center bg-white">
+        <div className="w-full flex items-center justify-center min-h-screen bg-white">
           <JobListingSection />
         </div>
-        <div className="flex items-center justify-center bg-[#F4EFEB]">
+        <div className="w-full flex items-center justify-center min-h-screen bg-[#F4EFEB]">
           <HowItWorks />
         </div>
       </div>
