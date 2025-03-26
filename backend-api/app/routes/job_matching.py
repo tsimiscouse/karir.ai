@@ -75,3 +75,27 @@ def recommend_jobs(user_id: str, db: Session = Depends(get_db)):
     top_jobs = get_top_5_jobs(user_id, db)
     return {"user_id": user_id, "recommendations": top_jobs}
     
+@router.get("/job-details/{id}")
+def get_job_by_id(id: str, db: Session = Depends(get_db)):
+    """
+    Retrieve job details by job ID from JobListing table.
+    """
+    job = db.query(JobListing).filter(JobListing.id == id).first()
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    return {
+        "id": job.id,
+        "title": job.title,
+        "logo": job.logo,
+        "companyName": job.companyName,
+        "salaryMin": job.salaryMin,
+        "salaryMax": job.salaryMax,
+        "location": job.location,
+        "employmentType": job.employmentType,
+        "experience": job.experience,
+        "description": job.description,
+        "jobTags": job.jobTags,
+        "scrapeAt": job.scrapeAt,
+        "source_url": job.source_url
+    }
