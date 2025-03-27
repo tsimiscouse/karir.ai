@@ -41,7 +41,7 @@ const JobListingPage: React.FC = () => {
       );
       setJobs(filtered);
     }
-  }, [searchTerm]);
+  }, [searchTerm, initialJobs]);
 
   const totalPages = Math.ceil(jobs.length / jobsPerPage);
   const indexOfLastJob = currentPage * jobsPerPage;

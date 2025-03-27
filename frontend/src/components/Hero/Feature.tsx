@@ -28,7 +28,8 @@ const Feature = () => {
         <p className="text-slate-600 leading-normal text-justify font-light">{description}</p>
       </div>
       <div className="relative h-56 m-4 overflow-hidden text-white rounded-md">
-        <Image src={imageUrl} alt={altText} className="object-cover w-full h-full" />
+        <Image src={imageUrl}   width={1280} 
+  height={720}  alt={altText} className="object-cover w-full h-full" />
       </div>
       <div className="mt-auto">
         <a href={action} className="text-slate-800 font-semibold text-sm hover:underline mx-5 mb-5 flex items-center">

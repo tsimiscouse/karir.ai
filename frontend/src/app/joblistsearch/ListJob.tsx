@@ -41,7 +41,7 @@ const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
       );
       setJobs(filtered);
     }
-  }, [searchTerm]);
+  }, [searchTerm, initialJobs]);
 
   // Hitung total halaman
   const totalPages = Math.ceil(jobs.length / jobsPerPage);
