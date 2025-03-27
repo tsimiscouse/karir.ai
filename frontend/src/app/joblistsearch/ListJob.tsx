@@ -39,7 +39,7 @@ const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
       const filtered = initialJobs.filter(
         (job) =>
           job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          job.company.toLowerCase().includes(searchTerm.toLowerCase())
+          job.companyName.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setJobs(filtered);
     }
