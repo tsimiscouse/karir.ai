@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import JobCard from "@/components/Job/JobCard";
 
 interface Job {
@@ -17,75 +18,50 @@ interface ListJobProps {
 
 const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
   // Sample job data
-  const initialJobs: Job[] = Array(30).fill({
-    logo: "/logokarirtegakblack.png",
-    title: "Sales Promotion Girls",
-    companyName: "PT. Gadjah Mada UKT, TBK",
-    location: "Jalan Bulaksumur, No. 1, Sleman, DIY",
-    employmentType: "Penuh Waktu",
-    salary: "Rp2.000.000 - Rp3.500.000 / bulan",
-  });
+  const initialJobs: Job[] = useMemo(
+    () =>
+      Array(30).fill({
+        logo: "/logokarirtegakblack.png",
+        title: "Sales Promotion Girls",
+        companyName: "PT. Gadjah Mada UKT, TBK",
+        location: "Jalan Bulaksumur, No. 1, Sleman, DIY",
+        employmentType: "Penuh Waktu",
+        salary: "Rp2.000.000 - Rp3.500.000 / bulan",
+      }),
+    []
+  );
 
-  const [jobs, setJobs] = useState<Job[]>(initialJobs);
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const jobsPerPage = 12; // Jumlah pekerjaan per halaman
+  const jobsPerPage = 12;
 
   // Filter jobs berdasarkan searchTerm
-  React.useEffect(() => {
-    if (!searchTerm.trim()) {
-      setJobs(initialJobs);
-    } else {
-      const filtered = initialJobs.filter(
-        (job) =>
-          job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          job.companyName.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setJobs(filtered);
-    }
+  const jobs = useMemo(() => {
+    if (!searchTerm.trim()) return initialJobs;
+    return initialJobs.filter(
+      (job) =>
+        job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        job.companyName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   }, [searchTerm, initialJobs]);
 
-  // Hitung total halaman
   const totalPages = Math.ceil(jobs.length / jobsPerPage);
-
-  // Ambil pekerjaan untuk halaman saat ini
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
   const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
 
-  // Fungsi untuk mengubah halaman
-  const nextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
   return (
     <section className="p-20 pt-0 bg-white rounded-lg">
-      <h2
-        className="text-2xl text-center mb-4 text-black"
-        style={{ fontFamily: "Righteous" }}
-      >
+      <h2 className="text-2xl text-center mb-4 text-black font-righteous">
         DAFTAR LOWONGAN TERSEDIA
       </h2>
 
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
         <button
           onClick={() => setFilterOpen(!filterOpen)}
-          className="w-full md:w-1/3 p-3 bg-[#F4EFEB] rounded-lg flex items-center justify-center space-x-2 hover:bg-[#] transition-colors text-gray-700"
+          className="w-full md:w-1/3 p-3 bg-[#F4EFEB] rounded-lg flex items-center justify-center space-x-2 text-gray-700 hover:bg-[#e0d6cf] transition-colors"
         >
-          <svg
-            className="w-5 h-5 text-gray-700"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -102,12 +78,7 @@ const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            ></path>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
           </svg>
         </button>
       </div>
@@ -115,18 +86,12 @@ const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
       {filterOpen && (
         <div className="bg-[#F4EFEB] text-gray-700 p-4 mb-6 rounded-lg shadow-md">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-              <span>Sleman, DIY</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-              <span>Jakarta</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-              <span>Bandung</span>
-            </label>
+            {["Sleman, DIY", "Jakarta", "Bandung"].map((city) => (
+              <label key={city} className="flex items-center space-x-2">
+                <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+                <span>{city}</span>
+              </label>
+            ))}
           </div>
         </div>
       )}
@@ -134,8 +99,8 @@ const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentJobs.map((job, index) => (
           <JobCard
+            key={`${job.companyName}-${index}`}
             logo={job.logo}
-            key={index}
             title={job.title}
             companyName={job.companyName}
             location={job.location}
@@ -146,25 +111,22 @@ const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
       </div>
 
       {/* Paginasi */}
-      <div
-        id="Paginasi"
-        className="flex items-center justify-between p-4 border-t border-blue-gray-50 mt-10"
-      >
-        <p className="block font-sans text-sm antialiased font-normal leading-normal text-gray-900">
+      <div id="Paginasi" className="flex items-center justify-between p-4 border-t border-blue-gray-50 mt-10">
+        <p className="text-sm text-gray-900">
           Page {currentPage} of {totalPages} | Total Jobs: {jobs.length}
         </p>
-        <div className="flex gap-2 me-2">
+        <div className="flex gap-2">
           <button
-            onClick={prevPage}
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75"
+            className="rounded-lg border border-gray-900 py-2 px-4 text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 disabled:opacity-50"
           >
             Previous
           </button>
           <button
-            onClick={nextPage}
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75"
+            className="rounded-lg border border-gray-900 py-2 px-4 text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 disabled:opacity-50"
           >
             Next
           </button>
