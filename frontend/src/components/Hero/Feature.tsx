@@ -41,12 +41,13 @@ const Feature = () => {
   );
 
   return (
-    <div className="flex gap-5 -mt-5">
+    <div className="flex flex-col md:flex-row -gap-20 md:gap-5 -mt-5">
       {cardsData.map((card, index) => (
         <Card key={index} {...card} />
       ))}
     </div>
   );
+  
 };
 
 export default Feature;

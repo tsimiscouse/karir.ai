@@ -18,16 +18,16 @@ const Navbar = () => {
       className="fixed w-screen bg-[#F4EFEB] shadow-md z-50 navbar" // Menggunakan kelas navbar
     >
       <div className="flex justify-between items-center mx-[10vw] md:ml-[12vw] md:mr-[12vw] md:px-10 md:py-[1.5vw] py-8">
-        <Link href="/">
+        <Link href="/dashboard">
           <Image src="/logokarirmiring.png" alt="Karir.AI Logo" width={120} height={40} className="cursor-pointer" />
         </Link>
-        <div className="hidden md:flex space-x-[4vw] font-medium text-[1vw] text-gray-700">
-        <Link href="#opportunity-form" className="hover-underline transition">Analisa Resume</Link>
-          <Link href="#job-listing" className="hover-underline transition">Lowongan</Link>
-          <Link href="#how-it-works" className="hover-underline transition">About</Link>
+        <div className="hidden xl:flex space-x-[4vw] font-medium text-[1vw] text-gray-700">
+          <Link href="/dashboard" className="hover-underline transition">Analisa Resume</Link>
+          <Link href="/joblistsearch" className="hover-underline transition">Lowongan</Link>
+          <Link href="/about" className="hover-underline transition">About</Link>
         </div>
         <button
-          className="md:hidden focus:outline-none text-[#2F4157]"
+          className="xl:hidden focus:outline-none text-[#2F4157]"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -38,11 +38,11 @@ const Navbar = () => {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           transition={{ duration: 0.3 }}
-          className="md:hidden flex flex-col items-center space-y-4 py-4 bg-white shadow-md"
+          className="xl:hidden flex flex-col items-center space-y-4 py-4 bg-white shadow-md"
         >
-          <Link href="#opportunity-form" className="text-lg font-medium text-gray-700 hover-underline transition">Analisa Resume</Link>
-          <Link href="#job-listing" className="text-lg font-medium text-gray-700 hover-underline transition">Lowongan</Link>
-          <Link href="#how-it-works" className="text-lg font-medium Ftext-gray-700 hover-underline transition">About</Link>F
+          <Link href="/dashboard" className="text-lg font-medium text-gray-700 hover-underline transition">Analisa Resume</Link>
+          <Link href="/joblistsearch" className="text-lg font-medium text-gray-700 hover-underline transition">Lowongan</Link>
+          <Link href="/about" className="text-lg font-medium Ftext-gray-700 hover-underline transition">About</Link>F
         </motion.div>
       )}
     </motion.nav>

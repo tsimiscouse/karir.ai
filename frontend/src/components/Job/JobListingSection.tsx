@@ -4,20 +4,21 @@ import JobCard from './JobCard';
 
 interface Job {
   title: string;
-  company: string;
+  companyName: string;
   location: string;
-  jobType: string;
+  employmentType: string;
   salary: string;
 }
 
 const JobListingSection: React.FC = () => {
   // Sample job data
   const initialJobs: Job[] = Array(9).fill({
-    title: 'Sales Promotion Girls',
-    company: 'PT. Gadjah Mada UKT, TBK',
-    location: 'Jalan Bulaksumur, No. 1, Sleman, DIY',
-    jobType: 'Penuh Waktu',
-    salary: 'Rp2.000.000 - Rp3.500.000 / bulan'
+    logo: "/logokarirtegakblack.png",
+    title: 'Belum ada lowongan tersedia',
+    companyName: 'Belum ada nama perusahaan tersedia',
+    location: 'Belum ada alamat perusahaan tersedia',
+    employmentType: 'Belum ada type pekerjaan tersedia',
+    salary: 'Belum ada gaji'
   });
 
   const [jobs, setJobs] = useState<Job[]>(initialJobs);
@@ -46,7 +47,7 @@ const JobListingSection: React.FC = () => {
   };
 
   return (
-    <section className="my-[6vw] p-8 bg-white rounded-lg">
+    <section className="my-[6vw] w-2/3 bg-white rounded-lg">
       <h2 className="text-2xl font-bold text-center mb-4 text-black">LOWONGAN TERSEDIA</h2>
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
         <div className="relative w-full md:w-2/3">
@@ -96,14 +97,15 @@ const JobListingSection: React.FC = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {jobs.map((job, index) => (
           <JobCard
+            logo={job.logo}
             key={index}
             title={job.title}
-            company={job.company}
+            companyName={job.companyName}
             location={job.location}
-            jobType={job.jobType}
+            employmentType={job.employmentType}
             salary={job.salary}
           />
         ))}
@@ -113,8 +115,8 @@ const JobListingSection: React.FC = () => {
         <a href="/joblistsearch" className="flex items-center rounded-md border border-slate-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
           Lihat Selengkapnya
 
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ml-1.5">
-            <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-1.5">
+            <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
           </svg>
         </a>
       </div>

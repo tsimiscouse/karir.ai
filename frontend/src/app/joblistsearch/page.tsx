@@ -1,8 +1,10 @@
 "use client";
+
 import React, { useState } from "react";
 import JobCard from "@/components/Job/JobCard";
 import Image from "next/image";
 import Link from "next/link";
+import Layout from "@/components/Layout/Layout";
 
 interface Job {
   title: string;
@@ -17,11 +19,12 @@ const JobListingPage: React.FC = () => {
 
   // Sample job data
   const initialJobs: Job[] = Array(30).fill({
-    title: "Sales Promotion Girls",
-    company: "PT. Gadjah Mada UKT, TBK",
-    location: "Jalan Bulaksumur, No. 1, Sleman, DIY",
-    jobType: "Penuh Waktu",
-    salary: "Rp2.000.000 - Rp3.500.000 / bulan",
+    logo: "/logokarirtegakblack.png",
+    title: "Tidak ada lamaran",
+    companyName: "Tidak ada nama perusahaan",
+    location: "Tidak ada alamat perusahaan",
+    employmentType: "Tidak ada tipe pekerjaan",
+    salary: "Tidak ada rentang gaji",
   });
 
   const [jobs, setJobs] = useState<Job[]>(initialJobs);
@@ -60,21 +63,12 @@ const JobListingPage: React.FC = () => {
   };
 
   return (
+    <Layout>
     <div className="flex flex-col min-h-screen bg-[#F8F6F3]">
-      {/* Navbar */}
-      <nav className="flex justify-between items-center px-10 py-5 bg-[#ECEDE8] shadow-md">
-        <div className="flex items-center space-x-2">
-          <Image src="/logokarirmiring.png" alt="Karir.AI Logo" width={120} height={40} />
-        </div>
-        <div className="flex space-x-6 text-lg font-medium text-[#2F4157]">
-          <Link href="/analisa" className="hover:text-gray-600">Analisa Resume</Link>
-          <Link href="/joblistsearch" className="hover:text-gray-600">Lowongan</Link>
-          <Link href="/about" className="hover:text-gray-600">About</Link>
-        </div>
-      </nav>
+      
 
       {/* Main Content */}
-      <section className="p-20 pt-0 bg-white rounded-lg flex-grow">
+      <section className="p-20 pt-[8vw] bg-white rounded-lg flex-grow">
         <h2 className="text-2xl text-center mb-4 text-black" style={{ fontFamily: "Righteous" }}>
           DAFTAR LOWONGAN TERSEDIA
         </h2>
@@ -131,28 +125,8 @@ const JobListingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-[#2F4157] text-[#F4EFEB] py-6 px-10 mt-auto">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center mb-4 md:mb-0">
-            <Image src="/logokarirtegak.png" alt="Karir.ai logo" width={50} height={50} className="mr-2" />
-            <span className="text-xl font-bold">KARIR.AI</span>
-          </div>
-          <div className="text-center md:text-left">
-            <p>Karir.ai adalah produk dari proyek senior UGM.</p>
-            <p>Made with ❤️ and ☕ by:</p>
-            <p>1. Muhammad Luthfi Attaqi - 22/496427/TK/54387</p>
-            <p>2. Septian Eka Rahmadi - 22/496732/TK/54442</p>
-            <p>3. Shafa Aura Yogadiasa - 22/496508/TK/54406</p>
-          </div>
-          <nav className="space-x-8">
-            <Link href="/analisa" className="text-gray-400 hover:text-gray-200">Analisa Resume</Link>
-            <Link href="/joblistsearch" className="text-gray-400 hover:text-gray-200">Lowongan</Link>
-            <Link href="/about" className="text-gray-400 hover:text-gray-200">About</Link>
-          </nav>
-        </div>
-      </footer>
     </div>
+    </Layout>
   );
 };
 

@@ -4,9 +4,9 @@ import JobCard from "@/components/Job/JobCard";
 
 interface Job {
   title: string;
-  company: string;
+  companyName: string;
   location: string;
-  jobType: string;
+  employmentType: string;
   salary: string;
 }
 
@@ -18,9 +18,9 @@ const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
   // Sample job data
   const initialJobs: Job[] = Array(30).fill({
     title: "Sales Promotion Girls",
-    company: "PT. Gadjah Mada UKT, TBK",
+    companyName: "PT. Gadjah Mada UKT, TBK",
     location: "Jalan Bulaksumur, No. 1, Sleman, DIY",
-    jobType: "Penuh Waktu",
+    employmentType: "Penuh Waktu",
     salary: "Rp2.000.000 - Rp3.500.000 / bulan",
   });
 
