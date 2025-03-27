@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ChangeEvent } from "react";
+import React, { useState } from "react";
 import JobCard from "@/components/Job/JobCard";
 
 interface Job {

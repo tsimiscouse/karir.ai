@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin, Briefcase, Clock } from 'lucide-react';
+import Image from 'next/image';
 
 interface JobDetailModalProps {
   job: {
@@ -57,7 +58,7 @@ const JobDetailModal: React.FC<JobDetailModalProps> = ({ job, isOpen, onClose })
             {/* Modal Header */}
             <div className="bg-[#577C8E] text-white p-[1.5vw] flex justify-between items-center sticky top-0 z-10">
               <div className="flex items-center space-x-[1vw]">
-                <img 
+                <Image 
                   src={job.logo || "/api/placeholder/50/50"} 
                   alt={`${job.companyName} logo`} 
                   className="w-[5vw] h-[5vw] object-contain rounded-[0.5vw]"

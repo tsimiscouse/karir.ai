@@ -59,7 +59,7 @@ const SuccessPage: React.FC = () => {
       <footer className="bg-[#2F4157] text-[#F4EFEB] py-6 px-10">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center mb-4 md:mb-0">
-            <img src="/logokarirtegak.png" alt="Karir.ai logo" width="50" height="50" className="mr-2" />
+            <Image src="/logokarirtegak.png" alt="Karir.ai logo" width="50" height="50" className="mr-2" />
             <span className="text-xl font-bold">KARIR.AI</span>
           </div>
           <div className="text-center md:text-left">

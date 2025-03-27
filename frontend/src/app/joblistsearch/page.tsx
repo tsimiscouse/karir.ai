@@ -2,8 +2,6 @@
 
 import React, { useState } from "react";
 import JobCard from "@/components/Job/JobCard";
-import Image from "next/image";
-import Link from "next/link";
 import Layout from "@/components/Layout/Layout";
 
 interface Job {
