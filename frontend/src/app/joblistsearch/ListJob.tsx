@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useMemo } from "react";
-import Image from "next/image";
 import JobCard from "@/components/Job/JobCard";
 
 interface Job {
