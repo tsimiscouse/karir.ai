@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import JobCard from "@/components/Job/JobCard";
 
 interface Job {
+  logo: string;
   title: string;
   companyName: string;
   location: string;
@@ -17,6 +18,7 @@ interface ListJobProps {
 const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
   // Sample job data
   const initialJobs: Job[] = Array(30).fill({
+    logo: "/logokarirtegakblack.png",
     title: "Sales Promotion Girls",
     companyName: "PT. Gadjah Mada UKT, TBK",
     location: "Jalan Bulaksumur, No. 1, Sleman, DIY",
@@ -132,12 +134,12 @@ const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentJobs.map((job, index) => (
           <JobCard
-            logo={logo}
+            logo={job.logo}
             key={index}
             title={job.title}
-            company={job.company}
+            companyName={job.companyName}
             location={job.location}
-            jobType={job.jobType}
+            employmentType={job.employmentType}
             salary={job.salary}
           />
         ))}
