@@ -132,6 +132,7 @@ const JobListingSection: React.FC<ListJobProps> = ({ searchTerm }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentJobs.map((job, index) => (
           <JobCard
+            logo={logo}
             key={index}
             title={job.title}
             company={job.company}

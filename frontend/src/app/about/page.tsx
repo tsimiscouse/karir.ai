@@ -1,8 +1,9 @@
 import Layout from "@/components/Layout/Layout";
+import Image from 'next/image';
 
 const TeamMember = ({ image, name, role, description, instagram, linkedin, github }) => (
     <div className="relative overflow-hidden transition duration-300 transform rounded shadow-lg lg:hover:-translate-y-2 hover:shadow-2xl">
-        <img
+        <Image
             className="object-cover w-full h-56 md:h-64 xl:h-80"
             src={image}
             alt={name}
