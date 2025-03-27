@@ -2,17 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['jobdataapi.com'],
+    domains: ['jobdataapi.com'], ['images.unsplash.com'],
   },
 };
-
-const nextConfig = {
-  images: {
-    domains: ["images.unsplash.com"],
-  },
-};
-
-module.exports = nextConfig;
-
 
 export default nextConfig;
