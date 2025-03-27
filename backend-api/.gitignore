@@ -13,8 +13,22 @@ __pycache__/
 # Ignore logs
 logs/
 *.log
+*.out
+*.err
+*.swp
+*.swo
+
+# Ignore database and cache files
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
 
 # Ignore compiled Python files
 *.pyc
 *.pyo
 *.pyd
+*.pyd
+*.egg-info/
+dist/
+build/

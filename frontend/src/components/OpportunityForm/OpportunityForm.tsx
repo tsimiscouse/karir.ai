@@ -45,7 +45,7 @@ const OpportunityForm: React.FC = () => {
       <h2 className="text-2xl font-bold text-center mb-6">AYO LIHAT PELUANGMU</h2>
 
       <form onSubmit={handleSubmit} className="">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
           {/* Left Column - Input Fields */}
           <div className="space-y-4">
             {/* Input Nama Lengkap */}
@@ -118,7 +118,7 @@ const OpportunityForm: React.FC = () => {
           <div className="flex flex-col justify-between">
             <label className="text-gray-800 text-sm mb-1 block">Resume / Curriculum Vitae</label>
 
-            <label className="w-full h-full mt-2 bg-white rounded-lg border-dashed border-2 border-gray-300 flex flex-col items-center justify-center cursor-pointer">
+            <label className="w-full h-[20vw] xl:h-full mt-2 bg-white rounded-lg border-dashed border-2 border-gray-300 flex flex-col items-center justify-center cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-gray-400 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
@@ -129,11 +129,11 @@ const OpportunityForm: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex  mt-10 justify-center gap-5">
-          <button type="submit" className="bg-[#2D3F4B] text-white px-6 py-2 rounded-full hover:bg-[#1a2b37] transition-colors w-1/5">
+        <div className="flex mt-10 justify-center gap-5 md:gap-5">
+          <button type="submit" className="bg-[#2D3F4B] text-white px-6 py-2 rounded-full hover:bg-[#1a2b37] transition-colors w-1/2 md:w-1/5">
             LIHAT PELUANG
           </button>
-          <button type="button" className="bg-gray-400 text-white px-6 py-2 rounded-full hover:bg-gray-500 transition-colors w-1/5">
+          <button type="button" className="bg-gray-400 text-white px-6 py-2 rounded-full hover:bg-gray-500 transition-colors w-1/2 md:w-1/5">
             Detail Kerja
           </button>
         </div>

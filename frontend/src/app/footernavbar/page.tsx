@@ -12,7 +12,7 @@ const NavbarFooterPage: React.FC = () => {
         </div>
         <div className="flex space-x-8 font-medium text-lg">
           <Link href="#" className="hover:underline">Analisa Resume</Link>
-          <Link href="#" className="hover:underline">Lowongan</Link>
+          <Link href="/joblistsearch" className="hover:underline">Lowongan</Link>
           <Link href="#" className="hover:underline">About</Link>
         </div>
       </nav>
@@ -21,7 +21,7 @@ const NavbarFooterPage: React.FC = () => {
       <footer className="bg-[#2F4157] text-[#F4EFEB] py-6 px-10 flex justify-between items-center">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <div className="flex items-center mb-4 md:mb-0">
-          <img src="/logo.png" alt="Karir.ai logo" width="50" height="50" className="mr-2" />
+          <Image src="/logo.png" alt="Karir.ai logo" width="50" height="50" className="mr-2" />
           <span className="text-xl font-bold">KARIR.AI</span>
         </div>
         <div className="text-center md:text-left">
@@ -33,7 +33,7 @@ const NavbarFooterPage: React.FC = () => {
         </div>
         <nav className="space-x-8">
           <a href="#" className="text-gray-400 hover:text-gray-200">Analisa Resume</a>
-          <a href="#" className="text-gray-400 hover:text-gray-200">Lowongan</a>
+          <a href="/joblistsearch" className="text-gray-400 hover:text-gray-200">Lowongan</a>
           <a href="#" className="text-gray-400 hover:text-gray-200">About</a>
         </nav>
       </div>
