@@ -1,45 +1,138 @@
-import React from 'react';
+import React, { useState } from "react";
+import Image from "next/image";
+import { Building2, MapPin, Clock, DollarSign } from "lucide-react";
+import JobDetailModal from "./JobDetailModal";
 
 interface JobCardProps {
+  id: string;
   title: string;
-  company: string;
+  companyName: string;
   location: string;
-  jobType: string;
-  salary: string;
+  employmentType: string;
+  salaryMin: number | null;
+  salaryMax: number | null;
+  logo: string;
+  sourceUrl: string;
+  description: string;
+  experience: string;
 }
 
-const JobCard: React.FC<JobCardProps> = ({ title, company, location, jobType, salary }) => {
+const JobCard: React.FC<JobCardProps> = ({
+  id,
+  title,
+  companyName,
+  location,
+  employmentType,
+  salaryMin,
+  salaryMax,
+  logo,
+  description,
+  experience,
+  sourceUrl,
+}) => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Format salary
+  const formatSalary = () => {
+    if (salaryMin === null || salaryMin === -1) {
+      return "Salary not specified";
+    }
+
+    if (salaryMax === null || salaryMax === -1) {
+      return `From Rp${salaryMin.toLocaleString()}`;
+    }
+
+    return `Rp${salaryMin.toLocaleString()} - Rp${salaryMax.toLocaleString()}`;
+  };
+
+  const handleCardClick = () => {
+    setIsModalOpen(true);
+  };
+
   return (
-    <div className="p-4 border border-gray-200 rounded-lg bg-[#F4EFEB] hover:shadow-md transition-shadow font-sans">
-      <h3 className="text-lg font-bold mb-2 text-black">{title}</h3>
-      <div className="space-y-2">
-        <div className="flex items-start">
-          <svg className="w-5 h-5 text-gray-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-          </svg>
-          <p className="text-gray-700">{company}</p>
+    <>
+      <div
+        className="group relative p-[1vw] border border-gray-200 rounded-[1vw] bg-white 
+      hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-[0.5vw] 
+      cursor-pointer overflow-hidden font-sans"
+        onClick={handleCardClick}
+      >
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10"></div>
+
+        {/* Card Content */}
+        <div className="flex items-center mb-[1vw] relative">
+          {logo ? (
+            <div className="relative w-[3vw] h-[3vw] mr-[1vw] rounded-[0.5vw] overflow-hidden shadow-md">
+              <Image
+                src={logo}
+                alt={`${companyName} logo`}
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
+          ) : (
+            <div className="w-[3vw] h-[3vw] mr-[1vw] bg-gray-200 flex items-center justify-center rounded-[0.5vw]">
+              <span className="text-[0.8vw] text-gray-500">No Logo</span>
+            </div>
+          )}
+          <h3 className="text-[1.2vw] font-bold text-black line-clamp-2">
+            {title}
+          </h3>
         </div>
-        <div className="flex items-start">
-          <svg className="w-5 h-5 text-gray-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-          </svg>
-          <p className="text-gray-700">{location}</p>
+
+        <div className="space-y-[0.5vw]">
+          {/* Company */}
+          <div className="flex items-center text-[0.9vw] text-gray-700">
+            <Building2 className="w-[1.2vw] h-[1.2vw] mr-[0.5vw] text-gray-500" />
+            <p>{companyName}</p>
+          </div>
+
+          {/* Location */}
+          <div className="flex items-center text-[0.9vw] text-gray-700">
+            <MapPin className="w-[1.2vw] h-[1.2vw] mr-[0.5vw] text-gray-500" />
+            <p>{location}</p>
+          </div>
+
+          {/* Employment Type */}
+          <div className="flex items-center text-[0.9vw] text-gray-700">
+            <Clock className="w-[1.2vw] h-[1.2vw] mr-[0.5vw] text-gray-500" />
+            <p>{employmentType}</p>
+          </div>
+
+          {/* Salary */}
+          <div className="flex items-center text-[0.9vw] text-gray-700">
+            <DollarSign className="w-[1.2vw] h-[1.2vw] mr-[0.5vw] text-gray-500" />
+            <p>{formatSalary()}</p>
+          </div>
         </div>
-        <div className="flex items-start">
-          <svg className="w-5 h-5 text-gray-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <p className="text-gray-700">{jobType}</p>
-        </div>
-        <div className="flex items-start">
-          <svg className="w-5 h-5 text-gray-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <p className="text-gray-700">{salary}</p>
-        </div>
+
+        {/* Hover Effect Indicator */}
+        <div
+          className="absolute bottom-0 left-0 w-full h-[0.25vw] bg-blue-500 
+        origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+        ></div>
       </div>
-    </div>
+      <JobDetailModal 
+        job={{
+          id,
+          title,
+          logo,
+          companyName,
+          location,
+          employmentType,
+          salaryMin,
+          salaryMax,
+          description,
+          experience,
+          sourceUrl, 
+        }} 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
+    </>
   );
 };
 

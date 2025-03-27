@@ -1,122 +1,228 @@
 'use client';
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import axios from 'axios';
 import JobCard from './JobCard';
+import { Search, MapPin, Filter } from 'lucide-react';
 
 interface Job {
+  id: string;
   title: string;
-  company: string;
+  companyName: string;
+  description: string;
+  employmentType: string;
+  experience: string;
+  jobTags: string;
   location: string;
-  jobType: string;
-  salary: string;
+  logo: string;
+  salaryMax: number | null;
+  salaryMin: number | null;
+  scrapeAt: string;
+  source_url: string;
+}
+
+interface ApiResponse {
+  data?: Job[];
+  meta?: {
+    current_page: number;
+    total_pages: number;
+    total_items: number;
+  };
 }
 
 const JobListingSection: React.FC = () => {
-  // Sample job data
-  const initialJobs: Job[] = Array(9).fill({
-    title: 'Sales Promotion Girls',
-    company: 'PT. Gadjah Mada UKT, TBK',
-    location: 'Jalan Bulaksumur, No. 1, Sleman, DIY',
-    jobType: 'Penuh Waktu',
-    salary: 'Rp2.000.000 - Rp3.500.000 / bulan'
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [searchInput, setSearchInput] = useState<string>('');
+  const [selectedLocation, setSelectedLocation] = useState<string>('All Locations');
+  const [pagination, setPagination] = useState({
+    current_page: 1,
+    total_pages: 1,
+    total_items: 0,
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const [jobs, setJobs] = useState<Job[]>(initialJobs);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [filterOpen, setFilterOpen] = useState<boolean>(false);
+  const locations = ['All Locations', 'Yogyakarta', 'Jakarta', 'Bandung', 'Palembang', 'Surabaya', 'Semarang'];
+  const pagesPerView = 5;
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
-    const value = e.target.value;
-    setSearchTerm(value);
+  const fetchJobs = async (page = 1, search = '', location = '') => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get<ApiResponse>('http://127.0.0.1:8000/api/jobs', {
+        params: {
+          page,
+          limit: 9,
+          search,
+          location: location === 'All Locations' ? '' : location,
+        },
+      });
 
-    // In a real app, you might want to debounce this and/or call an API
-    if (!value.trim()) {
-      setJobs(initialJobs);
-    } else {
-      // Simple client-side filtering
-      const filtered = initialJobs.filter(job =>
-        job.title.toLowerCase().includes(value.toLowerCase()) ||
-        job.company.toLowerCase().includes(value.toLowerCase())
-      );
-      setJobs(filtered);
+      const jobData = Array.isArray(response.data)
+        ? response.data
+        : response.data?.data || [];
+
+      setJobs(jobData);
+      setPagination({
+        current_page: response.data?.meta?.current_page || 1,
+        total_pages: response.data?.meta?.total_pages || 1,
+        total_items: response.data?.meta?.total_items || jobData.length,
+      });
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+      setError('Failed to fetch jobs. Please try again.');
+      setJobs([]);
+      setIsLoading(false);
     }
   };
 
-  const toggleFilter = (): void => {
-    setFilterOpen(!filterOpen);
+  useEffect(() => {
+    // Debounce the search to prevent too many API calls
+    const timerId = setTimeout(() => {
+      fetchJobs(1, searchInput, selectedLocation);
+    }, 500);
+
+    return () => clearTimeout(timerId);
+  }, [searchInput, selectedLocation]);
+
+  const handleLocationChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedLocation(e.target.value);
+  };
+
+  const handlePageChange = (page: number) => {
+    fetchJobs(page, searchInput, selectedLocation);
+  };
+
+  const renderPaginationButtons = () => {
+    const { current_page, total_pages } = pagination;
+    const pages: number[] = [];
+
+    // Calculate the range of pages to display
+    let startPage: number;
+    let endPage: number;
+
+    if (total_pages <= pagesPerView) {
+      startPage = 1;
+      endPage = total_pages;
+    } else if (current_page <= 3) {
+      startPage = 1;
+      endPage = pagesPerView;
+    } else if (current_page > total_pages - 2) {
+      startPage = total_pages - (pagesPerView - 1);
+      endPage = total_pages;
+    } else {
+      startPage = current_page - 2;
+      endPage = current_page + 2;
+    }
+
+    // Generate page numbers
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+
+    return (
+      <div className="flex justify-center mt-[2vw] space-x-[0.5vw]">
+        {/* Previous Button */}
+        {current_page > 1 && (
+          <button 
+            onClick={() => handlePageChange(current_page - 1)} 
+            className="px-[1vw] py-[0.5vw] rounded bg-gray-100 text-[1vw] text-gray-700 hover:bg-gray-200 transition-colors"
+          >
+            Prev
+          </button>
+        )}
+
+        {/* Page Buttons */}
+        {pages.map((page) => (
+          <button
+            key={page}
+            onClick={() => handlePageChange(page)}
+            className={`px-[1vw] py-[0.5vw] rounded text-[1vw] transition-colors ${page === current_page 
+              ? 'bg-blue-500 text-white' 
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+          >
+            {page}
+          </button>
+        ))}
+
+        {/* Next Button */}
+        {current_page < total_pages && (
+          <button 
+            onClick={() => handlePageChange(current_page + 1)} 
+            className="px-[1vw] py-[0.5vw] rounded bg-gray-100 text-[1vw] text-gray-700 hover:bg-gray-200 transition-colors"
+          >
+            Next
+          </button>
+        )}
+      </div>
+    );
   };
 
   return (
-    <section className="my-[6vw] p-8 bg-white rounded-lg">
-      <h2 className="text-2xl font-bold text-center mb-4 text-black">LOWONGAN TERSEDIA</h2>
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-        <div className="relative w-full md:w-2/3">
-          <input
-            type="text"
-            placeholder="Cari Lowongan lainnya"
-            className="w-full p-3 pl-10 rounded-lg border border-gray-300 text-black"
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
+    <section className="container mx-auto py-[3vw]">
+      <div className="bg-white shadow-lg rounded-[1vw] overflow-hidden">
+        {/* Header */}
+        <div className="bg-[#577C8E] p-[1.5vw]">
+          <h2 className="text-[2vw] font-bold text-center text-white mb-[1vw]">
+            Available Job Listings
+          </h2>
+          
+          {/* Search and Filter Container */}
+          <div className="flex flex-col md:flex-row gap-[1vw] w-full">
+            {/* Search Input */}
+            <div className="relative flex-grow">
+              <input
+                type="text"
+                placeholder="Search jobs..."
+                className="w-full p-[0.75vw] pl-[3vw] text-[1vw] font-sans rounded-[0.75vw] border border-gray-300 focus:ring-[0.25vw] focus:ring-blue-500 focus:outline-none transition-all"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+              <Search className="absolute left-[0.75vw] top-1/2 -translate-y-1/2 text-[1.25vw] text-gray-400" />
+            </div>
+
+            {/* Location Filter */}
+            <div className="relative font-sans flex-grow md:flex-grow-0 md:w-1/3">
+              <select 
+                value={selectedLocation} 
+                onChange={handleLocationChange} 
+                className="w-full p-[0.75vw] pl-[2.5vw] text-gray-400 text-[1vw] rounded-[0.75vw] border border-gray-300 focus:ring-[0.25vw] focus:ring-blue-500 focus:outline-none transition-all"
+              >
+                {locations.map((location) => (
+                  <option key={location} value={location} className="text-[0.9vw] text-gray-800">{location}</option>
+                ))}
+              </select>
+              <MapPin className="absolute left-[0.75vw] top-1/2 -translate-y-1/2 text-[1.25vw] text-gray-400" />
+            </div>
           </div>
         </div>
-        <button
-          onClick={toggleFilter}
-          className="w-full md:w-1/3 p-3 bg-[#F4EFEB] rounded-lg flex items-center justify-center space-x-2 hover:bg-[#] transition-colors text-gray-700"
-        >
-          <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
-          </svg>
-          <span>Filter Berdasarkan Lokasi</span>
-          <svg className={`w-4 h-4 text-gray-600 transform ${filterOpen ? 'rotate-180' : ''} transition-transform`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </button>
-      </div>
 
-      {filterOpen && (
-        <div className="bg-[#F4EFEB] text-gray-700 p-4 mb-6 rounded-lg shadow-md">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-              <span>Sleman, DIY</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-              <span>Jakarta</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-              <span>Bandung</span>
-            </label>
-          </div>
+        {/* Job Listings */}
+        <div className="p-[1.5vw]">
+          {isLoading ? (
+            <div className="flex justify-center items-center py-[2.5vw]">
+              <div className="animate-spin rounded-full h-[2.5vw] w-[2.5vw] border-t-[0.25vw] border-blue-500"></div>
+            </div>
+          ) : error ? (
+            <p className="text-center text-[1.25vw] text-red-500 py-[2.5vw]">{error}</p>
+          ) : jobs.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-[2.5vw] text-gray-500">
+              <Filter size="3vw" className="mb-[1vw]" />
+              <p className="text-[1.5vw]">No jobs found matching your criteria</p>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1.5vw]">
+                {jobs.map((job) => (
+                  <JobCard key={job.id} {...job} sourceUrl={job.source_url} />
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {renderPaginationButtons()}
+            </>
+          )}
         </div>
-      )}
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {jobs.map((job, index) => (
-          <JobCard
-            key={index}
-            title={job.title}
-            company={job.company}
-            location={job.location}
-            jobType={job.jobType}
-            salary={job.salary}
-          />
-        ))}
-      </div>
-
-      <div className="mt-5 flex justify-center">
-        <a href="/joblistsearch" class="flex items-center rounded-md border border-slate-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-          Lihat Selengkapnya
-
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ml-1.5">
-            <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
-          </svg>
-        </a>
       </div>
     </section>
   );
