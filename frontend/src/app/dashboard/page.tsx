@@ -1,8 +1,19 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Home: React.FC = () => {
+  // State untuk lokasi & dropdown
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const locations = ["Jakarta", "Yogyakarta", "Surabaya", "Bandung", "Semarang", "Bali"];
+  const filteredLocations = locations.filter((loc) =>
+    loc.toLowerCase().includes(selectedLocation.toLowerCase())
+  );
+
   return (
     <div className="bg-[#F5F1EE] text-[#2E2E2E] font-poppins min-h-screen flex flex-col">
       {/* Navbar */}
@@ -12,7 +23,7 @@ const Home: React.FC = () => {
         </div>
         <div className="flex space-x-8 font-medium text-lg">
           <Link href="#" className="hover:underline">Analisa Resume</Link>
-          <Link href="#" className="hover:underline">Lowongan</Link>
+          <Link href="/joblistsearch" className="hover:underline">Lowongan</Link>
           <Link href="#" className="hover:underline">About</Link>
         </div>
       </nav>
@@ -28,10 +39,10 @@ const Home: React.FC = () => {
             <button className="bg-[#577C8E] text-white px-6 py-2 rounded-full">COBA SEKARANG</button>
           </div>
           <div className="md:w-1/2 flex justify-center">
-            <div className="w-[300px] h-[300px] bg-gray-300 rounded-lg flex items-center justify-center">
-              <span className="text-gray-500">[ Image Placeholder ]</span>
-            </div>
+          <div className="w-[300px] h-[300px] rounded-lg flex items-center justify-center">
+          <Image src="/gambardashboard.png" alt="Gambar Dashboard" width={300} height={300} />
           </div>
+        </div>
         </section>
 
         {/* Form Section */}
@@ -64,27 +75,73 @@ const Home: React.FC = () => {
         </section>
 
         {/* Lowongan Tersedia Section */}
-        <section className="mt-12 p-8 bg-white rounded-lg">
-          <h2 className="text-2xl font-bold text-center mb-8">LOWONGAN TERSEDIA</h2>
-          <div className="flex justify-between items-center mb-4">
-            <input type="text" placeholder="Cari Lowongan lainnya" className="w-1/2 p-3 rounded-lg border border-gray-300 text-black" />
-            <button className="p-3 bg-gray-200 rounded-lg flex items-center space-x-2">
-              <span>Filter Berdasarkan Lokasi</span>
-              <span className="ml-2">▼</span>
-            </button>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(6)].map((_, index) => (
-              <div key={index} className="p-4 border border-gray-300 rounded-lg bg-white">
-                <h3 className="text-lg font-bold mb-2">Sales Promotion Boys</h3>
-                <p className="text-gray-700">PT. Gadjah Mada UKT, TBK</p>
-                <p className="text-gray-700">Jalan Bulaksumur, No. 1, Sleman, DIY</p>
-                <p className="text-gray-700">Penuh Waktu</p>
-                <p className="text-gray-700">Rp2.000.000 - Rp3.500.000 / bulan</p>
-              </div>
-            ))}
-          </div>
-        </section>
+<section className="mt-12 p-6 bg-gray-50 rounded-xl shadow-lg">
+  <h2 className="text-3xl font-semibold text-center text-[#333E50] mb-6 tracking-wide">
+    LOWONGAN TERSEDIA
+  </h2>
+  <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+    <div className="relative w-full md:w-1/2">
+      <input 
+        type="text" 
+        placeholder="Cari Lowongan lainnya" 
+        className="w-full p-3 pl-10 rounded-lg border border-gray-300 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white shadow-sm" 
+      />
+      <img src="/searchicon.png" alt="Search" className="absolute left-3 top-3 w-5 h-5" />
+    </div>
+    <div className="relative w-full md:w-1/3">
+      <input
+        type="text"
+        placeholder="Filter berdasarkan lokasi"
+        className="w-full p-3 pl-10 rounded-lg border border-gray-300 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white shadow-sm"
+        onFocus={() => setShowDropdown(true)}
+        onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+        value={selectedLocation}
+        onChange={(e) => setSelectedLocation(e.target.value)}
+      />
+      <img src="/locationIcon.png" alt="Location" className="absolute left-3 top-3 w-5 h-5" />
+      {showDropdown && (
+        <div className="absolute w-full bg-white border border-gray-300 rounded-lg shadow-md mt-2 z-10">
+          {filteredLocations.map((loc, index) => (
+            <div 
+              key={index} 
+              className="p-3 hover:bg-gray-100 cursor-pointer text-gray-700"
+              onClick={() => {
+                setSelectedLocation(loc);
+                setShowDropdown(false);
+              }}
+            >
+              {loc}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {[...Array(9)].map((_, index) => (
+      <div key={index} className="p-5 border border-gray-200 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow">
+        <h3 className="text-lg font-semibold text-[#333E50] mb-2">Sales Promotion Boys</h3>
+        <div className="flex items-center gap-2 text-gray-600 mb-1">
+          <img src="/companyIcon.png" alt="Company" className="w-5 h-5" />
+          <p>PT. Gadjah Mada UKT, TBK</p>
+        </div>
+        <div className="flex items-center gap-2 text-gray-600 mb-1">
+          <img src="/locationIcon.png" alt="Location" className="w-5 h-5" />
+          <p>Jalan Bulaksumur, No. 1, Sleman, DIY</p>
+        </div>
+        <div className="flex items-center gap-2 text-gray-600 mb-1">
+          <img src="/timeIcon.png" alt="Time" className="w-5 h-5" />
+          <p>Penuh Waktu</p>
+        </div>
+        <div className="flex items-center gap-2 text-gray-700 font-medium">
+          <img src="/moneyIcon.png" alt="Money" className="w-5 h-5" />
+          <p>Rp2.000.000 - Rp3.500.000 / bulan</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
       </main>
 
        {/* Bagaimana Cara Karir.AI Bekerja Section */}
@@ -123,7 +180,7 @@ const Home: React.FC = () => {
           </div>
           <nav className="space-x-8">
             <a href="#" className="text-gray-400 hover:text-gray-200">Analisa Resume</a>
-            <a href="#" className="text-gray-400 hover:text-gray-200">Lowongan</a>
+            <a href="/joblistsearch" className="text-gray-400 hover:text-gray-200">Lowongan</a>
             <a href="#" className="text-gray-400 hover:text-gray-200">About</a>
           </nav>
         </div>
