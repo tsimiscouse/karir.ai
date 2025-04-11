@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
+import ModelViewer from '../3d/ModelViewer';
 
 const Hero = () => {
   return (
@@ -18,14 +18,8 @@ const Hero = () => {
         </button>
       </div>
       <div className="flex justify-center mt-8 md:mt-0">
-        <div className="h-[300px] bg-gray-200 rounded-lg flex items-center justify-center relative">
-          <Image 
-            src="/api/placeholder/300/300"
-            alt="Karir.AI Hero Image"
-            width={300}
-            height={300}
-            className="rounded-lg"
-          />
+        <div className="h-[350px] bg-transparent rounded-lg flex items-center justify-center relative">
+          <ModelViewer />
         </div>
       </div>
     </section>

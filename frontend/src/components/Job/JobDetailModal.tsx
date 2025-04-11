@@ -58,7 +58,7 @@ const JobDetailModal: React.FC<JobDetailModalProps> = ({ job, isOpen, onClose })
             <div className="bg-[#577C8E] text-white p-[1.5vw] flex justify-between items-center sticky top-0 z-10">
               <div className="flex items-center space-x-[1vw]">
                 <img 
-                  src={job.logo || "/api/placeholder/50/50"} 
+                  src={job.logo || "/logokarirtegak.png"} 
                   alt={`${job.companyName} logo`} 
                   className="w-[5vw] h-[5vw] object-contain rounded-[0.5vw]"
                 />
