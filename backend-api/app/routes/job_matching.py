@@ -1,4 +1,5 @@
 import datetime
+from http.client import HTTPException
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.database import get_db
@@ -77,9 +78,6 @@ def recommend_jobs(user_id: str, db: Session = Depends(get_db)):
     
 @router.get("/job-details/{id}")
 def get_job_by_id(id: str, db: Session = Depends(get_db)):
-    """
-    Retrieve job details by job ID from JobListing table.
-    """
     job = db.query(JobListing).filter(JobListing.id == id).first()
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")

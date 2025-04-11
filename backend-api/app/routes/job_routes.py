@@ -28,8 +28,8 @@ def get_filtered_jobs(db: Session, page: int, limit: int, search: Optional[str],
         location_conditions = [JobPosting.location.ilike(f"%{loc}%") for loc in location_list]
         query = query.filter(or_(*location_conditions))
 
-    total_items = query.count()  # Get the total number of matching jobs
-    total_pages = (total_items // limit) + (1 if total_items % limit > 0 else 0)  # Calculate total pages
+    total_items = query.count()  
+    total_pages = (total_items // limit) + (1 if total_items % limit > 0 else 0) 
 
     offset = (page - 1) * limit
     jobs = query.offset(offset).limit(limit).all()
@@ -54,7 +54,6 @@ def get_jobs(
 ):
     jobs, total_items, total_pages = get_filtered_jobs(db, page, limit, search, locations)
 
-    # Convert SQLAlchemy models to Pydantic response models
     job_responses = [JobResponse(**job.__dict__) for job in jobs]
 
     return JobListingResponse(
