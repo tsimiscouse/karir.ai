@@ -1,5 +1,7 @@
-'use client';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+"use client";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface FormData {
   email: string;
@@ -11,14 +13,20 @@ interface FormData {
 
 const OpportunityForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
-    email: '',
-    name: '',
-    location: '',
-    salary: '',
+    email: "",
+    name: "",
+    location: "",
+    salary: "",
     resume: null,
   });
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
+  useEffect(() => {
+    AOS.init({ once: false });
+  }, []);
+
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ): void => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -37,21 +45,28 @@ const OpportunityForm: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    console.log('Form data submitted:', formData);
+    console.log("Form data submitted:", formData);
   };
 
   return (
-    <section className="bg-[#577C8E] text-white p-8 rounded-lg mt-12 w-full max-w-[68vw] mx-auto">
+    <section
+      className="bg-[#577C8E] text-white p-8 rounded-lg w-full max-w-[68vw] mx-auto"
+      data-aos="zoom-in"
+      data-aos-duration="800"
+    >
       <h2 className="text-2xl font-bold text-center mb-6">AYO LIHAT PELUANGMU</h2>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
         {/* Left Column - Input Fields */}
-        <div className="space-y-4">
+        <div className="space-y-4" data-aos="fade-right" data-aos-delay="300" data-aos-duration="800">
           <input
             type="email"
             name="email"
             placeholder="Email"
-            className="w-full p-3 rounded-lg border border-gray-300 text-black"
+            className="w-full p-3 rounded-lg border border-gray-300 text-black font-sans"
             value={formData.email}
             onChange={handleInputChange}
             required
@@ -60,14 +75,14 @@ const OpportunityForm: React.FC = () => {
             type="text"
             name="name"
             placeholder="Nama"
-            className="w-full p-3 rounded-lg border border-gray-300 text-black"
+            className="w-full p-3 rounded-lg border border-gray-300 text-black font-sans"
             value={formData.name}
             onChange={handleInputChange}
             required
           />
           <select
             name="location"
-            className="w-full p-3 rounded-lg border border-gray-300 text-black"
+            className="w-full p-3 rounded-lg border border-gray-300 text-black font-sans"
             value={formData.location}
             onChange={handleInputChange}
           >
@@ -78,7 +93,7 @@ const OpportunityForm: React.FC = () => {
           </select>
           <select
             name="salary"
-            className="w-full p-3 rounded-lg border border-gray-300 text-black"
+            className="w-full p-3 rounded-lg border border-gray-300 text-black font-sans"
             value={formData.salary}
             onChange={handleInputChange}
           >
@@ -90,21 +105,56 @@ const OpportunityForm: React.FC = () => {
         </div>
 
         {/* Right Column - Resume Upload & Buttons */}
-        <div className="flex flex-col justify-between">
-          <label className="w-full h-full bg-white rounded-lg border-dashed border-2 border-gray-300 flex flex-col items-center justify-center cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-gray-400 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        <div
+          className="flex flex-col justify-between"
+          data-aos="fade-left"
+          data-aos-delay="300"
+          data-aos-duration="800"
+        >
+          <label className="w-full h-full bg-white rounded-lg border-dashed border-2 border-gray-300 flex flex-col items-center justify-center cursor-pointer p-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10 text-gray-400 mb-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
             </svg>
             <span className="text-gray-500">Unggah Resume</span>
-            <span className="text-gray-400 text-sm">(PDF Only, Max Size 5MB)</span>
-            <input type="file" className="hidden" name="resume" accept=".pdf" onChange={handleFileChange} />
+            <span className="text-gray-400 text-sm">
+              (PDF Only, Max Size 5MB)
+            </span>
+            <input
+              type="file"
+              className="hidden"
+              name="resume"
+              accept=".pdf"
+              onChange={handleFileChange}
+            />
           </label>
 
-          <div className="flex space-x-4 mt-4">
-            <button type="submit" className="bg-[#2D3F4B] text-white px-6 py-2 rounded-full hover:bg-[#1a2b37] transition-colors w-full">
-              LIHAT PELUANG
+          <div
+            className="flex space-x-4 mt-4"
+            data-aos="fade-up"
+            data-aos-delay="500"
+            data-aos-duration="1200"
+          >
+            <button
+              type="submit"
+              className="bg-[#2D3F4B] text-white px-6 py-2 rounded-full hover:bg-[#1a2b37] transition-colors w-full"
+            >
+              Lihat Peluang
             </button>
-            <button type="button" className="bg-gray-400 text-white px-6 py-2 rounded-full hover:bg-gray-500 transition-colors w-full">
+            <button
+              type="button"
+              className="bg-gray-400 text-white px-6 py-2 rounded-full hover:bg-gray-500 transition-colors w-full"
+            >
               Detail Kerja
             </button>
           </div>
