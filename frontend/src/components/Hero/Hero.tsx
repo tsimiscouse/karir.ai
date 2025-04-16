@@ -22,7 +22,7 @@ const Hero = () => {
           FIND YOUR <TypingWords /> JOB.
         </h1>
         <p className="text-gray-700 text-[1.9vw] font-sans mb-[0.8vw]">
-          Leverage your career with CV analysis and AI-powered job matching.
+          Leverage your career with AI-powered job matching and CV scoring.
         </p>
         <p className="text-[#577C8E] text-[1.1vw] font-sans mb-[1.8vw]">
           Your smartest AI partner for career growth.
@@ -82,6 +82,7 @@ const Hero = () => {
             alt="Hero Image"
             width={800}
             height={800}
+            className="ml-[0.5vw]"
           />
         </div>
       </div>
