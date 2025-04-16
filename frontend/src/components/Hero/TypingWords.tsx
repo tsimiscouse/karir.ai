@@ -31,11 +31,18 @@ const TypingWords = () => {
   }, [displayedText, isDeleting, currentWordIndex]);
 
   return (
-    <span className="text-[#577C8E] font-bold relative">
+    <span className="gradient-text font-bold relative">
       {displayedText}
       <span className="blinking-cursor right-[-0.3rem]">|</span>
 
       <style jsx>{`
+        .gradient-text {
+          background: linear-gradient(to right, #577C8E, #3A5566);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent; 
+        }
+
         .blinking-cursor {
           animation: blink 0.6s steps(2, start) infinite;
         }

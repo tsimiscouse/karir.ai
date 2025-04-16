@@ -29,7 +29,7 @@ const Hero = () => {
         </p>
 
         <button
-          className="relative inline-flex items-center justify-center px-[3vw] py-[1vw] text-[1.2vw] text-white font-semibold rounded-full bg-gradient-to-r from-[#577C8E] to-[#6fa0b2] shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300 group overflow-hidden"
+          className="relative inline-flex items-center justify-center px-[3vw] py-[1vw] text-[1.2vw] text-white font-semibold rounded-full bg-gradient-to-r from-[#577C8E] to-[#3A5566] shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300 group overflow-hidden"
           data-aos="zoom-in"
           data-aos-anchor-placement="top-bottom"
           data-aos-delay="600"
@@ -66,7 +66,7 @@ const Hero = () => {
             requestAnimationFrame(animateScroll);
           }}
         >
-          <span className="absolute inset-0 rounded-full animate-pulse bg-white opacity-10"></span>
+          <span className="absolute inset-0 rounded-full animate-pulse bg-[#6fa0b2] opacity-10"></span>
           <span className="relative z-10">🚀 Coba Sekarang</span>
         </button>
       </div>
