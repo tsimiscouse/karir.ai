@@ -28,8 +28,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-      </body>
-      <body>
         <main>{children}</main>
         <div id="portal-root" />
       </body>

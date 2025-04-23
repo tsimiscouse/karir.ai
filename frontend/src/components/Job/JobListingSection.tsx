@@ -44,6 +44,7 @@ const JobListingSection: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const jobListingRef = useRef<HTMLDivElement>(null);
 
   const locations = [
     "All Locations",
@@ -108,6 +109,10 @@ const JobListingSection: React.FC = () => {
   }, [searchInput, selectedLocations]);
 
   useEffect(() => {
+    fetchJobs(1, searchInput, selectedLocations);
+  }, []);
+
+  useEffect(() => {
     // Close dropdown when clicking outside
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -155,6 +160,18 @@ const JobListingSection: React.FC = () => {
 
   const handlePageChange = (page: number) => {
     fetchJobs(page, searchInput, selectedLocations);
+    
+    if (jobListingRef.current) {
+      jobListingRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   };
 
   const renderPaginationButtons = () => {
@@ -257,6 +274,8 @@ const JobListingSection: React.FC = () => {
       className="container mx-auto py-[3vw]"
       data-aos="fade-up"
       data-aos-duration="1000"
+      ref={jobListingRef}
+      id="job-listing-container"
     >
       <div className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] shadow-xl rounded-[1.2vw]">
         {/* Header */}
