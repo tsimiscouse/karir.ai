@@ -8,6 +8,7 @@ export interface UserInput {
     expectedSalary: number;
     location: string;
     createdAt: Date;
+    prefJobType: string[];
   }
   
   export interface ResumeAnalysis {
@@ -29,6 +30,7 @@ export interface UserInput {
     email: string;
     expectedSalary: number;
     location: string;
+    prefJobType: string | string[];
   }
   
   export interface FileUploadResponse {

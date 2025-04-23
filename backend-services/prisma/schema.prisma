@@ -1,5 +1,3 @@
-// prisma/schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,17 +8,18 @@ datasource db {
 }
 
 model UserInput {
-  id              String            @id @default(uuid())
-  email           String            @db.VarChar(255)
-  emailStatus     Boolean
-  paymentToken    String?           @db.VarChar(255)
-  paymentStatus   Boolean
-  resume          String            @db.Text
-  expectedSalary  Int
-  location        String            @db.VarChar(255)
-  createdAt       DateTime          @default(now())
-  resumeAnalysis  ResumeAnalysis[]
-  recommendedJobs RecommendedJob[]
+  id                String            @id @default(uuid())
+  email             String            @db.VarChar(255)
+  emailStatus       Boolean
+  paymentToken      String?           @db.VarChar(255)
+  paymentStatus     Boolean
+  resume            String            @db.VarChar(255)
+  expectedSalary    Int
+  location          String            @db.VarChar(255)
+  createdAt         DateTime          @default(now())
+  prefJobType       String[]
+  resumeAnalysis    ResumeAnalysis[]
+  RecommendedJobsTitle RecommendedJobsTitle[]
 
   @@map("users_input")
 }
@@ -29,7 +28,7 @@ model ResumeAnalysis {
   id            String    @id @default(uuid())
   userInputId   String
   resumeScore   Float
-  analysis      String    @db.Text
+  analysis      Json
   createdAt     DateTime  @default(now())
   userInput     UserInput @relation(fields: [userInputId], references: [id])
 
@@ -41,63 +40,68 @@ model JobTitle {
   title         String            @db.VarChar(255)
   description   String            @db.Text
   tags          String            @db.Text
-  recommendedJobs RecommendedJob[]
 
   @@map("job_titles")
 }
 
 model JobListing {
-  id              String            @id @default(uuid())
-  title           String            @db.VarChar(255)
-  companyName     String            @db.VarChar(255)
-  salaryMin       Int
-  salaryMax       Int
-  location        String            @db.VarChar(255)
-  employmentType  String            @db.VarChar(50)
-  experience      String            @db.Text
-  description     String            @db.Text
-  tags           String            @db.Text
-  createdAt       DateTime          @default(now())
-  recommendedListings RecommendedListing[]
+  id              String   @id @default(uuid())
+  title           String   @db.VarChar(255)
+  logo            String?  @db.VarChar(255)
+  companyName     String   @db.VarChar(255)
+  salaryMin       Float?
+  salaryMax       Float?
+  location        String   @db.VarChar(255)
+  employmentType  String   @db.VarChar(50)
+  experience      String?  @db.Text
+  description     String   @db.Text
+  jobTags         String?  @db.Text
+  scrapeAt        DateTime @default(now())
+  source_url      String?  @db.Text
+
+  recommendedJobs RecommendedJobsTitle[]
 
   @@map("job_listings")
 }
 
-model RecommendedJob {
-  id            String    @id @default(uuid())
-  userInputId   String
-  jobTitleId    String
-  createdAt     DateTime  @default(now())
-  userInput     UserInput @relation(fields: [userInputId], references: [id])
-  jobTitle      JobTitle  @relation(fields: [jobTitleId], references: [id])
+model RecommendedJobsTitle {
+  id               String   @id @default(uuid())
+  userInputId      String   @db.VarChar(255)
+  jobListingId     String   @db.VarChar(255)
+  similarity_score Float
+  createdAt        DateTime @default(now())
+  
+  userInput        UserInput  @relation(fields: [userInputId], references: [id])
+  jobListing       JobListing @relation(fields: [jobListingId], references: [id])
 
   @@map("recommended_jobs_title")
 }
 
 model RecommendedListing {
-  id            String    @id @default(uuid())
+  id              String    @id @default(uuid())
   recommendedJobId String
-  jobListingId  String
-  createdAt     DateTime  @default(now())
-  jobListing    JobListing @relation(fields: [jobListingId], references: [id])
+  jobListingId    String
+  createdAt       DateTime  @default(now())
 
   @@map("recommended_listing")
 }
 
 model JobScrape {
-  id            String    @id @default(uuid())
-  title         String    @db.VarChar(255)
-  companyName   String    @db.VarChar(255)
-  salaryMin     Int
-  salaryMax     Int
-  location      String    @db.VarChar(255)
-  employmentType String    @db.VarChar(50)
-  experience    String    @db.Text
-  description   String    @db.Text
-  jobTags       String    @db.Text
-  sourceId      Int
-  scrapeAt      DateTime  @default(now())
-  source        Source    @relation(fields: [sourceId], references: [id])
+  id              String   @id @default(uuid())
+  title           String   @db.VarChar(255)
+  logo            String?  @db.VarChar(255)
+  companyName     String   @db.VarChar(255)
+  salaryMin       Float?
+  salaryMax       Float?
+  location        String   @db.VarChar(255)
+  employmentType  String   @db.VarChar(50)
+  experience      String?  @db.Text
+  description     String   @db.Text
+  jobTags         String?  @db.Text
+  scrapeAt        DateTime @default(now())
+  source_url      String?  @db.Text
+
+  jobEmbeddings   JobEmbeddings[]
 
   @@map("job_scrape")
 }
@@ -106,7 +110,17 @@ model Source {
   id          Int         @id @default(autoincrement())
   sourceName  String      @db.VarChar(255)
   sourceUrl   String      @db.Text
-  jobScrapes  JobScrape[]
 
   @@map("source")
+}
+
+model JobEmbeddings {
+  id         String     @id @default(uuid())
+  job_id     String     @db.VarChar(255)
+  embedding  Json
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now())
+  jobScrape  JobScrape  @relation(fields: [job_id], references: [id], onDelete: Cascade)
+
+  @@map("job_embeddings")
 }
