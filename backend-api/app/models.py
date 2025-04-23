@@ -1,5 +1,6 @@
 import uuid
-from sqlalchemy import Column, String, Float, DateTime, Text, ForeignKey, JSON, TIMESTAMP
+from sqlalchemy import Column, String, Float, DateTime, Text, ForeignKey, JSON, TIMESTAMP, Integer
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.dialects.postgresql import UUID 
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -70,7 +71,7 @@ class ResumeAnalysis(Base):
     id = Column(String, primary_key=True, index=True)
     userInputId = Column(String, ForeignKey("users_input.id"), nullable=False)
     resumeScore = Column(Float, nullable=False)
-    analysis = Column(String, nullable=True)
+    analysis = Column(JSONB)
     createdAt = Column(TIMESTAMP, default=datetime.utcnow)
 
     user = relationship("UserInput", back_populates="resume_analysis")
