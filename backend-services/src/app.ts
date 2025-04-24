@@ -1,11 +1,16 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import userInputRoutes from './routes/userInputRoutes';
 import morgan from 'morgan';
+import cors from 'cors'; 
 
 const app: Express = express();
 
 app.use(morgan('dev'));
 
+// Allow CORS from any origin
+app.use(cors());
+
+// Body parser
 app.use(express.json());
 
 // Routes

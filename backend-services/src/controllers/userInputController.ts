@@ -4,6 +4,9 @@ import fs from 'fs';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import { CreateUserInputDTO } from '../types';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const prisma = new PrismaClient();
 
@@ -364,6 +367,31 @@ export class UserInputController {
         console.error('Failed to send verification email:', emailError);
         res.status(500).json({ message: 'Failed to send verification email, please try again later' });
       }
+    } catch (error) {
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error occurred' });
+    }
+  }
+  public async checkEmailStatus(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      
+      const userInput = await prisma.userInput.findUnique({
+        where: { id },
+        select: { 
+          emailStatus: true,
+          email: true
+        }
+      });
+      
+      if (!userInput) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+      }
+      
+      res.status(200).json({ 
+        emailStatus: userInput.emailStatus,
+        email: userInput.email
+      });
     } catch (error) {
       res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error occurred' });
     }

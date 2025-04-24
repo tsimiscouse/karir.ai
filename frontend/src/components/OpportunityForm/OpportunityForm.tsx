@@ -2,6 +2,7 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import axios from "axios";
 
 interface FormData {
   email: string;
@@ -9,6 +10,23 @@ interface FormData {
   location: string[];
   jobTypes: string[];
   resume: File | null;
+  expectedSalary: string;
+}
+
+interface ApiResponse {
+  id: string;
+  email: string;
+  emailStatus: boolean;
+  paymentStatus: boolean;
+  resume: string;
+  expectedSalary: number;
+  location: string;
+  prefJobType: string[];
+  verificationToken: string | null;
+  verificationTokenExpiry: string | null;
+  createdAt: string;
+  updatedAt: string;
+  message?: string;
 }
 
 const OpportunityForm: React.FC = () => {
@@ -18,11 +36,22 @@ const OpportunityForm: React.FC = () => {
     location: [],
     jobTypes: [],
     resume: null,
+    expectedSalary: "10000000", // Default value
   });
 
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [resumeName, setResumeName] = useState<string>("");
+  
+  // State for handling API responses and user feedback
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    success: boolean;
+    message: string;
+    userId?: string;
+    emailVerified?: boolean;
+  } | null>(null);
+  const [isResendingVerification, setIsResendingVerification] = useState(false);
 
   useEffect(() => {
     AOS.init({ 
@@ -83,10 +112,134 @@ const OpportunityForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const checkEmailStatus = async (userId: string): Promise<boolean> => {
+    try {
+      const response = await axios.get<{ emailStatus: boolean }>(`http://localhost:3001/api/check-email-status/${userId}`);
+      return response.data.emailStatus;
+    } catch (error) {
+      console.error("Error checking email status:", error);
+      return false;
+    }
+  };
+
+  const handleResendVerification = async () => {
+    if (!submitStatus?.userId) return;
+    
+    setIsResendingVerification(true);
+    try {
+      await axios.post(`http://localhost:3001/api/resend-verification/${submitStatus.userId}`);
+      setSubmitStatus(prev => prev ? {
+        ...prev,
+        message: "Verification email has been resent. Please check your inbox."
+      } : null);
+    } catch (error) {
+      console.error("Error resending verification:", error);
+      setSubmitStatus(prev => prev ? {
+        ...prev,
+        message: "Failed to resend verification email. Please try again later."
+      } : null);
+    } finally {
+      setIsResendingVerification(false);
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    console.log("Form data submitted:", formData);
-    // Add success notification or redirect here
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    
+    try {
+      // Prepare form data for API
+      const apiFormData = new FormData();
+      apiFormData.append("email", formData.email);
+      apiFormData.append("expectedSalary", formData.expectedSalary);
+      apiFormData.append("location", formData.location.join(", "));
+      formData.jobTypes.forEach(jobType => {
+        apiFormData.append("prefJobType", jobType);
+      });
+      
+      if (formData.resume) {
+        apiFormData.append("resume", formData.resume);
+      }
+      
+      // Submit to create user input API
+      const response = await axios.post<ApiResponse>(
+        "http://localhost:3001/api/users-input",
+        apiFormData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+      
+      const userId = response.data.id;
+      
+      // Check if email is verified
+      const emailVerified = await checkEmailStatus(userId);
+      
+      // If resume exists, send to CV scoring API
+      if (formData.resume) {
+        const scoreFormData = new FormData();
+        scoreFormData.append("file", formData.resume);
+        scoreFormData.append("userInputId", userId);
+        
+        try {
+          await axios.post(
+            "http://127.0.0.1:8000/api/score_resume/",
+            scoreFormData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+          );
+        } catch (scoreError) {
+          console.error("Error scoring resume:", scoreError);
+          // Continue with job recommendations even if scoring fails
+        }
+      }
+      
+      // Request job recommendations
+      try {
+        await axios.get(`http://127.0.0.1:8000/api/recommend_jobs/${userId}`);
+      } catch (recommendError) {
+        console.error("Error getting job recommendations:", recommendError);
+        // Continue without failing the entire process
+      }
+      
+      // Update UI with success message
+      setSubmitStatus({
+        success: true,
+        message: emailVerified 
+          ? "Your information has been submitted successfully!" 
+          : "Please check your email to verify your account.",
+        userId: userId,
+        emailVerified: emailVerified
+      });
+      
+      // Reset form if successful
+      if (emailVerified) {
+        setFormData({
+          email: "",
+          name: "",
+          location: [],
+          jobTypes: [],
+          resume: null,
+          expectedSalary: "10000000",
+        });
+        setResumeName("");
+      }
+      
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitStatus({
+        success: false,
+        message: "There was an error submitting your information. Please try again."
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const availableLocations = [
@@ -103,6 +256,56 @@ const OpportunityForm: React.FC = () => {
       <h2 className="text-3xl font-bold text-center mb-8">
         JOB MATCHING | CV SCORING
       </h2>
+
+      {submitStatus && (
+        <div 
+          className={`mb-6 p-4 rounded-xl ${submitStatus.success ? 'bg-green-600 bg-opacity-30' : 'bg-red-600 bg-opacity-30'}`}
+          data-aos="fade-in"
+        >
+          <div className="flex items-start">
+            <div className={`rounded-full p-1 ${submitStatus.success ? 'bg-green-500' : 'bg-red-500'} mr-3 mt-1`}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                {submitStatus.success ? (
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                ) : (
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                )}
+              </svg>
+            </div>
+            <div>
+              <p className="font-medium">{submitStatus.message}</p>
+              
+              {submitStatus.success && !submitStatus.emailVerified && submitStatus.userId && (
+                <div className="mt-3">
+                  <button
+                    type="button"
+                    onClick={handleResendVerification}
+                    disabled={isResendingVerification}
+                    className="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center"
+                  >
+                    {isResendingVerification ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </svg>
+                        Resend Verification Email
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <form
         onSubmit={handleSubmit}
@@ -130,7 +333,6 @@ const OpportunityForm: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
-            
           </div>
 
           <div className="relative">
@@ -146,6 +348,23 @@ const OpportunityForm: React.FC = () => {
             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-300">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="relative">
+            <input
+              type="number"
+              name="expectedSalary"
+              placeholder="Expected Salary (IDR)"
+              className="w-full p-4 pl-12 rounded-xl border-2 border-[#FFFFFF30] bg-[#FFFFFF15] backdrop-blur-sm focus:outline-none focus:border-white text-white placeholder-gray-300 font-sans transition-all duration-300 focus:shadow-lg"
+              value={formData.expectedSalary}
+              onChange={handleInputChange}
+              required
+            />
+            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-300">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
           </div>
@@ -286,6 +505,7 @@ const OpportunityForm: React.FC = () => {
               name="resume"
               accept=".pdf"
               onChange={handleFileChange}
+              required
             />
           </label>
 
@@ -297,12 +517,25 @@ const OpportunityForm: React.FC = () => {
           >
             <button
               type="submit"
-              className="bg-[#2D3F4B] text-white px-6 py-4 rounded-xl hover:bg-[#1a2b37] transition-all duration-300 w-full font-medium text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2"
+              disabled={isSubmitting}
+              className="bg-[#2D3F4B] text-white px-6 py-4 rounded-xl hover:bg-[#1a2b37] transition-all duration-300 w-full font-medium text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-70 disabled:hover:bg-[#2D3F4B] disabled:hover:translate-y-0"
             >
-              <span>CV Scoring & Job Matching</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <span>CV Scoring & Job Matching</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </>
+              )}
             </button>
           </div>
         </div>

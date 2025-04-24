@@ -12,6 +12,7 @@ router.put('/users-input/:id', uploadMiddleware, userInputController.update);
 
 // New email verification routes
 router.get('/verify-email', userInputController.verifyEmail);
+router.get('/check-email-status/:id', userInputController.checkEmailStatus);
 router.post('/resend-verification/:id', userInputController.resendVerification);
 
 export default router;
