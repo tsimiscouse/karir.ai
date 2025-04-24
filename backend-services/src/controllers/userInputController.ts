@@ -6,8 +6,6 @@ const prisma = new PrismaClient();
 export class UserInputController {
   public async create(req: Request, res: Response): Promise<void> {
     try {
-      console.log("Request body:", req.body); 
-      
       const { email, expectedSalary, location, prefJobType } = req.body as CreateUserInputDTO;
       const file = req.file;
       
@@ -17,9 +15,7 @@ export class UserInputController {
       }
 
       let jobTypes: string[] = [];
-      if (prefJobType) {
-        console.log("prefJobType received:", prefJobType, typeof prefJobType); 
-        
+      if (prefJobType) { 
         if (Array.isArray(prefJobType)) {
           jobTypes = prefJobType;
         } else if (typeof prefJobType === 'string') {
@@ -30,8 +26,6 @@ export class UserInputController {
           }
         }
       }
-      
-      console.log("Processed job types:", jobTypes); 
       
       const userInput = await prisma.userInput.create({
         data: {

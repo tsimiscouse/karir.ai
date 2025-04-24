@@ -1,14 +1,15 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import userInputRoutes from './routes/userInputRoutes';
+import morgan from 'morgan';
 
 const app: Express = express();
+
+app.use(morgan('dev'));
 
 app.use(express.json());
 
 // Routes
 app.use('/api', userInputRoutes);
-
-// Routes
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
