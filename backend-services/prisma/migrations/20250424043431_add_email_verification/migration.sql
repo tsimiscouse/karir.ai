@@ -22,11 +22,6 @@ ALTER TABLE "recommended_jobs_title"
   ALTER COLUMN "id" SET DATA TYPE TEXT,
   ADD CONSTRAINT "recommended_jobs_title_pkey" PRIMARY KEY ("id");
 
--- AlterTable: userInput for email verification
-ALTER TABLE "users_input"
-  ADD COLUMN "verificationToken" TEXT,
-  ADD COLUMN "verificationTokenExpiry" TIMESTAMP(3);
-
 -- job_scrape
 ALTER TABLE "job_scrape"
   ALTER COLUMN "id" SET DATA TYPE UUID USING id::UUID;

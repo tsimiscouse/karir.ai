@@ -31,6 +31,7 @@ export interface UserInput {
     expectedSalary: number;
     location: string;
     prefJobType: string | string[];
+    verificationToken?: string;
   }
   
   export interface FileUploadResponse {

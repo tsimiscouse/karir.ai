@@ -8,18 +8,22 @@ datasource db {
 }
 
 model UserInput {
-  id                String            @id @default(uuid())
-  email             String            @db.VarChar(255)
-  emailStatus       Boolean
-  paymentToken      String?           @db.VarChar(255)
-  paymentStatus     Boolean
-  resume            String            @db.VarChar(255)
-  expectedSalary    Int
-  location          String            @db.VarChar(255)
-  createdAt         DateTime          @default(now())
-  prefJobType       String[]
-  resumeAnalysis    ResumeAnalysis[]
-  RecommendedJobsTitle RecommendedJobsTitle[]
+  id                       String            @id @default(uuid())
+  email                    String            @db.VarChar(255)
+  emailStatus              Boolean
+  paymentToken             String?           @db.VarChar(255)
+  paymentStatus            Boolean
+  resume                   String            @db.VarChar(255)
+  expectedSalary           Int
+  location                 String            @db.VarChar(255)
+  prefJobType              String[]
+  verificationToken        String?
+  verificationTokenExpiry  DateTime?
+  createdAt                DateTime          @default(now())
+  updatedAt                DateTime  @updatedAt
+
+  resumeAnalysis           ResumeAnalysis[]
+  RecommendedJobsTitle     RecommendedJobsTitle[]
 
   @@map("users_input")
 }
