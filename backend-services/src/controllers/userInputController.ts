@@ -120,33 +120,35 @@ export class UserInputController {
       subject: 'Verify Your Email Address',
       html: `
         <div style="background-color: #f4f4f4; padding: 30px 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-          <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+          <div style="max-width: 600px; margin: 0 auto; background: linear-gradient(to bottom right, #577C8E, #3A5566); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 20px rgba(45,63,75,0.15);">
             <div style="padding: 40px 30px; text-align: center;">
-              <h2 style="color: #2c3e50; margin-bottom: 20px;">Verify Your Email</h2>
-              <p style="font-size: 16px; color: #555;">Hi there! 👋<br><br>
-                Thank you for signing up. Please confirm your email address by clicking the button below. This helps us keep your account secure.
-              </p>
-              <div style="margin: 30px 0;">
-                <a href="${verificationUrl}" 
-                   style="display: inline-block; background-color: #1abc9c; color: white; padding: 14px 24px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 16px;">
-                  Verify Email
-                </a>
+              <h2 style="color: #ffffff; margin-bottom: 24px; font-size: 24px; font-weight: bold;">Karir.ai Email Verification</h2>
+              <div style="background-color: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 30px; margin-bottom: 25px;">
+                <p style="font-size: 16px; color: #ffffff; margin-bottom: 20px;">Hi there! 👋<br><br>
+                  Thank you for using Karir.ai. Please confirm your email address by clicking the button below to continue with our job matching and CV scoring services.
+                </p>
+                <div style="margin: 30px 0;">
+                  <a href="${verificationUrl}"
+                     style="display: inline-block; background-color: #2D3F4B; color: white; padding: 16px 28px; border-radius: 12px; text-decoration: none; font-weight: 500; font-size: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    Verify Email
+                  </a>
+                </div>
+                <p style="font-size: 14px; color: rgba(255,255,255,0.8);">
+                  If the button doesn't work, you can also copy and paste this link into your browser:
+                </p>
+                <p style="word-break: break-all; font-size: 13px; color: rgba(255,255,255,0.9); background-color: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;">${verificationUrl}</p>
               </div>
-              <p style="font-size: 14px; color: #999;">
-                If the button doesn't work, you can also copy and paste this link into your browser:
-              </p>
-              <p style="word-break: break-all; font-size: 13px; color: #3498db;">${verificationUrl}</p>
-              <p style="font-size: 13px; color: #aaa; margin-top: 30px;">
-                This link is valid for 24 hours. If you didn’t create this account, you can safely ignore this email.
+              <p style="font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 20px;">
+                This link is valid for 24 hours. If you didn't create this account, you can safely ignore this email.
               </p>
             </div>
-            <div style="background-color: #f9f9f9; padding: 20px; text-align: center; font-size: 12px; color: #bbb;">
-              This is an automated message — please do not reply.
+            <div style="background-color: rgba(0,0,0,0.15); padding: 20px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.6);">
+              <p style="margin: 0;">© 2025 Karir.ai - This is an automated message — please do not reply.</p>
             </div>
           </div>
         </div>
       `
-    };    
+    };  
     
     return this.transporter.sendMail(mailOptions);
   }
