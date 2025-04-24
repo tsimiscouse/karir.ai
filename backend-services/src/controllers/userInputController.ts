@@ -13,12 +13,12 @@ export class UserInputController {
   constructor() {
     // Use default values as fallbacks to prevent undefined errors
     this.transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.gmail.com',
-      port: Number(process.env.SMTP_PORT) || 587,
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
       secure: false,
       auth: {
-        user: process.env.SMTP_USER || 'scouse.2196@gmail.com',
-        pass: process.env.SMTP_PASSWORD || "juoo vxlk wxaf uxcl",
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
       },
     });
     
