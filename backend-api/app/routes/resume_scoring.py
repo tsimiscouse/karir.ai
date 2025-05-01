@@ -14,7 +14,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import string
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.corpus import stopwords
-import math
 import statistics
 
 # Initialize FastAPI
@@ -35,11 +34,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-# Download necessary NLTK components
-nltk.download("words")
-nltk.download("stopwords")
-nltk.download('punkt_tab')
 
 # Enhanced action verbs dataset - expanded significantly
 action_verbs = {
