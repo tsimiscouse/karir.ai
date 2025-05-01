@@ -36,7 +36,7 @@ export class UserInputController {
 
   public async create(req: Request, res: Response): Promise<void> {
     try {
-      const { email, expectedSalary, location, prefJobType } = req.body as CreateUserInputDTO;
+      const { email, location, prefJobType } = req.body as CreateUserInputDTO;
       const file = req.file;
      
       if (!file) {
@@ -80,7 +80,7 @@ export class UserInputController {
           emailStatus: false, // Email not verified yet
           paymentStatus: false,
           resume: file.path,
-          expectedSalary: parseInt(expectedSalary.toString()),
+          expectedSalary: 0, // placeholder, will be updated later
           location,
           prefJobType: jobTypes,
           verificationToken, // Add these fields to your Prisma schema
@@ -112,7 +112,6 @@ export class UserInputController {
     }
   }
 
-  // Using regular method instead of arrow function, but with proper binding in constructor
   private async sendVerificationEmail(email: string, token: string, userId: string): Promise<void> {
     const baseUrl = process.env.BASE_URL || 'http://localhost:3001';
     const verificationUrl = `${baseUrl}/api/verify-email?token=${token}&userId=${userId}`;
@@ -246,7 +245,7 @@ export class UserInputController {
   public async update(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      const { email, expectedSalary, location, prefJobType } = req.body as CreateUserInputDTO;
+      const { email, location, prefJobType } = req.body as CreateUserInputDTO;
       const file = req.file;
      
       const existingUserInput = await prisma.userInput.findUnique({
@@ -312,7 +311,7 @@ export class UserInputController {
         where: { id },
         data: {
           ...emailUpdate,
-          expectedSalary: expectedSalary ? parseInt(expectedSalary.toString()) : undefined,
+          expectedSalary: 0, // placeholder, will be updated later
           location,
           resume: file ? file.path : existingUserInput.resume,
           prefJobType: jobTypes,
@@ -371,6 +370,7 @@ export class UserInputController {
       res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error occurred' });
     }
   }
+  
   public async checkEmailStatus(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;

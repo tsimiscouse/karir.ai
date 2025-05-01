@@ -10,7 +10,6 @@ interface FormData {
   location: string[];
   jobTypes: string[];
   resume: File | null;
-  expectedSalary: string;
 }
 
 interface ApiResponse {
@@ -19,7 +18,6 @@ interface ApiResponse {
   emailStatus: boolean;
   paymentStatus: boolean;
   resume: string;
-  expectedSalary: number;
   location: string;
   prefJobType: string[];
   verificationToken: string | null;
@@ -36,7 +34,6 @@ const OpportunityForm: React.FC = () => {
     location: [],
     jobTypes: [],
     resume: null,
-    expectedSalary: "10000000", // Default value
   });
 
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
@@ -149,10 +146,8 @@ const OpportunityForm: React.FC = () => {
     setSubmitStatus(null);
     
     try {
-      // Prepare form data for API
       const apiFormData = new FormData();
       apiFormData.append("email", formData.email);
-      apiFormData.append("expectedSalary", formData.expectedSalary);
       apiFormData.append("location", formData.location.join(", "));
       formData.jobTypes.forEach(jobType => {
         apiFormData.append("prefJobType", jobType);
@@ -226,7 +221,6 @@ const OpportunityForm: React.FC = () => {
           location: [],
           jobTypes: [],
           resume: null,
-          expectedSalary: "10000000",
         });
         setResumeName("");
       }
@@ -348,23 +342,6 @@ const OpportunityForm: React.FC = () => {
             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-300">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </div>
-          </div>
-
-          <div className="relative">
-            <input
-              type="number"
-              name="expectedSalary"
-              placeholder="Expected Salary (IDR)"
-              className="w-full p-4 pl-12 rounded-xl border-2 border-[#FFFFFF30] bg-[#FFFFFF15] backdrop-blur-sm focus:outline-none focus:border-white text-white placeholder-gray-300 font-sans transition-all duration-300 focus:shadow-lg"
-              value={formData.expectedSalary}
-              onChange={handleInputChange}
-              required
-            />
-            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-300">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
           </div>
