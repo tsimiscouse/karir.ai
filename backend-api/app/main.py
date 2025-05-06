@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .database import engine
+from .database import Base, engine
 from . import models
 from .routes import job_routes, job_matching, job_embeddings, resume_scoring
 from celery.schedules import crontab

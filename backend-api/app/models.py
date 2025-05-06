@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String, Float, DateTime, Text, ForeignKey, JSON, TIMESTAMP, Integer
+from sqlalchemy import Boolean, Column, String, Float, DateTime, Text, ForeignKey, JSON, TIMESTAMP, Integer
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.dialects.postgresql import UUID 
 from sqlalchemy.orm import relationship
@@ -52,24 +52,38 @@ class JobListing(Base):
 class UserInput(Base):
     __tablename__ = "users_input"
 
-    id = Column(String, primary_key=True, index=True)
-    resume = Column(String)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    email = Column(String(255), nullable=True)
+    emailStatus = Column(Boolean, default=False)
+    paymentToken = Column(String(255), nullable=True)
+    paymentStatus = Column(Boolean, default=False)
+    resume = Column(String, nullable=True)
+    expectedSalary = Column(Integer, nullable=True)
+    location = Column(String(255), nullable=True)
+    createdAt = Column(TIMESTAMP, default=datetime.utcnow)
+    prefJobType = Column(Text, nullable=True)
+    verificationToken = Column(Text, nullable=True)
+    verificationTokenExpiry = Column(TIMESTAMP, nullable=True)
+    updatedAt = Column(TIMESTAMP, default=datetime.utcnow)
 
     resume_analysis = relationship("ResumeAnalysis", back_populates="user")
 
 class RecommendedJobsTitle(Base):
     __tablename__ = "recommended_jobs_title"
 
-    id = Column(String, primary_key=True, index=True)
-    userInputId = Column(String, ForeignKey("users_input.id"))
-    jobListingId = Column(String, ForeignKey("job_listings.id"))
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True)
+    userInputId = Column(UUID(as_uuid=True), ForeignKey("users_input.id"))
+    jobListingId = Column(UUID(as_uuid=True), ForeignKey("job_listings.id"))
     similarity_score = Column(Float)
+
+    job_listing = relationship("JobListing")
+    user_input = relationship("UserInput")
 
 class ResumeAnalysis(Base):
     __tablename__ = "resume_analysis"
 
-    id = Column(String, primary_key=True, index=True)
-    userInputId = Column(String, ForeignKey("users_input.id"), nullable=False)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True)
+    userInputId = Column(UUID(as_uuid=True), ForeignKey("users_input.id"), nullable=False)
     resumeScore = Column(Float, nullable=False)
     analysis = Column(JSONB)
     createdAt = Column(TIMESTAMP, default=datetime.utcnow)

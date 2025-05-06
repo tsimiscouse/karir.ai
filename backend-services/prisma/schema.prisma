@@ -8,123 +8,99 @@ datasource db {
 }
 
 model UserInput {
-  id                       String            @id @default(uuid())
-  email                    String            @db.VarChar(255)
-  emailStatus              Boolean
-  paymentToken             String?           @db.VarChar(255)
-  paymentStatus            Boolean
-  resume                   String            @db.VarChar(255)
-  expectedSalary           Int
-  location                 String            @db.VarChar(255)
-  prefJobType              String[]
-  verificationToken        String?
-  verificationTokenExpiry  DateTime?
-  createdAt                DateTime          @default(now())
-  updatedAt                DateTime  @updatedAt
+  id                      String                 @id @default(uuid()) @db.Uuid
+  resume                  String?                @db.VarChar
+  email                   String?                @db.VarChar(255)
+  emailStatus             Boolean?
+  paymentToken            String?                @db.VarChar(255)
+  paymentStatus           Boolean?
+  expectedSalary          Int?
+  location                String?                @db.VarChar(255)
+  createdAt               DateTime?              @db.Timestamp(6)
+  prefJobType             String[]               @db.VarChar
+  verificationToken       String?
+  verificationTokenExpiry DateTime?              @db.Timestamp(6)
+  updatedAt               DateTime?              @db.Timestamp(6)
+  recommendations         RecommendedJobsTitle[]
+  resumeAnalyses          ResumeAnalysis[]
 
-  resumeAnalysis           ResumeAnalysis[]
-  RecommendedJobsTitle     RecommendedJobsTitle[]
-
+  @@index([id], map: "ix_users_input_id")
   @@map("users_input")
 }
 
 model ResumeAnalysis {
-  id            String    @id @default(uuid())
-  userInputId   String
-  resumeScore   Float
-  analysis      Json
-  createdAt     DateTime  @default(now())
-  userInput     UserInput @relation(fields: [userInputId], references: [id])
+  id          String    @id @default(uuid()) @db.Uuid
+  userInputId String    @db.Uuid
+  resumeScore Float
+  analysis    Json?
+  createdAt   DateTime? @db.Timestamp(6)
+  userInput   UserInput @relation(fields: [userInputId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
+  @@index([id], map: "ix_resume_analysis_id")
   @@map("resume_analysis")
 }
 
-model JobTitle {
-  id            String            @id @default(uuid())
-  title         String            @db.VarChar(255)
-  description   String            @db.Text
-  tags          String            @db.Text
-
-  @@map("job_titles")
-}
-
-model JobListing {
-  id              String   @id @default(uuid())
-  title           String   @db.VarChar(255)
-  logo            String?  @db.VarChar(255)
-  companyName     String   @db.VarChar(255)
-  salaryMin       Float?
-  salaryMax       Float?
-  location        String   @db.VarChar(255)
-  employmentType  String   @db.VarChar(50)
-  experience      String?  @db.Text
-  description     String   @db.Text
-  jobTags         String?  @db.Text
-  scrapeAt        DateTime @default(now())
-  source_url      String?  @db.Text
-
-  recommendedJobs RecommendedJobsTitle[]
-
-  @@map("job_listings")
-}
-
-model RecommendedJobsTitle {
-  id               String   @id @default(uuid())
-  userInputId      String   @db.VarChar(255)
-  jobListingId     String   @db.VarChar(255)
-  similarity_score Float
-  createdAt        DateTime @default(now())
-  
-  userInput        UserInput  @relation(fields: [userInputId], references: [id])
-  jobListing       JobListing @relation(fields: [jobListingId], references: [id])
-
-  @@map("recommended_jobs_title")
-}
-
-model RecommendedListing {
-  id              String    @id @default(uuid())
-  recommendedJobId String
-  jobListingId    String
-  createdAt       DateTime  @default(now())
-
-  @@map("recommended_listing")
-}
-
 model JobScrape {
-  id              String   @id @default(uuid())
-  title           String   @db.VarChar(255)
-  logo            String?  @db.VarChar(255)
-  companyName     String   @db.VarChar(255)
-  salaryMin       Float?
-  salaryMax       Float?
-  location        String   @db.VarChar(255)
-  employmentType  String   @db.VarChar(50)
-  experience      String?  @db.Text
-  description     String   @db.Text
-  jobTags         String?  @db.Text
-  scrapeAt        DateTime @default(now())
-  source_url      String?  @db.Text
-
-  jobEmbeddings   JobEmbeddings[]
+  id             String          @id @unique @default(uuid()) @db.Uuid
+  title          String          @db.VarChar
+  logo           String?         @db.VarChar
+  companyName    String          @db.VarChar
+  salaryMin      Float?
+  salaryMax      Float?
+  location       String          @db.VarChar
+  employmentType String          @db.VarChar
+  experience     String?         @db.VarChar
+  description    String
+  jobTags        String?         @db.VarChar
+  scrapeAt       DateTime?       @db.Timestamp(6)
+  source_url     String?         @db.VarChar
+  embeddings     JobEmbeddings[]
 
   @@map("job_scrape")
 }
 
-model Source {
-  id          Int         @id @default(autoincrement())
-  sourceName  String      @db.VarChar(255)
-  sourceUrl   String      @db.Text
-
-  @@map("source")
-}
-
 model JobEmbeddings {
-  id         String     @id @default(uuid())
-  job_id     String     @db.VarChar(255)
-  embedding  Json
-  created_at DateTime   @default(now())
-  updated_at DateTime   @default(now())
-  jobScrape  JobScrape  @relation(fields: [job_id], references: [id], onDelete: Cascade)
+  id         String    @id @default(uuid()) @db.Uuid
+  job_id     String    @db.Uuid
+  embedding  Json      @db.Json
+  created_at DateTime  @db.Timestamp(6)
+  updated_at DateTime  @db.Timestamp(6)
+  job        JobScrape @relation(fields: [job_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("job_embeddings")
+}
+
+model RecommendedJobsTitle {
+  id               String      @id @default(uuid()) @db.Uuid
+  userInputId      String?     @db.Uuid
+  jobListingId     String?     @db.Uuid
+  similarity_score Float?
+  jobListing       JobListing? @relation(fields: [jobListingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userInput        UserInput?  @relation(fields: [userInputId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([id], map: "ix_recommended_jobs_title_id")
+  @@map("recommended_jobs_title")
+}
+
+model JobListing {
+  id              String                 @id @unique @default(uuid()) @db.Uuid
+  title           String                 @db.VarChar
+  logo            String?                @db.VarChar
+  companyName     String                 @db.VarChar
+  salaryMin       Float?
+  salaryMax       Float?
+  location        String                 @db.VarChar
+  employmentType  String                 @db.VarChar
+  experience      String?                @db.VarChar
+  description     String
+  jobTags         String?                @db.VarChar
+  scrapeAt        DateTime?              @db.Timestamp(6)
+  source_url      String?                @db.VarChar
+  recommendations RecommendedJobsTitle[]
+
+  @@map("job_listings")
+}
+
+model alembic_version {
+  version_num String @id(map: "alembic_version_pkc") @db.VarChar(32)
 }

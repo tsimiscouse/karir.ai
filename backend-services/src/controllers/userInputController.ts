@@ -360,7 +360,11 @@ export class UserInputController {
       });
       
       try {
-        await this.sendVerificationEmail(userInput.email, verificationToken, id);
+        if (userInput.email) {
+          await this.sendVerificationEmail(userInput.email, verificationToken, id);
+        } else {
+          throw new Error('User email is null');
+        }
         res.status(200).json({ message: 'Verification email has been resent' });
       } catch (emailError) {
         console.error('Failed to send verification email:', emailError);

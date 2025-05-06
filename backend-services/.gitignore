@@ -13,3 +13,5 @@ logs/
 dist/
 build/
 uploads/
+
+*/migrations/

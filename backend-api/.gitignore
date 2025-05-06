@@ -32,3 +32,7 @@ logs/
 *.egg-info/
 dist/
 build/
+
+alembic.ini
+migrations/
+/alembic/
