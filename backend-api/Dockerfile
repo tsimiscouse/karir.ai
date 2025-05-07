@@ -35,7 +35,8 @@ COPY --from=builder /app/wheels /wheels
 RUN pip install --no-cache /wheels/*
 
 # Pre-download NLTK data during image build
-RUN python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('words')"
+ENV NLTK_DATA=/usr/local/nltk_data
+RUN python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('words'); nltk.download('punkt_tab')"
 
 # Copy application code
 COPY . .
