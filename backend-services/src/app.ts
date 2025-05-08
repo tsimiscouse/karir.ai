@@ -16,6 +16,11 @@ app.use(express.json());
 // Routes
 app.use('/api', userInputRoutes);
 
+// Add a new route for the root endpoint
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello from karir.ai backend services!');
+});
+
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
