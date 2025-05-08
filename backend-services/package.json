@@ -15,8 +15,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/app.js",
-    "dev": "ts-node-dev --respawn src/app.ts",
     "build": "tsc",
+    "dev": "ts-node-dev --respawn src/app.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "local": "nodemon --ext ts --exec ts-node src/app.ts"
