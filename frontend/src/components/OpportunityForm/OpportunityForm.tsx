@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
@@ -28,6 +29,7 @@ interface ApiResponse {
 }
 
 const OpportunityForm: React.FC = () => {
+  const Router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     email: "",
     name: "",
@@ -233,6 +235,7 @@ const OpportunityForm: React.FC = () => {
       });
     } finally {
       setIsSubmitting(false);
+      Router.push(`/result/${submitStatus?.userId}`);
     }
   };
 
