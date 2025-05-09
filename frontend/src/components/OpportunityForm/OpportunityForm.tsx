@@ -183,7 +183,7 @@ const OpportunityForm: React.FC = () => {
         
         try {
           await axios.post(
-            "http://127.0.0.1:8000/api/score_resume/",
+            "https://karirai-backend.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/score_resume",
             scoreFormData,
             {
               headers: {
@@ -199,7 +199,7 @@ const OpportunityForm: React.FC = () => {
       
       // Request job recommendations
       try {
-        await axios.get(`http://127.0.0.1:8000/api/recommend_jobs/${userId}`);
+        await axios.get(`https://karirai-backend.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/recommend_jobs/${userId}`);
       } catch (recommendError) {
         console.error("Error getting job recommendations:", recommendError);
         // Continue without failing the entire process
@@ -225,6 +225,8 @@ const OpportunityForm: React.FC = () => {
           resume: null,
         });
         setResumeName("");
+
+        Router.push(`/result/${userId}`);
       }
       
     } catch (error) {
@@ -235,7 +237,6 @@ const OpportunityForm: React.FC = () => {
       });
     } finally {
       setIsSubmitting(false);
-      Router.push(`/result/${submitStatus?.userId}`);
     }
   };
 
