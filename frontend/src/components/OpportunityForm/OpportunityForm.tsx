@@ -227,6 +227,7 @@ const OpportunityForm: React.FC = () => {
         setResumeName("");
 
         Router.push(`/result/${userId}`);
+        await fetch(`http://localhost:3001/api/reports/${userId}/pdf`)
       }
       
     } catch (error) {
