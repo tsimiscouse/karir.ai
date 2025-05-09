@@ -220,10 +220,10 @@ function generatePdfContent(doc: PDFKit.PDFDocument, user: any, resumeAnalysis: 
 
     // Create a table-like structure for scores
     if (analysis) {
-      doc.fontSize(14)
+      doc.fontSize(14)      
          .fillColor(primaryColor)
          .font('Helvetica-Bold')
-         .text('Component Scores:')
+         .text('Component Scores:', 50, doc.y, { underline: false })
          .moveDown(0.5);
       
       const scoreCategories = [
@@ -240,14 +240,14 @@ function generatePdfContent(doc: PDFKit.PDFDocument, user: any, resumeAnalysis: 
         doc.font('Helvetica')
            .fillColor('black')
            .fontSize(12)
-           .text(`${category.name}: `, { continued: true })
+           .text(`${category.name}: `, 50, doc.y, { continued: true })
            .fillColor(primaryColor)
            .font('Helvetica-Bold')
            .text(`${category.score}%`, { align: 'right' });
         
         // Draw score bar
-        const startX = 100;
-        const width = 300;
+        const startX = 250;
+        const width = 250;
         const height = 12;
         
         // Background bar
