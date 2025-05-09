@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 // Register ChartJS components
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -253,11 +254,7 @@ export default function UserReports() {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col bg-white">
-        <Navbar />
-        <div className="flex-grow flex items-center justify-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600"></div>
-        </div>
-        <Footer />
+        <LoadingSpinner size="large" showText={true} />
       </div>
     );
   }
