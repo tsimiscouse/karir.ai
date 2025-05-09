@@ -6,7 +6,8 @@
     "express": "^4.21.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.10.1"
+    "nodemailer": "^6.10.1",
+    "pdfkit": "^0.17.1"
   },
   "name": "backend-services",
   "version": "1.0.0",
@@ -33,6 +34,7 @@
     "@types/multer": "^1.4.12",
     "@types/node": "^22.13.5",
     "@types/nodemailer": "^6.4.17",
+    "@types/pdfkit": "^0.13.9",
     "nodemon": "^3.1.9",
     "prisma": "^6.4.1",
     "ts-node-dev": "^2.0.0",
