@@ -400,6 +400,40 @@ export class UserInputController {
       res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error occurred' });
     }
   }
+
+  public async checkEmailUserInput(req: Request, res: Response): Promise<void> {
+    try {
+      const { email } = req.body;
+
+      if (!email) {
+        res.status(400).json({ message: 'Email is required' });
+      }
+
+      const user = await prisma.userInput.findFirst({
+        where: { email: email },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        select: {
+          id: true,
+          emailStatus: true,
+        },
+      });
+
+      if (!user) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
+
+      res.status(200).json({
+        id: user.id,
+        emailStatus: user.emailStatus,
+      });
+    } catch (error) {
+      console.error('Error checking email status:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
 }
 
 // Create and export a singleton instance of the controller
