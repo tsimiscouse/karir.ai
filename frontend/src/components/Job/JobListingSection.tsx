@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, useEffect, ChangeEvent, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import JobCard from "./JobCard";
-import { Search, MapPin, Filter, Briefcase } from "lucide-react";
+import { Search, Filter, Briefcase } from "lucide-react";
 
 interface Job {
   id: string;
@@ -35,7 +35,7 @@ const JobListingSection: React.FC = () => {
   const [selectedLocations, setSelectedLocations] = useState<string[]>([
     "All Locations",
   ]);
-  const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+  // const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   const [pagination, setPagination] = useState({
     current_page: 1,
     total_pages: 1,
@@ -43,18 +43,18 @@ const JobListingSection: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  // const dropdownRef = useRef<HTMLDivElement>(null);
   const jobListingRef = useRef<HTMLDivElement>(null);
 
-  const locations = [
-    "All Locations",
-    "Yogyakarta",
-    "Jakarta",
-    "Bandung",
-    "Palembang",
-    "Surabaya",
-    "Semarang",
-  ];
+  // const locations = [
+  //   "All Locations",
+  //   "Yogyakarta",
+  //   "Jakarta",
+  //   "Bandung",
+  //   "Palembang",
+  //   "Surabaya",
+  //   "Semarang",
+  // ];
   const pagesPerView = 5;
 
   const fetchJobs = async (page = 1, search = "", locations: string[] = []) => {
@@ -69,7 +69,7 @@ const JobListingSection: React.FC = () => {
 
     try {
       const response = await axios.get<ApiResponse>(
-        "http://127.0.0.1:8000/api/jobs",
+        "https://karirai-backend.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/jobs",
         {
           params: {
             page,
@@ -110,53 +110,53 @@ const JobListingSection: React.FC = () => {
 
   useEffect(() => {
     fetchJobs(1, searchInput, selectedLocations);
-  }, []);
+  }, [searchInput, selectedLocations]);
 
-  useEffect(() => {
-    // Close dropdown when clicking outside
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowLocationDropdown(false);
-      }
-    };
+  // useEffect(() => {
+  //   // Close dropdown when clicking outside
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       dropdownRef.current &&
+  //       !dropdownRef.current.contains(event.target as Node)
+  //     ) {
+  //       setShowLocationDropdown(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
-  const handleLocationChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
+  // const handleLocationChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const { value, checked } = e.target;
 
-    // Handle "All Locations" special case
-    if (value === "All Locations") {
-      if (checked) {
-        setSelectedLocations(["All Locations"]);
-      } else {
-        setSelectedLocations([]);
-      }
-      return;
-    }
+  //   // Handle "All Locations" special case
+  //   if (value === "All Locations") {
+  //     if (checked) {
+  //       setSelectedLocations(["All Locations"]);
+  //     } else {
+  //       setSelectedLocations([]);
+  //     }
+  //     return;
+  //   }
 
-    setSelectedLocations((prev) => {
-      // If "All Locations" is already selected and we're selecting something else,
-      if (prev.includes("All Locations")) {
-        return [value];
-      }
+  //   setSelectedLocations((prev) => {
+  //     // If "All Locations" is already selected and we're selecting something else,
+  //     if (prev.includes("All Locations")) {
+  //       return [value];
+  //     }
 
-      const updatedLocations = checked
-        ? [...prev, value]
-        : prev.filter((loc) => loc !== value);
+  //     const updatedLocations = checked
+  //       ? [...prev, value]
+  //       : prev.filter((loc) => loc !== value);
 
-      return updatedLocations.length === 0
-        ? ["All Locations"]
-        : updatedLocations;
-    });
-  };
+  //     return updatedLocations.length === 0
+  //       ? ["All Locations"]
+  //       : updatedLocations;
+  //   });
+  // };
 
   const handlePageChange = (page: number) => {
     fetchJobs(page, searchInput, selectedLocations);
@@ -308,8 +308,8 @@ const JobListingSection: React.FC = () => {
             </div>
 
             {/* Location Multi-Select Dropdown */}
-            <div
-              className="relative font-sans flex-grow md:flex-grow-0 md:w-1/4 z-[60]"
+            {/* <div
+              className="relative font-sans flex-grow md:flex-grow-0 md:w-1/4 z-[0]"
               ref={dropdownRef}
             >
               <div
@@ -371,7 +371,7 @@ const JobListingSection: React.FC = () => {
                   </label>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

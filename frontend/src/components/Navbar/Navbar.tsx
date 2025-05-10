@@ -22,6 +22,7 @@ const Navbar = () => {
           <Image src="/logokarirmiring.png" alt="Karir.AI Logo" width={120} height={40} className="cursor-pointer" />
         </Link>
         <div className="hidden md:flex space-x-[4vw] font-medium text-[1vw] text-gray-700">
+          <Link href="/" className="hover-underline transition">Home</Link>
           <Link href="/result" className="hover-underline transition">Analisa Resume</Link>
           <Link href="/jobs" className="hover-underline transition">Lowongan</Link>
           <Link href="/about" className="hover-underline transition">About</Link>

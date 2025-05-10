@@ -9,6 +9,7 @@ router.post('/users-input', uploadMiddleware, userInputController.create);
 router.get('/users-input/:id', userInputController.getById);
 router.get('/users-input/:id/resume', userInputController.getResume);
 router.put('/users-input/:id', uploadMiddleware, userInputController.update);
+router.delete('/users-input/:id', userInputController.deleteUserInput);
 
 // New email verification routes
 router.get('/verify-email', userInputController.verifyEmail);

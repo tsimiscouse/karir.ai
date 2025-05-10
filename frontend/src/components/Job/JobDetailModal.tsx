@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
+import Image from 'next/image';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin, Briefcase, Clock } from 'lucide-react';
@@ -73,9 +74,11 @@ const JobDetailModal: React.FC<JobDetailModalProps> = ({ job, isOpen, onClose })
             {/* Modal Header */}
             <div className="bg-gradient-to-r from-[#577C8E] to-[#3A5566] text-white p-[2vw] pb-[2.5vw] flex justify-between items-center sticky top-0 z-10">
               <div className="flex items-center space-x-[1vw]">
-                <img 
+                <Image 
                   src={job.logo || "/logokarirtegak.png"} 
                   alt={`${job.companyName} logo`} 
+                  width={100} 
+                  height={100} 
                   className="w-[5vw] h-[5vw] object-contain rounded-[0.5vw]"
                 />
                 <div>

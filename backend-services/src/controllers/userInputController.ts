@@ -32,6 +32,7 @@ export class UserInputController {
     this.getResume = this.getResume.bind(this);
     this.update = this.update.bind(this);
     this.resendVerification = this.resendVerification.bind(this);
+    this.deleteUserInput = this.deleteUserInput.bind(this);
   }
 
   public async create(req: Request, res: Response): Promise<void> {
@@ -434,6 +435,26 @@ export class UserInputController {
       res.status(500).json({ message: 'Internal server error' });
     }
   }
+
+  public async deleteUserInput(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+
+      const deleteResult = await prisma.userInput.deleteMany({
+        where: { id },
+      });
+
+      if (deleteResult.count === 0) {
+        res.status(404).json({ error: 'User input not found or already deleted' });
+      } else {
+        res.status(200).json({ message: 'User input deleted successfully' });
+      }
+    } catch (error) {
+      console.error('Error deleting user input:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
 }
 
 // Create and export a singleton instance of the controller
