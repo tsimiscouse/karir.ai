@@ -25,8 +25,8 @@ export default function JobsPage() {
   return (
     <div className={`font-righteous text-foreground bg-white min-h-screen`}>
       <Navbar />
-      <div className="w-full flex-grow pt-[18vh] pb-[10vh]">
-        <div className="w-full flex items-center justify-center px-[15vw] min-h-screen bg-white">
+      <div className="w-full flex-grow pt-[12vh] pb-[5vh] md:pt-[18vh] md:pb-[10vh]">
+        <div className="w-full flex items-center justify-center px-0 md:px-[15vw] min-h-screen bg-white">
           <JobListingSection />
         </div>
       </div>

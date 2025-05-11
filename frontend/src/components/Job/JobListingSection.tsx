@@ -35,7 +35,6 @@ const JobListingSection: React.FC = () => {
   const [selectedLocations, setSelectedLocations] = useState<string[]>([
     "All Locations",
   ]);
-  // const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   const [pagination, setPagination] = useState({
     current_page: 1,
     total_pages: 1,
@@ -43,25 +42,14 @@ const JobListingSection: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  // const dropdownRef = useRef<HTMLDivElement>(null);
   const jobListingRef = useRef<HTMLDivElement>(null);
 
-  // const locations = [
-  //   "All Locations",
-  //   "Yogyakarta",
-  //   "Jakarta",
-  //   "Bandung",
-  //   "Palembang",
-  //   "Surabaya",
-  //   "Semarang",
-  // ];
   const pagesPerView = 5;
 
   const fetchJobs = async (page = 1, search = "", locations: string[] = []) => {
     setIsLoading(true);
     setError(null);
 
-    // Handle location filtering logic
     let locationParam = "";
     if (locations.length > 0 && !locations.includes("All Locations")) {
       locationParam = locations.join(",");
@@ -100,7 +88,6 @@ const JobListingSection: React.FC = () => {
   };
 
   useEffect(() => {
-    // Debounce the search to prevent too many API calls
     const timerId = setTimeout(() => {
       fetchJobs(1, searchInput, selectedLocations);
     }, 500);
@@ -112,64 +99,18 @@ const JobListingSection: React.FC = () => {
     fetchJobs(1, searchInput, selectedLocations);
   }, [searchInput, selectedLocations]);
 
-  // useEffect(() => {
-  //   // Close dropdown when clicking outside
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       dropdownRef.current &&
-  //       !dropdownRef.current.contains(event.target as Node)
-  //     ) {
-  //       setShowLocationDropdown(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
-  // const handleLocationChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const { value, checked } = e.target;
-
-  //   // Handle "All Locations" special case
-  //   if (value === "All Locations") {
-  //     if (checked) {
-  //       setSelectedLocations(["All Locations"]);
-  //     } else {
-  //       setSelectedLocations([]);
-  //     }
-  //     return;
-  //   }
-
-  //   setSelectedLocations((prev) => {
-  //     // If "All Locations" is already selected and we're selecting something else,
-  //     if (prev.includes("All Locations")) {
-  //       return [value];
-  //     }
-
-  //     const updatedLocations = checked
-  //       ? [...prev, value]
-  //       : prev.filter((loc) => loc !== value);
-
-  //     return updatedLocations.length === 0
-  //       ? ["All Locations"]
-  //       : updatedLocations;
-  //   });
-  // };
-
   const handlePageChange = (page: number) => {
     fetchJobs(page, searchInput, selectedLocations);
-    
+
     if (jobListingRef.current) {
-      jobListingRef.current.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+      jobListingRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
     } else {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -178,7 +119,6 @@ const JobListingSection: React.FC = () => {
     const { current_page, total_pages } = pagination;
     const pages: number[] = [];
 
-    // Calculate the range of pages to display
     let startPage: number;
     let endPage: number;
 
@@ -196,22 +136,21 @@ const JobListingSection: React.FC = () => {
       endPage = current_page + 2;
     }
 
-    // Generate page numbers
     for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
     }
 
     return (
-      <div className="flex justify-center mt-[2vw] space-x-[0.75vw]">
+      <div className="flex flex-wrap justify-center mt-6 md:mt-8 space-x-2 md:space-x-3">
         {/* Previous Button */}
         {current_page > 1 && (
           <button
             onClick={() => handlePageChange(current_page - 1)}
-            className="px-[1.2vw] py-[0.6vw] rounded-[0.6vw] font-medium bg-[#FFFFFF] text-[1vw] text-[#577C8E] border border-[#E0E7EC] hover:bg-[#F5F8FA] transition-all shadow-sm flex items-center gap-[0.4vw]"
+            className="px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-2.5 rounded-lg font-medium bg-[#FFFFFF] text-xs sm:text-sm md:text-base text-[#577C8E] border border-[#E0E7EC] hover:bg-[#F5F8FA] transition-all shadow-sm flex items-center gap-1 md:gap-2 mb-2 sm:mb-0"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-[1vw] w-[1vw]"
+              className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -227,31 +166,38 @@ const JobListingSection: React.FC = () => {
           </button>
         )}
 
-        {/* Page Buttons */}
-        {pages.map((page) => (
-          <button
-            key={page}
-            onClick={() => handlePageChange(page)}
-            className={`px-[1.2vw] py-[0.6vw] rounded-[0.6vw] text-[1vw] transition-all ${
-              page === current_page
-                ? "bg-[#577C8E] text-white font-medium shadow-md"
-                : "bg-[#FFFFFF] text-[#577C8E] border border-[#E0E7EC] hover:bg-[#F5F8FA]"
-            }`}
-          >
-            {page}
-          </button>
-        ))}
+        {/* Page Buttons - Hide on smallest screens */}
+        <div className="hidden sm:flex space-x-1 sm:space-x-2 md:space-x-3">
+          {pages.map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={`px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-2.5 rounded-lg text-xs sm:text-sm md:text-base transition-all ${
+                page === current_page
+                  ? "bg-[#577C8E] text-white font-medium shadow-md"
+                  : "bg-[#FFFFFF] text-[#577C8E] border border-[#E0E7EC] hover:bg-[#F5F8FA]"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+
+        {/* Current page indicator for smallest screens */}
+        <div className="sm:hidden px-3 py-1.5 rounded-lg text-xs bg-[#577C8E] text-white font-medium">
+          Page {current_page} of {total_pages}
+        </div>
 
         {/* Next Button */}
         {current_page < total_pages && (
           <button
             onClick={() => handlePageChange(current_page + 1)}
-            className="px-[1.2vw] py-[0.6vw] rounded-[0.6vw] font-medium bg-[#FFFFFF] text-[1vw] text-[#577C8E] border border-[#E0E7EC] hover:bg-[#F5F8FA] transition-all shadow-sm flex items-center gap-[0.4vw]"
+            className="px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-2.5 rounded-lg font-medium bg-[#FFFFFF] text-xs sm:text-sm md:text-base text-[#577C8E] border border-[#E0E7EC] hover:bg-[#F5F8FA] transition-all shadow-sm flex items-center gap-1 md:gap-2 mb-2 sm:mb-0"
           >
             Next
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-[1vw] w-[1vw]"
+              className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -271,17 +217,17 @@ const JobListingSection: React.FC = () => {
 
   return (
     <section
-      className="container mx-auto py-[3vw]"
+      className="container mx-auto py-4 sm:py-6 md:py-8 lg:py-12 px-3 sm:px-4 md:px-6"
       data-aos="fade-up"
       data-aos-duration="1000"
       ref={jobListingRef}
       id="job-listing-container"
     >
-      <div className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] shadow-xl rounded-[1.2vw]">
+      <div className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] shadow-xl rounded-lg md:rounded-xl lg:rounded-2xl">
         {/* Header */}
-        <div className="p-[2vw] pb-[2.5vw]">
+        <div className="p-3 sm:p-4 md:p-6 lg:p-8 pb-4 sm:pb-6 md:pb-8 lg:pb-10">
           <h2
-            className="text-[2.2vw] font-bold text-center text-white mb-[1.5vw]"
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-center text-white mb-3 sm:mb-4 md:mb-6"
             data-aos="fade-up"
             data-aos-duration="800"
           >
@@ -290,7 +236,7 @@ const JobListingSection: React.FC = () => {
 
           {/* Search and Filter Container */}
           <div
-            className="flex flex-col md:flex-row gap-[1.2vw] w-full"
+            className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 w-full"
             data-aos="fade-up"
             data-aos-delay="200"
             data-aos-duration="800"
@@ -300,97 +246,31 @@ const JobListingSection: React.FC = () => {
               <input
                 type="text"
                 placeholder="Search jobs..."
-                className="w-full p-[1vw] pl-[3.2vw] text-[1vw] rounded-xl border-2 border-[#FFFFFF30] bg-[#FFFFFF15] backdrop-blur-sm focus:outline-none focus:border-white text-white placeholder-gray-300 font-sans transition-all duration-300 focus:shadow-lg"
+                className="w-full p-2 sm:p-3 md:p-4 pl-8 sm:pl-10 md:pl-12 text-xs sm:text-sm md:text-base rounded-lg md:rounded-xl border-2 border-[#FFFFFF30] bg-[#FFFFFF15] backdrop-blur-sm focus:outline-none focus:border-white text-white placeholder-gray-300 font-sans transition-all duration-300 focus:shadow-lg"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
               />
-              <Search className="absolute left-[1vw] top-1/2 -translate-y-1/2 text-[1.2vw] text-gray-300" />
+              <Search className="absolute left-2 sm:left-3 md:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gray-300" />
             </div>
-
-            {/* Location Multi-Select Dropdown */}
-            {/* <div
-              className="relative font-sans flex-grow md:flex-grow-0 md:w-1/4 z-[0]"
-              ref={dropdownRef}
-            >
-              <div
-                className={`w-full p-[1vw] pl-[3.2vw] border-2 ${
-                  showLocationDropdown
-                    ? "border-white shadow-lg"
-                    : "border-[#FFFFFF30]"
-                } bg-[#FFFFFF15] backdrop-blur-sm rounded-xl text-white font-sans cursor-pointer flex justify-between items-center transition-all duration-300`}
-                onClick={() => setShowLocationDropdown(!showLocationDropdown)}
-              >
-                <div className="absolute inset-y-0 left-[1vw] flex items-center pointer-events-none text-gray-300">
-                  <MapPin size="1.2vw" />
-                </div>
-                <span className="truncate pr-[2vw]">
-                  {selectedLocations.length === 0 ||
-                  (selectedLocations.length === 1 &&
-                    selectedLocations[0] === "All Locations")
-                    ? "Select Locations"
-                    : selectedLocations.join(", ")}
-                </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`h-[1vw] w-[1vw] absolute right-[1vw] transition-transform duration-300 ${
-                    showLocationDropdown ? "rotate-180" : ""
-                  }`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </div>
-
-              <div
-                className={`absolute w-full bg-[#FFFFFF] mt-[0.5vw] rounded-xl shadow-xl transition-all duration-300 origin-top ${
-                  showLocationDropdown
-                    ? "opacity-100 scale-y-100 max-h-[10vw]"
-                    : "opacity-0 scale-y-0 max-h-0"
-                } overflow-y-auto bottom-full mb-[0.5vw]`}
-              >
-                {locations.map((loc) => (
-                  <label
-                    key={loc}
-                    className="flex items-center px-[1vw] py-[0.8vw] hover:bg-gray-100 cursor-pointer text-gray-800 transition-colors duration-200"
-                  >
-                    <input
-                      type="checkbox"
-                      value={loc}
-                      checked={selectedLocations.includes(loc)}
-                      onChange={handleLocationChange}
-                      className="mr-[0.8vw] h-[1vw] w-[1vw] text-[#577C8E] focus:ring-[#577C8E] border-gray-300 rounded-sm"
-                    />
-                    {loc}
-                  </label>
-                ))}
-              </div>
-            </div> */}
           </div>
         </div>
 
         {/* Job Listings */}
-        <div className="p-[2vw] bg-white rounded-t-[2vw]">
+        <div className="p-3 sm:p-4 md:p-6 lg:p-8 bg-white rounded-t-lg sm:rounded-t-xl md:rounded-t-2xl lg:rounded-t-3xl">
           {isLoading ? (
-            <div className="flex justify-center items-center py-[4vw]">
+            <div className="flex justify-center items-center py-8 md:py-12 lg:py-16">
               <div className="flex flex-col items-center">
-                <div className="animate-spin rounded-full h-[3vw] w-[3vw] border-[0.3vw] border-[#577C8E] border-t-transparent"></div>
-                <p className="mt-[1vw] text-[1vw] text-gray-500">
+                <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 border-2 md:border-3 lg:border-4 border-[#577C8E] border-t-transparent"></div>
+                <p className="mt-2 sm:mt-3 md:mt-4 text-xs sm:text-sm md:text-base text-gray-500">
                   Loading jobs...
                 </p>
               </div>
             </div>
           ) : error ? (
-            <div className="flex flex-col items-center justify-center py-[4vw] text-red-500">
+            <div className="flex flex-col items-center justify-center py-8 md:py-12 lg:py-16 text-red-500">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-[3vw] w-[3vw] mb-[1vw]"
+                className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 mb-2 sm:mb-3 md:mb-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -402,23 +282,23 @@ const JobListingSection: React.FC = () => {
                   d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                 />
               </svg>
-              <p className="text-[1.3vw]">{error}</p>
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl px-4 text-center">{error}</p>
               <button
                 onClick={() => fetchJobs(1, searchInput, selectedLocations)}
-                className="mt-[1vw] px-[1.5vw] py-[0.7vw] bg-[#577C8E] text-white rounded-[0.6vw] hover:bg-[#3A5566] transition-all text-[0.9vw]"
+                className="mt-2 sm:mt-3 md:mt-4 px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 bg-[#577C8E] text-white rounded-lg hover:bg-[#3A5566] transition-all text-xs sm:text-sm md:text-base"
               >
                 Try Again
               </button>
             </div>
           ) : jobs.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-[4vw] text-gray-500">
-              <div className="bg-gray-100 p-[1.5vw] rounded-full mb-[1.5vw]">
-                <Briefcase size="3vw" className="text-[#577C8E]" />
+            <div className="flex flex-col items-center justify-center py-8 md:py-12 lg:py-16 text-gray-500">
+              <div className="bg-gray-100 p-3 sm:p-4 md:p-6 rounded-full mb-3 sm:mb-4 md:mb-6">
+                <Briefcase className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 text-[#577C8E]" />
               </div>
-              <p className="text-[1.5vw] font-medium mb-[0.5vw]">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium mb-1 sm:mb-2 md:mb-3">
                 No jobs found
               </p>
-              <p className="text-[1vw] text-gray-400 mb-[1.5vw] text-center max-w-[30vw]">
+              <p className="text-xs sm:text-sm md:text-base text-gray-400 mb-3 sm:mb-4 md:mb-6 text-center max-w-[280px] md:max-w-[400px] lg:max-w-[500px] px-4">
                 We couldn&apos;t find any jobs matching your criteria. Try
                 adjusting your search or location filters.
               </p>
@@ -427,22 +307,22 @@ const JobListingSection: React.FC = () => {
                   setSearchInput("");
                   setSelectedLocations(["All Locations"]);
                 }}
-                className="px-[1.5vw] py-[0.7vw] bg-[#577C8E] text-white rounded-[0.6vw] hover:bg-[#3A5566] transition-all text-[0.9vw] flex items-center gap-[0.5vw]"
+                className="px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 bg-[#577C8E] text-white rounded-lg hover:bg-[#3A5566] transition-all text-xs sm:text-sm md:text-base flex items-center gap-1 sm:gap-2"
               >
-                <Filter size="0.9vw" />
+                <Filter className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5" />
                 Clear Filters
               </button>
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1.5vw]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
                 {jobs.map((job) => (
                   <JobCard key={job.id} {...job} sourceUrl={job.source_url} />
                 ))}
               </div>
 
               {/* Results count */}
-              <div className="text-center text-[0.9vw] text-gray-500 mt-[2vw] mb-[1vw]">
+              <div className="text-center text-xs md:text-sm text-gray-500 mt-4 sm:mt-6 md:mt-8 mb-2 sm:mb-3 md:mb-4">
                 Showing {jobs.length} of {pagination.total_items} jobs
               </div>
 
