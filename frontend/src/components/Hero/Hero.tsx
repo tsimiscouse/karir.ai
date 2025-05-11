@@ -38,7 +38,7 @@ const Hero = () => {
             const target = document.getElementById("opportunity-form");
             if (!target) return;
 
-            const yOffset = 2240;
+            const yOffset = 760;
             const targetPosition =
               target.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
