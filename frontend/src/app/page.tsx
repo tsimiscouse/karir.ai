@@ -28,7 +28,7 @@ export default function Home() {
     <div className={`font-righteous text-foreground bg-white min-h-screen`}>
       <Navbar />
       <div className="w-full flex-grow">
-        <div className="w-full flex items-center justify-center px-[15vw] pt-[10vh] min-h-screen bg-white">
+        <div className="w-full flex items-center justify-center px-[10vw] pt-[10vh] md:px-[15vw] md:pt-[10vh] min-h-screen bg-white">
           <Hero />
         </div>
         <div id="opportunity-form" className="w-full pt-[10vh] flex items-center justify-center min-h-screen bg-white">

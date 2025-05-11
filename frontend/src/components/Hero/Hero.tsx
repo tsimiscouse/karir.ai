@@ -11,25 +11,25 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between rounded-lg w-[100vw]">
+    <section className="flex flex-col-reverse md:flex-row items-center justify-between rounded-lg w-full px-[0vw] md:px-0">
       <div
-        className="md:w-2/3"
+        className="w-full md:w-2/3"
         data-aos="fade-right"
         data-aos-duration="2000"
         data-aos-anchor-placement="center-bottom"
       >
-        <h1 className="text-[2.8vw] font-bold mb-[0.5vw] text-black flex items-center gap-2">
+        <h1 className="text-[6.2vw] md:text-[2.8vw] font-bold mb-[2vw] md:mb-[0.5vw] text-black flex items-center gap-[1vw] md:gap-[0.5vw]">
           FIND YOUR <TypingWords /> JOB.
         </h1>
-        <p className="text-gray-700 text-[1.9vw] font-sans mb-[0.8vw]">
+        <p className="text-gray-700 text-[4vw] md:text-[1.8vw] font-sans mb-[2vw] md:mb-[0.8vw]">
           Leverage your career with AI-powered job matching and CV scoring.
         </p>
-        <p className="text-[#577C8E] text-[1.1vw] font-sans mb-[1.8vw]">
+        <p className="text-[#577C8E] text-[3vw] md:text-[1.1vw] font-sans mb-[4vw] md:mb-[1.8vw]">
           Your smartest AI partner for career growth.
         </p>
 
         <button
-          className="relative inline-flex items-center justify-center px-[3vw] py-[1vw] text-[1.2vw] text-white font-semibold rounded-full bg-gradient-to-r from-[#577C8E] to-[#3A5566] shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300 group overflow-hidden"
+          className="relative inline-flex items-center justify-center w-full mt-[3vh] md:mt-0 md:w-auto px-[6vw] md:px-[3vw] py-[3vw] md:py-[1vw] text-[3.5vw] md:text-[1.2vw] text-white font-semibold rounded-full bg-gradient-to-r from-[#577C8E] to-[#3A5566] shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300 group overflow-hidden"
           data-aos="zoom-in"
           data-aos-anchor-placement="top-bottom"
           data-aos-delay="600"
@@ -72,17 +72,18 @@ const Hero = () => {
       </div>
 
       <div
-        className="flex justify-center mt-[1vw] md:mt-0"
+        className="flex justify-center mb-[8vw] md:mb-[1vw] w-full md:w-auto"
         data-aos="fade-left"
         data-aos-duration="800"
       >
-        <div className="w-[30vw] bg-transparent rounded-lg flex items-center justify-center relative">
+        <div className="w-[80vw] md:w-[30vw] bg-transparent rounded-lg flex items-center justify-center relative">
           <Image
             src="/office-pict.jpg"
             alt="Hero Image"
             width={800}
             height={800}
-            className="ml-[0.5vw]"
+            className="w-full h-auto ml-0 md:ml-[0.5vw] rounded-lg"
+            priority
           />
         </div>
       </div>
