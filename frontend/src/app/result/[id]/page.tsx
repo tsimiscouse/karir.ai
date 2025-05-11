@@ -161,7 +161,7 @@ export default function UserReports() {
     const fetchReport = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:3001/api/reports/${id}`);
+        const response = await fetch(`https://backend-services-express.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/reports/${id}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch report');

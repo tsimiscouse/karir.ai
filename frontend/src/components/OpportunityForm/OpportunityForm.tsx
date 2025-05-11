@@ -138,7 +138,7 @@ const OpportunityForm: React.FC = () => {
   const checkEmailStatus = async (userIdToCheck: string): Promise<boolean> => {
     try {
       const response = await axios.get<{ emailStatus: boolean }>(
-        `http://localhost:3001/api/check-email-status/${userIdToCheck}`
+        `https://backend-services-express.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/check-email-status/${userIdToCheck}`
       );
       return response.data.emailStatus;
     } catch (error) {
@@ -153,7 +153,7 @@ const OpportunityForm: React.FC = () => {
     setIsResendingVerification(true);
     try {
       await axios.post(
-        `http://localhost:3001/api/resend-verification/${userId}`
+        `https://backend-services-express.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/resend-verification/${userId}`
       );
       setSubmitStatus((prev) =>
         prev
@@ -281,7 +281,7 @@ const OpportunityForm: React.FC = () => {
     if (userId) {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/reports/${userId}/pdf`
+          `https://backend-services-express.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/reports/${userId}/pdf`
         );
         if (response.ok) {
           // Create a blob from the PDF Stream
@@ -334,7 +334,7 @@ const OpportunityForm: React.FC = () => {
 
       // Submit to create user input API
       const response = await axios.post<ApiResponse>(
-        "http://localhost:3001/api/users-input",
+        "https://backend-services-express.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/users-input",
         apiFormData,
         {
           headers: {
