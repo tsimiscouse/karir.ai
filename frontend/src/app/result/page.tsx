@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
+import ErrorModal from "@/components/Modal/ErrorModal";
 
 interface SubmitStatus {
   success: boolean;
@@ -22,6 +23,8 @@ export default function ResultPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isResendingVerification, setIsResendingVerification] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -68,18 +71,17 @@ export default function ResultPage() {
         // Redirect to result/[id] page
         router.push(`/result/${data.id}`);
       } else {
-        setSubmitStatus({
-          success: false,
-          message: data.message || "Something went wrong. Please try again.",
-        });
+        setErrorMessage(data.message || "User not found. Please check your email or try submitting your resume first.");
+        setShowErrorModal(true);
+        setSubmitStatus(null);
       }
     } catch {
-      setSubmitStatus({
-        success: false,
-        message: "Error connecting to server. Please try again later.",
-      });
+      setErrorMessage("Error connecting to server. Please try again later.");
+      setShowErrorModal(true);
+      setSubmitStatus(null);
     } finally {
       setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
@@ -105,6 +107,11 @@ export default function ResultPage() {
     } finally {
       setIsResendingVerification(false);
     }
+  };
+
+  const handleCloseErrorModal = () => {
+    setShowErrorModal(false);
+    setErrorMessage("");
   };
 
   return (
@@ -322,6 +329,12 @@ export default function ResultPage() {
           </div>
         </section>
       </main>
+
+      <ErrorModal
+        isOpen={showErrorModal}
+        onClose={handleCloseErrorModal}
+        message={errorMessage}
+      />
 
       <Footer />
     </div>
