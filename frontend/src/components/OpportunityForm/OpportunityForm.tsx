@@ -799,7 +799,7 @@ const OpportunityForm: React.FC = () => {
             <div
               className="mt-8"
               data-aos="fade-up"
-              data-aos-delay="500"
+              data-aos-delay="20"
               data-aos-duration="1000"
             >
               <button

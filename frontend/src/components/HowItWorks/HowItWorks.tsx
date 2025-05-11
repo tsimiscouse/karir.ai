@@ -17,33 +17,33 @@ const HowItWorks: React.FC = () => {
   const steps: Step[] = [
     {
       number: 1,
-      title: "LOREM IPSUM DOLOR SIT",
+      title: "UPLOAD RESUME",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et tincidunt orci. Suspendisse semper ipsum eu mi viverra, vitae imperdiet velit maximus.",
+        "Langkah pertama adalah mengisi formulir data diri secara lengkap dan mengunggah resume terbaru Anda ke sistem karir.ai sebagai dasar analisis yang akurat dan personal.",
     },
     {
       number: 2,
-      title: "LOREM IPSUM DOLOR SIT",
+      title: "RESUME AI ANALYSIS",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et tincidunt orci. Suspendisse semper ipsum eu mi viverra, vitae imperdiet velit maximus.",
+        "Resume Anda akan diproses secara otomatis oleh teknologi AI kami untuk menganalisis latar belakang pendidikan, pengalaman kerja, serta keahlian yang Anda miliki secara menyeluruh.",
     },
     {
       number: 3,
-      title: "LOREM IPSUM DOLOR SIT",
+      title: "JOB MATCHING",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et tincidunt orci. Suspendisse semper ipsum eu mi viverra, vitae imperdiet velit maximus.",
+        "Berdasarkan hasil analisis resume, Anda akan mendapatkan rekomendasi pekerjaan yang sesuai dengan profil Anda dari berbagai lowongan yang tersedia setiap harinya di platform kami.",
     },
     {
       number: 4,
-      title: "LOREM IPSUM DOLOR SIT",
+      title: "RESUME SCORE",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et tincidunt orci. Suspendisse semper ipsum eu mi viverra, vitae imperdiet velit maximus.",
+        "Setelah dianalisis, sistem akan memberikan skor objektif terhadap resume Anda, lengkap dengan saran perbaikan agar resume Anda semakin menonjol di mata perekrut profesional.",
     },
     {
       number: 5,
-      title: "LOREM IPSUM DOLOR SIT",
+      title: "YOUR NEXT STEP",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et tincidunt orci. Suspendisse semper ipsum eu mi viverra, vitae imperdiet velit maximus.",
+        "Gunakan hasil rekomendasi pekerjaan dan feedback resume untuk segera mengambil langkah berikutnya dalam perjalanan karier Anda melalui fitur Job Listing yang kami sediakan.",
     },
   ];
 
@@ -71,7 +71,9 @@ const HowItWorks: React.FC = () => {
               </span>
               {step.title}
             </h3>
-            <p className="text-gray-600 font-sans text-[0.9vw]">{step.description}</p>
+            <p className="text-gray-600 font-sans text-[0.9vw]">
+              {step.description}
+            </p>
           </div>
         ))}
       </div>
