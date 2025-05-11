@@ -1,6 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import userInputRoutes from './routes/userInputRoutes';
 import userReportRoutes from './routes/userReportRoutes';
+import jobsRoutes from './routes/jobsRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -30,6 +31,7 @@ app.get('/', (req: Request, res: Response) => {
 // Routes
 app.use('/api', userInputRoutes);
 app.use('/api/reports', userReportRoutes);
+app.use('/api/', jobsRoutes);
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
