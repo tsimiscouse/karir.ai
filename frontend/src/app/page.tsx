@@ -26,18 +26,18 @@ export default function Home() {
 
   return (
     <div className={`font-righteous text-foreground bg-white min-h-screen`}>
-      <Navbar />
-      <div className="w-full flex-grow">
+      <div className="w-full flex-col items-center justify-center">
+        <Navbar />
         <div className="w-full flex items-center justify-center px-[10vw] pt-[10vh] md:px-[15vw] md:pt-[10vh] min-h-screen bg-white">
           <Hero />
         </div>
-        <div id="opportunity-form" className="w-full pt-[10vh] flex items-center justify-center min-h-screen bg-white">
+        <div id="opportunity-form" className="w-full pt-0 md:pt-[10vh] flex items-center justify-center min-h-screen bg-white">
           <HowItWorks />
         </div>
         {/* <div className="w-full flex items-center justify-center px-[15vw] pt-[10vh] min-h-screen bg-white">
           <JobListingSection />
         </div> */}
-        <div className="w-full flex items-center justify-center py-[20vh] min-h-screen bg-white">
+        <div className="w-full flex items-center justify-center pt-0 md:pt-[20vh] pb-0 md:pb-[20vh] min-h-screen bg-white">
           <OpportunityForm />
         </div>
       </div>

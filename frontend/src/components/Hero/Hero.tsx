@@ -1,14 +1,55 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Image from "next/image";
 import TypingWords from "./TypingWords";
 
 const Hero = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     AOS.init({ once: false });
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
+
+  const scrollToForm = () => {
+    const target = document.getElementById("opportunity-form");
+    if (!target) return;
+
+    const yOffset = isMobile ? -1150 : -760;
+    
+    const targetPosition =
+      target.getBoundingClientRect().top + window.pageYOffset - yOffset;
+    
+    const start = window.pageYOffset;
+    const distance = targetPosition - start;
+    const duration = isMobile ? 1200 : 1200;
+    
+    let startTime: number | null = null;
+    
+    const easeInOutQuad = (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    
+    const animateScroll = (timestamp: number | null) => {
+      if (!startTime) startTime = timestamp;
+      const timeElapsed = (timestamp as number) - (startTime ?? 0);
+      const progress = Math.min(timeElapsed / duration, 1);
+      const ease = easeInOutQuad(progress);
+      window.scrollTo(0, start + distance * ease);
+      
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+    
+    requestAnimationFrame(animateScroll);
+  };
 
   return (
     <section className="flex flex-col-reverse md:flex-row items-center justify-between rounded-lg w-full px-[0vw] md:px-0">
@@ -27,50 +68,18 @@ const Hero = () => {
         <p className="text-[#577C8E] text-[3vw] md:text-[1.1vw] font-sans mb-[4vw] md:mb-[1.8vw]">
           Your smartest AI partner for career growth.
         </p>
-
         <button
           className="relative inline-flex items-center justify-center w-full mt-[3vh] md:mt-0 md:w-auto px-[6vw] md:px-[3vw] py-[3vw] md:py-[1vw] text-[3.5vw] md:text-[1.2vw] text-white font-semibold rounded-full bg-gradient-to-r from-[#577C8E] to-[#3A5566] shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300 group overflow-hidden"
           data-aos="zoom-in"
           data-aos-anchor-placement="top-bottom"
           data-aos-delay="600"
           data-aos-duration="1200"
-          onClick={() => {
-            const target = document.getElementById("opportunity-form");
-            if (!target) return;
-
-            const yOffset = 760;
-            const targetPosition =
-              target.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
-            const start = window.pageYOffset;
-            const distance = targetPosition - start;
-            const duration = 2500;
-            let startTime: number | null = null;
-
-            const easeInOutQuad = (t: number) =>
-              t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-
-            const animateScroll = (timestamp: number) => {
-              if (!startTime) startTime = timestamp;
-              const timeElapsed = timestamp - startTime;
-              const progress = Math.min(timeElapsed / duration, 1);
-              const ease = easeInOutQuad(progress);
-
-              window.scrollTo(0, start + distance * ease);
-
-              if (timeElapsed < duration) {
-                requestAnimationFrame(animateScroll);
-              }
-            };
-
-            requestAnimationFrame(animateScroll);
-          }}
+          onClick={scrollToForm}
         >
           <span className="absolute inset-0 rounded-full animate-pulse bg-[#6fa0b2] opacity-10"></span>
           <span className="relative z-10">🚀 Coba Sekarang</span>
         </button>
       </div>
-
       <div
         className="flex justify-center mb-[8vw] md:mb-[1vw] w-full md:w-auto"
         data-aos="fade-left"

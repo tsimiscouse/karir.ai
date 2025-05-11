@@ -399,33 +399,16 @@ const OpportunityForm: React.FC = () => {
     "Surabaya",
   ];
 
-  // useEffect(() => {
-  //   if (submitStatus && !submitStatus.success && userId && !processingStarted) {
-  //     // Delete user input if verification failed
-  //     const deleteUserInput = async () => {
-  //       if (!userId) return;
-
-  //       try {
-  //         await fetch(`http://localhost:3001/api/users-input/${userId}`, {
-  //           method: "DELETE",
-  //         });
-  //       } catch (error) {
-  //         console.error("Error deleting user input:", error);
-  //       }
-  //     };
-
-  //     deleteUserInput();
-  //   }
-  // }, [submitStatus, userId]);
-
   if (isLoading) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-sm font-sans">
-        <div className="flex items-center justify-center space-x-4">
-          <div className="w-4 h-4 bg-black rounded-full animate-bounce [animation-delay:-0.3s]" />
-          <div className="w-4 h-4 bg-black rounded-full animate-bounce [animation-delay:-0.15s]" />
-          <div className="w-4 h-4 bg-black rounded-full animate-bounce" />
-          <span className="ml-[10vw] text-sm text-gray-800 font-bold">
+        <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 px-4">
+          <div className="flex space-x-2">
+            <div className="w-3 h-3 sm:w-4 sm:h-4 bg-black rounded-full animate-bounce [animation-delay:-0.3s]" />
+            <div className="w-3 h-3 sm:w-4 sm:h-4 bg-black rounded-full animate-bounce [animation-delay:-0.15s]" />
+            <div className="w-3 h-3 sm:w-4 sm:h-4 bg-black rounded-full animate-bounce" />
+          </div>
+          <span className="text-xs sm:text-sm md:text-base text-gray-800 font-bold text-center">
             Generating. This might take a while . . .
           </span>
         </div>
@@ -436,17 +419,17 @@ const OpportunityForm: React.FC = () => {
   return (
     <>
       <section
-        className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] text-white p-8 md:p-10 rounded-2xl shadow-xl w-full max-w-[68vw] mx-auto"
+        className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] text-white px-[5vw] p-[8vh] sm:p-6 md:p-8 lg:p-10 rounded-[0] sm:rounded-2xl shadow-xl w-full max-w-[100vw] sm:max-w-[90vw] md:max-w-[80vw] lg:max-w-[68vw] mx-auto"
         data-aos="fade-up"
         data-aos-duration="1000"
       >
-        <h2 className="text-3xl font-bold text-center mb-8">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-6 md:mb-8">
           JOB MATCHING | CV SCORING
         </h2>
 
         {submitStatus && !showEmailVerificationModal && !showResultsModal && (
           <div
-            className={`mb-6 p-4 rounded-xl ${
+            className={`mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg sm:rounded-xl ${
               submitStatus.success
                 ? "bg-green-600 bg-opacity-30"
                 : "bg-red-600 bg-opacity-30"
@@ -457,11 +440,11 @@ const OpportunityForm: React.FC = () => {
               <div
                 className={`rounded-full p-1 ${
                   submitStatus.success ? "bg-green-500" : "bg-red-500"
-                } mr-3 mt-1`}
+                } mr-2 sm:mr-3 mt-1`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-white"
+                  className="h-4 w-4 sm:h-5 sm:w-5 text-white"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -480,23 +463,25 @@ const OpportunityForm: React.FC = () => {
                   )}
                 </svg>
               </div>
-              <div>
-                <p className="font-medium">{submitStatus.message}</p>
+              <div className="flex-1">
+                <p className="font-medium text-sm sm:text-base">
+                  {submitStatus.message}
+                </p>
 
                 {submitStatus.success &&
                   !submitStatus.emailVerified &&
                   userId && (
-                    <div className="mt-3">
+                    <div className="mt-2 sm:mt-3">
                       <button
                         type="button"
                         onClick={handleResendVerification}
                         disabled={isResendingVerification}
-                        className="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center"
+                        className="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1.5 sm:px-4 sm:py-2 rounded-md sm:rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 flex items-center"
                       >
                         {isResendingVerification ? (
                           <>
                             <svg
-                              className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                              className="animate-spin -ml-1 mr-2 h-3 w-3 sm:h-4 sm:w-4 text-white"
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
                               viewBox="0 0 24 24"
@@ -521,7 +506,7 @@ const OpportunityForm: React.FC = () => {
                           <>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4 mr-2"
+                              className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2"
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
@@ -546,11 +531,11 @@ const OpportunityForm: React.FC = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8"
         >
           {/* Left Column */}
           <div
-            className="space-y-5"
+            className="space-y-4 sm:space-y-4 md:space-y-5"
             data-aos="fade-right"
             data-aos-delay="200"
             data-aos-duration="800"
@@ -560,15 +545,15 @@ const OpportunityForm: React.FC = () => {
                 type="email"
                 name="email"
                 placeholder="Email Address"
-                className="w-full p-4 pl-12 rounded-xl border-2 border-[#FFFFFF30] bg-[#FFFFFF15] backdrop-blur-sm focus:outline-none focus:border-white text-white placeholder-gray-300 font-sans transition-all duration-300 focus:shadow-lg"
+                className="w-full p-3 sm:p-4 pl-10 sm:pl-12 rounded-lg sm:rounded-xl border-2 border-[#FFFFFF30] bg-[#FFFFFF15] backdrop-blur-sm focus:outline-none focus:border-white text-white placeholder-gray-300 font-sans transition-all duration-300 focus:shadow-lg text-sm sm:text-base"
                 value={formData.email}
                 onChange={handleInputChange}
                 required
               />
-              <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-300">
+              <div className="absolute inset-y-0 left-3 sm:left-4 flex items-center pointer-events-none text-gray-300">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-2"
+                  className="h-4 w-4 sm:h-5 sm:w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -588,15 +573,15 @@ const OpportunityForm: React.FC = () => {
                 type="text"
                 name="name"
                 placeholder="Full Name"
-                className="w-full p-4 pl-12 rounded-xl border-2 border-[#FFFFFF30] bg-[#FFFFFF15] backdrop-blur-sm focus:outline-none focus:border-white text-white placeholder-gray-300 font-sans transition-all duration-300 focus:shadow-lg"
+                className="w-full p-3 sm:p-4 pl-10 sm:pl-12 rounded-lg sm:rounded-xl border-2 border-[#FFFFFF30] bg-[#FFFFFF15] backdrop-blur-sm focus:outline-none focus:border-white text-white placeholder-gray-300 font-sans transition-all duration-300 focus:shadow-lg text-sm sm:text-base"
                 value={formData.name}
                 onChange={handleInputChange}
                 required
               />
-              <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-300">
+              <div className="absolute inset-y-0 left-3 sm:left-4 flex items-center pointer-events-none text-gray-300">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-2"
+                  className="h-4 w-4 sm:h-5 sm:w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -613,17 +598,17 @@ const OpportunityForm: React.FC = () => {
 
             <div className="relative font-sans" ref={dropdownRef}>
               <div
-                className={`w-full p-4 pl-12 border-2 ${
+                className={`w-full p-3 sm:p-4 pl-10 sm:pl-12 border-2 ${
                   showLocationDropdown
                     ? "border-white shadow-lg"
                     : "border-[#FFFFFF30]"
-                } bg-[#FFFFFF15] backdrop-blur-sm rounded-xl text-white font-sans cursor-pointer flex justify-between items-center transition-all duration-300`}
+                } bg-[#FFFFFF15] backdrop-blur-sm rounded-lg sm:rounded-xl text-white font-sans cursor-pointer flex justify-between items-center transition-all duration-300`}
                 onClick={() => setShowLocationDropdown(!showLocationDropdown)}
               >
-                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-300">
+                <div className="absolute inset-y-0 left-3 sm:left-4 flex items-center pointer-events-none text-gray-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2"
+                    className="h-4 w-4 sm:h-5 sm:w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -643,9 +628,9 @@ const OpportunityForm: React.FC = () => {
                   </svg>
                 </div>
                 <span
-                  className={
+                  className={`text-sm sm:text-base truncate ${
                     formData.location.length === 0 ? "text-gray-300" : ""
-                  }
+                  }`}
                 >
                   {formData.location.length > 0
                     ? formData.location.join(", ")
@@ -653,7 +638,7 @@ const OpportunityForm: React.FC = () => {
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-5 w-5 transition-transform duration-300 ${
+                  className={`h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 transition-transform duration-300 ${
                     showLocationDropdown ? "rotate-180" : ""
                   }`}
                   fill="none"
@@ -670,23 +655,23 @@ const OpportunityForm: React.FC = () => {
               </div>
 
               <div
-                className={`absolute z-10 w-full bg-[#FFFFFF] mt-2 rounded-xl shadow-xl overflow-hidden transition-all duration-300 origin-top ${
+                className={`absolute z-10 w-full bg-[#FFFFFF] mt-1 sm:mt-2 rounded-lg sm:rounded-xl shadow-xl overflow-hidden transition-all duration-300 origin-top ${
                   showLocationDropdown
-                    ? "opacity-100 scale-y-100 max-h-48"
+                    ? "opacity-100 scale-y-100 max-h-40 sm:max-h-48"
                     : "opacity-0 scale-y-0 max-h-0"
                 } overflow-y-auto`}
               >
                 {availableLocations.map((loc) => (
                   <label
                     key={loc}
-                    className="flex items-center px-4 py-3 hover:bg-gray-100 cursor-pointer text-gray-800 transition-colors duration-200"
+                    className="flex items-center px-3 sm:px-4 py-2 sm:py-3 hover:bg-gray-100 cursor-pointer text-gray-800 transition-colors duration-200 text-sm sm:text-base"
                   >
                     <input
                       type="checkbox"
                       value={loc}
                       checked={formData.location.includes(loc)}
                       onChange={handleLocationChange}
-                      className="mr-3 h-4 w-4 text-[#577C8E] focus:ring-[#577C8E] border-gray-300 rounded-sm"
+                      className="mr-2 sm:mr-3 h-3 w-3 sm:h-4 sm:w-4 text-[#577C8E] focus:ring-[#577C8E] border-gray-300 rounded-sm"
                     />
                     {loc}
                   </label>
@@ -695,16 +680,16 @@ const OpportunityForm: React.FC = () => {
             </div>
 
             {/* Job Types */}
-            <div className="bg-[#FFFFFF15] backdrop-blur-sm p-5 rounded-xl border-2 border-[#FFFFFF30] text-white font-sans">
-              <label className="block font-medium mb-3 text-white">
+            <div className="bg-[#FFFFFF15] backdrop-blur-sm p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl border-2 border-[#FFFFFF30] text-white font-sans">
+              <label className="block font-medium mb-3 sm:mb-3 text-white text-sm sm:text-base">
                 Preferred Job Type (Optional)
               </label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 {["Full-time", "Part-time", "Internship", "Freelance"].map(
                   (type) => (
                     <label
                       key={type}
-                      className={`flex items-center space-x-2 p-3 rounded-lg cursor-pointer transition-all duration-200 ${
+                      className={`flex items-center space-x-1 sm:space-x-2 p-2 sm:p-3 rounded-md sm:rounded-lg cursor-pointer transition-all duration-200 text-xs sm:text-sm ${
                         formData.jobTypes.includes(type)
                           ? "bg-[#FFFFFF30] border-2 border-white"
                           : "bg-[#FFFFFF15] border-2 border-[#FFFFFF20] hover:bg-[#FFFFFF25]"
@@ -715,7 +700,7 @@ const OpportunityForm: React.FC = () => {
                         value={type}
                         checked={formData.jobTypes.includes(type)}
                         onChange={handleCheckboxChange}
-                        className="h-4 w-4 text-[#2D3F4B] focus:ring-[#2D3F4B] border-gray-300 rounded-sm"
+                        className="h-3 w-3 sm:h-4 sm:w-4 text-[#2D3F4B] focus:ring-[#2D3F4B] border-gray-300 rounded-sm"
                       />
                       <span>{type}</span>
                     </label>
@@ -727,22 +712,22 @@ const OpportunityForm: React.FC = () => {
 
           {/* Right Column */}
           <div
-            className="flex flex-col justify-between"
+            className="flex flex-col justify-between mt-2 md:mt-0"
             data-aos="fade-left"
             data-aos-delay="300"
             data-aos-duration="800"
           >
             <label
-              className={`w-full h-64 bg-[#FFFFFF15] backdrop-blur-sm rounded-xl border-2 border-dashed ${
+              className={`w-full h-48 sm:h-56 md:h-64 bg-[#FFFFFF15] backdrop-blur-sm rounded-lg sm:rounded-xl border-2 border-dashed ${
                 resumeName ? "border-white" : "border-[#FFFFFF30]"
-              } flex flex-col items-center justify-center cursor-pointer p-4 transition-all duration-300 hover:bg-[#FFFFFF20] group`}
+              } flex flex-col items-center justify-center cursor-pointer p-3 sm:p-4 transition-all duration-300 hover:bg-[#FFFFFF20] group`}
             >
               {resumeName ? (
                 <>
-                  <div className="h-14 w-14 bg-white rounded-full flex items-center justify-center mb-3 text-[#577C8E] group-hover:scale-110 transition-transform duration-300">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 bg-white rounded-full flex items-center justify-center mb-2 sm:mb-3 text-[#577C8E] group-hover:scale-110 transition-transform duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-8 w-8"
+                      className="h-7 w-7 sm:h-8 sm:w-8"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -755,17 +740,17 @@ const OpportunityForm: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-white font-medium">{resumeName}</span>
-                  <span className="text-gray-300 text-sm mt-1">
+                  <span className="text-white font-medium text-center break-words max-w-full">{resumeName}</span>
+                  <span className="text-gray-300 text-xs sm:text-sm mt-1 text-center">
                     Click to change file
                   </span>
                 </>
               ) : (
                 <>
-                  <div className="h-14 w-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-8 w-8 text-white"
+                      className="h-7 w-7 sm:h-8 sm:w-8 text-white"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -778,10 +763,10 @@ const OpportunityForm: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-white font-medium text-lg">
+                  <span className="text-white font-medium text-base sm:text-lg text-center">
                     Upload Your Resume
                   </span>
-                  <span className="text-gray-300 text-sm mt-1">
+                  <span className="text-gray-300 text-xs sm:text-sm mt-1 text-center">
                     (PDF Only, Max Size 5MB)
                   </span>
                 </>
@@ -789,6 +774,7 @@ const OpportunityForm: React.FC = () => {
               <input
                 type="file"
                 className="hidden"
+                id="resume-upload"
                 name="resume"
                 accept=".pdf"
                 onChange={handleFileChange}
@@ -797,20 +783,17 @@ const OpportunityForm: React.FC = () => {
             </label>
 
             <div
-              className="mt-8"
-              data-aos="fade-up"
-              data-aos-delay="20"
-              data-aos-duration="1000"
+              className="mt-8 sm:mt-8"
             >
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-[#2D3F4B] text-white px-6 py-4 rounded-xl hover:bg-[#1a2b37] transition-all duration-300 w-full font-medium text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-70 disabled:hover:bg-[#2D3F4B] disabled:hover:translate-y-0"
+                className="bg-[#2D3F4B] text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl hover:bg-[#1a2b37] transition-all duration-300 w-full font-medium text-base sm:text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-70 disabled:hover:bg-[#2D3F4B] disabled:hover:translate-y-0"
               >
                 {isSubmitting ? (
                   <>
                     <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -836,7 +819,7 @@ const OpportunityForm: React.FC = () => {
                     <span>CV Scoring & Job Matching</span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
+                      className="h-4 w-4 sm:h-5 sm:w-5"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

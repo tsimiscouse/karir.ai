@@ -19,10 +19,10 @@ const AboutPage = () => {
     <div className="flex flex-col min-h-screen font-sans">
       <Navbar />
 
-      <main className="bg-white flex-grow py-[25vh] px-[13vw]">
-        <div className="max-w-[80vw] mx-auto">
+      <main className="bg-white flex-grow pb-[10vh] py-[20vh] md:py-[20vh] lg:py-[20vh] px-4 md:px-8 lg:px-16">
+        <div className="max-w-[95vw] md:max-w-[85vw] lg:max-w-[80vw] mx-auto">
           <h1
-            className="text-[3vw] font-righteous font-bold text-center mb-[4vw] text-[#3A5566]"
+            className="text-2xl md:text-3xl lg:text-4xl font-righteous font-bold text-center mb-8 md:mb-12 text-[#3A5566]"
             data-aos="fade-down"
             data-aos-duration="800"
           >
@@ -33,15 +33,15 @@ const AboutPage = () => {
           </h1>
 
           <section
-            className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] text-white p-[4vw] rounded-2xl shadow-xl mb-[6vw]"
+            className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] text-white p-6 md:p-8 lg:p-10 rounded-xl md:rounded-2xl shadow-xl mb-8 md:mb-12"
             data-aos="fade-up"
             data-aos-duration="1000"
           >
-            <div className="flex items-center mb-[2vw]">
-              <div className="rounded-full bg-white p-[1vw] mr-[1.5vw]">
+            <div className="flex items-center mb-4 md:mb-6">
+              <div className="rounded-full bg-white p-2 md:p-3 mr-3 md:mr-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-[2vw] w-[2vw] text-[#3A5566]"
+                  className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-[#3A5566]"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -60,18 +60,18 @@ const AboutPage = () => {
                   />
                 </svg>
               </div>
-              <h2 className="text-[2vw] font-bold">Introducing karir.ai</h2>
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">Introducing karir.ai</h2>
             </div>
 
-            <div className="pl-[4.5vw]">
-              <p className="mb-[1.5vw] text-[1.2vw]">
+            <div className="pl-4 md:pl-8 lg:pl-12">
+              <p className="mb-4 md:mb-6 text-sm md:text-base lg:text-lg">
                 <strong>karir.ai</strong> adalah platform berbasis web yang
                 memanfaatkan kecerdasan buatan (AI) untuk membantu individu —
                 khususnya fresh graduate dan profesional muda — memahami potensi
                 mereka dan menemukan jalur karir yang tepat berdasarkan
                 pengalaman dan keahlian yang tertuang dalam resume mereka.
               </p>
-              <p className="mb-[1.5vw] text-[1.2vw]">
+              <p className="mb-4 md:mb-6 text-sm md:text-base lg:text-lg">
                 Latar belakang dari pengembangan platform ini berasal dari
                 masalah <strong>job mismatch</strong> di Indonesia, di mana
                 individu bekerja di bidang yang tidak sesuai dengan keahlian,
@@ -79,7 +79,7 @@ const AboutPage = () => {
                 pada produktivitas nasional, kebahagiaan individu, dan
                 pertumbuhan ekonomi.
               </p>
-              <p className="text-[1.2vw]">
+              <p className="text-sm md:text-base lg:text-lg">
                 Berdasarkan survei Populix dan data BPS, sebanyak{" "}
                 <strong>30% pencari kerja</strong> di Indonesia menyatakan bahwa
                 latar belakang pendidikan mereka tidak sesuai dengan pekerjaan
@@ -91,16 +91,16 @@ const AboutPage = () => {
           </section>
 
           <section
-            className="bg-white border-2 border-[#3A5566] text-[#3A5566] p-[4vw] rounded-2xl shadow-lg mb-[6vw]"
+            className="bg-white border-2 border-[#3A5566] text-[#3A5566] p-6 md:p-8 lg:p-10 rounded-xl md:rounded-2xl shadow-lg mb-8 md:mb-12"
             data-aos="fade-up"
             data-aos-delay="200"
             data-aos-duration="1000"
           >
-            <div className="flex items-center mb-[2vw]">
-              <div className="rounded-full bg-[#3A5566] p-[1vw] mr-[1.5vw]">
+            <div className="flex items-center mb-4 md:mb-6">
+              <div className="rounded-full bg-[#3A5566] p-2 md:p-3 mr-3 md:mr-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-[2vw] w-[2vw] text-white"
+                  className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -113,23 +113,23 @@ const AboutPage = () => {
                   />
                 </svg>
               </div>
-              <h2 className="text-[2vw] font-bold">
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">
                 Permasalahan yang Ingin Diselesaikan
               </h2>
             </div>
 
-            <div className="pl-[4.5vw]">
-              <ul className="space-y-[1vw]">
+            <div className="pl-4 md:pl-8 lg:pl-12">
+              <ul className="space-y-3 md:space-y-4">
                 {[
                   "Membantu individu memahami keterampilan utama yang dimiliki berdasarkan isi resume mereka.",
                   "Mencocokkan pengalaman dan keterampilan dengan lowongan kerja secara cerdas dan otomatis.",
                   "Memberikan rekomendasi jalur karir yang sesuai dengan profil pengguna melalui AI.",
                   "Meningkatkan pemahaman individu terhadap potensi dan arah karirnya.",
                 ].map((item, index) => (
-                  <li key={index} className="flex items-start text-[1.2vw]">
+                  <li key={index} className="flex items-start text-sm md:text-base lg:text-lg">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-[1.5vw] w-[1.5vw] text-[#577C8E] mr-[1vw] mt-[0.2vw] flex-shrink-0"
+                      className="h-5 w-5 md:h-6 md:w-6 text-[#577C8E] mr-2 md:mr-3 mt-0.5 flex-shrink-0"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -149,16 +149,16 @@ const AboutPage = () => {
           </section>
 
           <section
-            className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] text-white p-[4vw] rounded-2xl shadow-xl mb-[6vw]"
+            className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] text-white p-6 md:p-8 lg:p-10 rounded-xl md:rounded-2xl shadow-xl mb-8 md:mb-12"
             data-aos="fade-up"
             data-aos-delay="400"
             data-aos-duration="1000"
           >
-            <div className="flex items-center mb-[2vw]">
-              <div className="rounded-full bg-white p-[1vw] mr-[1.5vw]">
+            <div className="flex items-center mb-4 md:mb-6">
+              <div className="rounded-full bg-white p-2 md:p-3 mr-3 md:mr-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-[2vw] w-[2vw] text-[#3A5566]"
+                  className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-[#3A5566]"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -171,25 +171,25 @@ const AboutPage = () => {
                   />
                 </svg>
               </div>
-              <h2 className="text-[2vw] font-bold">Solusi yang Diberikan</h2>
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">Solusi yang Diberikan</h2>
             </div>
 
-            <div className="pl-[4.5vw]">
-              <p className="mb-[1.5vw] text-[1.2vw]">
+            <div className="pl-4 md:pl-8 lg:pl-12">
+              <p className="mb-4 md:mb-6 text-sm md:text-base lg:text-lg">
                 karir.ai menyediakan fitur-fitur utama seperti:
               </p>
-              <ul className="space-y-[1vw]">
+              <ul className="space-y-3 md:space-y-4">
                 {[
                   "🔍 Analisis resume menggunakan Natural Language Processing (NLP)",
                   "📊 Penilaian kualitas resume berdasarkan diksi, struktur, dan kekuatan bahasa",
                   "🎯 Rekomendasi pekerjaan dan jalur karir yang paling relevan dengan pengguna",
                   "💼 Pencocokan otomatis dengan lowongan kerja berbasis AI",
                 ].map((item, index) => (
-                  <li key={index} className="flex items-start text-[1.2vw]">
-                    <div className="bg-white bg-opacity-20 rounded-full p-2 mr-[1vw] flex-shrink-0">
+                  <li key={index} className="flex items-start text-sm md:text-base lg:text-lg">
+                    <div className="bg-white bg-opacity-20 rounded-full p-1.5 md:p-2 mr-2 md:mr-3 flex-shrink-0">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-[1vw] w-[1vw] text-white"
+                        className="h-4 w-4 md:h-5 md:w-5 text-white"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -208,16 +208,16 @@ const AboutPage = () => {
           </section>
 
           <section
-            className="bg-white border-2 border-[#3A5566] text-[#3A5566] p-[4vw] rounded-2xl shadow-lg mb-[6vw]"
+            className="bg-white border-2 border-[#3A5566] text-[#3A5566] p-6 md:p-8 lg:p-10 rounded-xl md:rounded-2xl shadow-lg mb-8 md:mb-12"
             data-aos="fade-up"
             data-aos-delay="600"
             data-aos-duration="1000"
           >
-            <div className="flex items-center mb-[2vw]">
-              <div className="rounded-full bg-[#3A5566] p-[1vw] mr-[1.5vw]">
+            <div className="flex items-center mb-4 md:mb-6">
+              <div className="rounded-full bg-[#3A5566] p-2 md:p-3 mr-3 md:mr-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-[2vw] w-[2vw] text-white"
+                  className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -230,16 +230,15 @@ const AboutPage = () => {
                   />
                 </svg>
               </div>
-              <h2 className="text-[2vw] font-bold">Meet Our Developers</h2>
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">Meet Our Developers</h2>
             </div>
 
-            <div className="pl-[4.5vw]">
-              <p className="mb-[1.5vw] text-[1.2vw] font-medium">
-                ✨ Behind every great innovation, there&apos;s a passionate
-                team! ✨
+            <div className="pl-4 md:pl-8 lg:pl-12">
+              <p className="mb-4 md:mb-6 text-sm md:text-base lg:text-lg font-medium">
+                ✨ Behind every great innovation, there&apos;s a passionate team! ✨
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-[2vw] mb-[2vw]">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
                 {[
                   {
                     name: "Septian Eka Rahmadi",
@@ -265,11 +264,11 @@ const AboutPage = () => {
                     className="block"
                   >
                     <div
-                      className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] p-[1.5vw] rounded-xl text-white text-center hover:shadow-2xl transition-all duration-300"
+                      className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] p-4 md:p-6 rounded-xl text-white text-center hover:shadow-2xl transition-all duration-300"
                       data-aos="zoom-in"
                       data-aos-delay={800 + index * 200}
                     >
-                      <div className="bg-white rounded-full w-[6vw] h-[6vw] mx-auto mb-[1vw] relative overflow-hidden">
+                      <div className="bg-white rounded-full w-20 h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 mx-auto mb-3 md:mb-4 relative overflow-hidden">
                         <Image
                           src={`/developer${index + 1}.jpg`}
                           alt={dev.name}
@@ -277,10 +276,10 @@ const AboutPage = () => {
                           objectFit="cover"
                         />
                       </div>
-                      <h3 className="text-[1.3vw] font-bold mb-[0.5vw]">
+                      <h3 className="text-base md:text-lg lg:text-xl font-bold mb-2">
                         {dev.name}
                       </h3>
-                      <p className="text-[1vw] bg-white bg-opacity-20 rounded-lg py-[0.5vw] px-[1vw]">
+                      <p className="text-sm md:text-base bg-white bg-opacity-20 rounded-lg py-1.5 md:py-2 px-2 md:px-3">
                         {dev.id}
                       </p>
                     </div>
@@ -288,33 +287,31 @@ const AboutPage = () => {
                 ))}
               </div>
 
-              <div className="text-center bg-[#3A5566] bg-opacity-10 p-[2vw] rounded-xl">
-                <p className="text-[1.2vw] mb-[1vw]">
-                  🎯 Proyek ini dikembangkan dalam rangka Tugas Akhir Senior
-                  Project TI
+              <div className="text-center bg-[#3A5566] bg-opacity-10 p-4 md:p-6 lg:p-8 rounded-xl">
+                <p className="text-sm md:text-base lg:text-lg mb-3 md:mb-4">
+                  🎯 Proyek ini dikembangkan dalam rangka Tugas Akhir Senior Project TI
                 </p>
-                <p className="text-[1.2vw] font-medium">
-                  📍 Departemen Teknologi Elektro dan Teknologi Informasi,
-                  Fakultas Teknik, Universitas Gadjah Mada
+                <p className="text-sm md:text-base lg:text-lg font-medium">
+                  📍 Departemen Teknologi Elektro dan Teknologi Informasi, Fakultas Teknik, Universitas Gadjah Mada
                 </p>
               </div>
             </div>
           </section>
 
           <section
-            className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] text-white p-[4vw] rounded-2xl shadow-xl text-center mt-[6vw]"
+            className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] text-white p-6 md:p-8 lg:p-10 rounded-xl md:rounded-2xl shadow-xl text-center mt-8 md:mt-12"
             data-aos="fade-up"
             data-aos-delay="800"
             data-aos-duration="1000"
           >
             <div
-              className="bg-white inline-block rounded-full p-[1.5vw] mb-[2vw]"
+              className="bg-white inline-block rounded-full p-3 md:p-4 lg:p-6 mb-4 md:mb-6"
               data-aos="zoom-in"
               data-aos-delay="1000"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-[3vw] w-[3vw] text-[#3A5566]"
+                className="h-8 w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 text-[#3A5566]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -329,7 +326,7 @@ const AboutPage = () => {
             </div>
 
             <h2
-              className="text-[2.5vw] font-bold mb-[1.5vw]"
+              className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4"
               data-aos="fade-up"
               data-aos-delay="1100"
             >
@@ -337,17 +334,15 @@ const AboutPage = () => {
             </h2>
 
             <p
-              className="text-[1.5vw] mb-[2vw] max-w-[60vw] mx-auto"
+              className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 max-w-[90%] md:max-w-[80%] lg:max-w-[60%] mx-auto"
               data-aos="fade-up"
               data-aos-delay="1200"
             >
-              Your journey to career excellence starts here. Together,
-              we&apos;ll unlock your potential and guide you toward the perfect
-              professional path.
+              Your journey to career excellence starts here. Together, we&apos;ll unlock your potential and guide you toward the perfect professional path.
             </p>
 
             <div
-              className="flex justify-center space-x-[1vw] mb-[1vw]"
+              className="flex justify-center space-x-2 md:space-x-3 mb-4 md:mb-6"
               data-aos="fade-up"
               data-aos-delay="1300"
             >
@@ -355,7 +350,7 @@ const AboutPage = () => {
                 <svg
                   key={i}
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-[2vw] w-[2vw] text-yellow-300"
+                  className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-yellow-300"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -365,12 +360,11 @@ const AboutPage = () => {
             </div>
 
             <p
-              className="text-[1.2vw] italic"
+              className="text-sm md:text-base lg:text-lg italic"
               data-aos="fade-up"
               data-aos-delay="1400"
             >
-              Join karir.ai today and transform your future career
-              possibilities!
+              Join karir.ai today and transform your future career possibilities!
             </p>
           </section>
         </div>

@@ -111,19 +111,19 @@ export default function ResultPage() {
     <div className="flex flex-col min-h-screen font-sans">
       <Navbar />
 
-      <main className="bg-white flex-grow py-[20vh]">
+      <main className="bg-white flex-grow min-h-screen md:pt-[40vh] pt-[37vh] pb-[27vh] md:pb-[40vh] px-[10vw] md:px-4">
         <section
-          className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] text-white p-[4vw] md:p-[5vw] rounded-2xl shadow-xl w-full max-w-[68vw] mx-auto"
+          className="bg-gradient-to-br from-[#577C8E] to-[#3A5566] text-white p-6 md:p-8 lg:p-10 rounded-lg md:rounded-2xl shadow-xl w-full max-w-[95vw] md:max-w-[85vw] lg:max-w-[68vw] mx-auto"
           data-aos="fade-up"
           data-aos-duration="1000"
         >
-          <h2 className="text-[2vw] font-righteous font-bold text-center mb-[4vw]">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-righteous font-bold text-center mb-6 md:mb-8">
             JOB MATCHING | CV SCORING
           </h2>
 
           {submitStatus && (
             <div
-              className={`mb-[3vw] p-[2vw] rounded-xl ${
+              className={`mb-4 md:mb-6 p-4 md:p-6 rounded-lg md:rounded-xl ${
                 submitStatus.success
                   ? "bg-green-600 bg-opacity-30"
                   : "bg-red-600 bg-opacity-30"
@@ -134,11 +134,11 @@ export default function ResultPage() {
                 <div
                   className={`rounded-full p-1 ${
                     submitStatus.success ? "bg-green-500" : "bg-red-500"
-                  } mr-3 mt-1`}
+                  } mr-2 md:mr-3 mt-1`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-[1vw] w-[1vw] text-white"
+                    className="h-4 w-4 md:h-5 md:w-5 text-white"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -158,7 +158,7 @@ export default function ResultPage() {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-medium">{submitStatus.message}</p>
+                  <p className="font-medium text-sm md:text-base">{submitStatus.message}</p>
 
                   {submitStatus.success &&
                     !submitStatus.emailVerified &&
@@ -168,12 +168,12 @@ export default function ResultPage() {
                           type="button"
                           onClick={handleResendVerification}
                           disabled={isResendingVerification}
-                          className="bg-white bg-opacity-20 hover:bg-opacity-30 px-[2vw] py-[1vw] rounded-lg text-sm font-medium transition-all duration-200 flex items-center"
+                          className="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 md:px-6 py-2 md:py-3 rounded-lg text-sm md:text-base font-medium transition-all duration-200 flex items-center"
                         >
                           {isResendingVerification ? (
                             <>
                               <svg
-                                className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                                className="animate-spin -ml-1 mr-2 md:mr-3 h-4 w-4 md:h-5 md:w-5 text-white"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -198,7 +198,7 @@ export default function ResultPage() {
                             <>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-4 w-4 mr-2"
+                                className="h-4 w-4 md:h-5 md:w-5 mr-2"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -221,19 +221,19 @@ export default function ResultPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grip-cols-2 gap-[2vw]">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {/* Left Column */}
             <div
-              className="space-y-[2.5vw] flex items-center justify-center"
+              className="space-y-4 md:space-y-6 flex items-center justify-center"
               data-aos="fade-right"
               data-aos-delay="200"
               data-aos-duration="800"
             >
-              <div className="w-full md:w-[30vw]">
-                <div className="flex items-center bg-[#FFFFFF15] border-2 border-[#FFFFFF30] backdrop-blur-sm rounded-xl px-[1.5vw] py-[1vw] focus-within:border-white transition-all duration-300 shadow-md">
+              <div className="w-full md:w-[90%]">
+                <div className="flex items-center bg-[#FFFFFF15] border-2 border-[#FFFFFF30] backdrop-blur-sm rounded-lg md:rounded-xl px-4 md:px-5 py-3 md:py-4 focus-within:border-white transition-all duration-300 shadow-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-[2vw] w-[2vw] text-gray-300 mr-[1vw]"
+                    className="h-5 w-5 md:h-6 md:w-6 text-gray-300 mr-3 md:mr-4"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -249,7 +249,7 @@ export default function ResultPage() {
                     type="email"
                     name="email"
                     placeholder="Email Address"
-                    className="w-full bg-transparent focus:outline-none text-white placeholder-gray-300 font-sans"
+                    className="w-full bg-transparent focus:outline-none text-white placeholder-gray-300 font-sans text-sm md:text-base"
                     value={formData.email}
                     onChange={handleInputChange}
                     required
@@ -268,12 +268,12 @@ export default function ResultPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full md:w-[30vw] bg-white text-[#3A5566] font-bold px-[2vw] py-[1vw] rounded-xl hover:bg-opacity-90 transition-all duration-300 shadow-lg flex items-center justify-center"
+                className="w-full md:w-[90%] bg-white text-[#3A5566] font-bold px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl hover:bg-opacity-90 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-base"
               >
                 {isSubmitting ? (
                   <>
                     <svg
-                      className="animate-spin -ml-1 mr-3 h-[1.5vw] w-[1.5vw] text-[#3A5566]"
+                      className="animate-spin -ml-1 mr-2 md:mr-3 h-4 w-4 md:h-5 md:w-5 text-[#3A5566]"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -299,7 +299,7 @@ export default function ResultPage() {
                     Submit
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-[1.5vw] w-[1.5vw] ml-2"
+                      className="h-4 w-4 md:h-5 md:w-5 ml-2"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -317,7 +317,7 @@ export default function ResultPage() {
             </div>
           </form>
 
-          <div className="mt-[4vw] text-center text-gray-300 text-[1.2vw]">
+          <div className="mt-6 md:mt-8 text-center text-gray-300 text-sm md:text-base">
             Submit your email to check your job matching score
           </div>
         </section>
