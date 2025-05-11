@@ -15,3 +15,6 @@ build/
 uploads/
 
 */migrations/
+
+.dockerignore
+.dockerfile
