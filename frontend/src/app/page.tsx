@@ -32,14 +32,14 @@ export default function Home() {
         <div className="w-full flex items-center justify-center px-[15vw] pt-[10vh] min-h-screen bg-white">
           <Hero />
         </div>
-        <div id="opportunity-form" className="w-full flex items-center justify-center min-h-screen bg-white">
-          <OpportunityForm />
+        <div id="opportunity-form" className="w-full pt-[10vh] flex items-center justify-center min-h-screen bg-white">
+          <HowItWorks />
         </div>
-        <div className="w-full flex items-center justify-center px-[15vw] min-h-screen bg-white">
+        <div className="w-full flex items-center justify-center px-[15vw] pt-[10vh] min-h-screen bg-white">
           <JobListingSection />
         </div>
-        <div className="w-full flex items-center justify-center min-h-screen bg-white">
-          <HowItWorks />
+        <div className="w-full flex items-center justify-center py-[20vh] min-h-screen bg-white">
+          <OpportunityForm />
         </div>
       </div>
       <Footer />

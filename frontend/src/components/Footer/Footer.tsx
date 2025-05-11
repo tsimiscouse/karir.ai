@@ -28,8 +28,8 @@ const Footer = () => {
 
         {/* Navigation Section */}
         <nav className="flex flex-col space-y-3 items-center md:items-end w-full md:w-auto font-sans">
-          <motion.a whileHover={{ scale: 1.1 }} href="#" className="hover:text-[#F4EFEB] transition">Analisa Resume</motion.a>
-          <motion.a whileHover={{ scale: 1.1 }} href="#" className="hover:text-[#F4EFEB] transition">Lowongan</motion.a>
+          <motion.a whileHover={{ scale: 1.1 }} href="/result" className="hover:text-[#F4EFEB] transition">Analisa Resume</motion.a>
+          <motion.a whileHover={{ scale: 1.1 }} href="/jobs" className="hover:text-[#F4EFEB] transition">Lowongan</motion.a>
           <motion.a whileHover={{ scale: 1.1 }} href="#" className="hover:text-[#F4EFEB] transition">About</motion.a>
         </nav>
       </div>

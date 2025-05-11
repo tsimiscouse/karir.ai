@@ -311,7 +311,7 @@ const OpportunityForm: React.FC = () => {
 
   const handleCloseResultsModal = () => {
     setShowResultsModal(false);
-    router.push("/thanks");
+    window.location.reload();
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -420,13 +420,13 @@ const OpportunityForm: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/30 backdrop-blur-md font-sans">
-        <div className="flex items-center justify-center space-x-2">
-          <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.3s]" />
-          <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.15s]" />
-          <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce" />
-          <span className="ml-[10vw] text-sm text-gray-800 font-black">
-            Generating. This might take a while...
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-sm font-sans">
+        <div className="flex items-center justify-center space-x-4">
+          <div className="w-4 h-4 bg-black rounded-full animate-bounce [animation-delay:-0.3s]" />
+          <div className="w-4 h-4 bg-black rounded-full animate-bounce [animation-delay:-0.15s]" />
+          <div className="w-4 h-4 bg-black rounded-full animate-bounce" />
+          <span className="ml-[10vw] text-sm text-gray-800 font-bold">
+            Generating. This might take a while . . .
           </span>
         </div>
       </div>

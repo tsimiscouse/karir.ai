@@ -24,7 +24,7 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
         data-aos-duration="400"
       >
         {/* Header */}
-        <div className="bg-[#577C8E] px-[2vw] py-[1.2vw] text-white relative">
+        <div className="bg-gradient-to-r from-[#577C8E] to-[#3A5566] px-[2vw] py-[1.2vw] text-white relative">
           <button 
             onClick={onClose}
             className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors"

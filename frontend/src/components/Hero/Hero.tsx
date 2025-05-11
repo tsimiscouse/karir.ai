@@ -38,13 +38,13 @@ const Hero = () => {
             const target = document.getElementById("opportunity-form");
             if (!target) return;
 
-            const yOffset = -50;
+            const yOffset = 2240;
             const targetPosition =
               target.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
             const start = window.pageYOffset;
             const distance = targetPosition - start;
-            const duration = 1000;
+            const duration = 2500;
             let startTime: number | null = null;
 
             const easeInOutQuad = (t: number) =>
