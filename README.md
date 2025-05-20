@@ -13,8 +13,19 @@
   <p><i>Helping job seekers find their perfect career path through advanced AI analysis</i></p>
 </div>
 
+## Hero Section
 <div align="center">
-  <img src="./frontend/public/hero.jpg" alt="karir.ai Hero Section" width="800px"/>
+  <img src="./frontend/public/Hero.jpg" alt="karir.ai Hero Section" width="800px"/>
+</div>
+
+## How it Works Section
+<div align="center">
+  <img src="./frontend/public/HowItWorks.jpg" alt="karir.ai Hero Section" width="800px"/>
+</div>
+
+## Form Section
+<div align="center">
+  <img src="./frontend/public/Form.jpg" alt="karir.ai Hero Section" width="800px"/>
 </div>
 
 ## 📋 Table of Contents
