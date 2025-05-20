@@ -42,7 +42,7 @@ The platform was developed to address the **job mismatch** problem in Indonesia,
 Our system follows a modern microservices architecture with specialized components for AI processing, data storage, and frontend interaction.
 
 <div align="center">
-  <img src="./frontend/public/architecture.png" alt="karir.ai System Architecture" width="800px"/>
+  <img src="./frontend/public/architecture.jpg" alt="karir.ai System Architecture" width="800px"/>
 </div>
 
 ### Architecture Components
