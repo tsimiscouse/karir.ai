@@ -13,6 +13,10 @@
   <p><i>Helping job seekers find their perfect career path through advanced AI analysis</i></p>
 </div>
 
+<div align="center">
+  <img src="./frontend/public/hero.jpg" alt="karir.ai Hero Section" width="800px"/>
+</div>
+
 ## 📋 Table of Contents
 - [About karir.ai](#-about-kariai)
 - [Key Features](#-key-features)
