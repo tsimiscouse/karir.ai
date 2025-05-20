@@ -37,41 +37,43 @@ The platform was developed to address the **job mismatch** problem in Indonesia,
 - **💼 AI-Powered Job Matching**: Automatically matches users with job openings based on their profile
 - **🧠 Skill Gap Analysis**: Identifies skills users need to develop for their desired career paths
 
-🏗 System Architecture
+## 🏗 System Architecture
+
 Our system follows a modern microservices architecture with specialized components for AI processing, data storage, and frontend interaction.
+
 <div align="center">
-  <img src="./architecture.png" alt="karir.ai System Architecture" width="800px"/>
+  <img src="./frontend/public/architecture.png" alt="karir.ai System Architecture" width="800px"/>
 </div>
-Architecture Components
+
+### Architecture Components
+
 The karir.ai platform is built with a sophisticated multi-layered architecture:
-🖥️ Frontend Layer
 
-Next.js: Server-side rendered React application for optimal performance and SEO
-React: Component-based UI architecture for dynamic user experiences
-Tailwind CSS: Utility-first CSS framework for responsive design
-AOS (Animate on Scroll): Library for smooth scroll animations
-Deployment: Vercel for continuous deployment and edge performance
+#### 🖥️ Frontend Layer
+- **Next.js**: Server-side rendered React application for optimal performance and SEO
+- **React**: Component-based UI architecture for dynamic user experiences
+- **Tailwind CSS**: Utility-first CSS framework for responsive design
+- **AOS (Animate on Scroll)**: Library for smooth scroll animations
+- **Deployment**: Vercel for continuous deployment and edge performance
 
-🔄 Backend Layer
+#### 🔄 Backend Layer
+- **Express.js**: Node.js web application framework for RESTful API endpoints
+- **Node.js**: JavaScript runtime for server-side operations
+- **FastAPI**: High-performance Python framework for AI model endpoints
+- **ORM**: Prisma for Express.js and SQLAlchemy for FastAPI
 
-Express.js: Node.js web application framework for RESTful API endpoints
-Node.js: JavaScript runtime for server-side operations
-FastAPI: High-performance Python framework for AI model endpoints
-ORM: Prisma for Express.js and SQLAlchemy for FastAPI
+#### 💾 Database Layer
+- **Aiven**: Cloud database service based on PostgreSQL
+- **PostgreSQL**: Robust relational database for structured data storage
+- **Data Organization**: Normalized schema design for efficient storage and retrieval
 
-💾 Database Layer
+#### 🧠 AI Layer
+- **Sentence-BERT**: Transformer-based model for semantic text matching
+- **TF-IDF Models**: Statistical models for resume scoring and keyword analysis
+- **NLP Processing Pipeline**: Custom NLP pipelines for text extraction and analysis
 
-Aiven: Cloud database service based on PostgreSQL
-PostgreSQL: Robust relational database for structured data storage
-Data Organization: Normalized schema design for efficient storage and retrieval
+### Cloud Infrastructure
 
-🧠 AI Layer
-
-Sentence-BERT: Transformer-based model for semantic text matching
-TF-IDF Models: Statistical models for resume scoring and keyword analysis
-NLP Processing Pipeline: Custom NLP pipelines for text extraction and analysis
-
-Cloud Infrastructure
 <div align="center">
   <table>
     <tr>
@@ -111,38 +113,40 @@ Cloud Infrastructure
     </tr>
   </table>
 </div>
-Deployment & Scaling Strategy
-AI Model Deployment
+
+### Deployment & Scaling Strategy
+
+#### AI Model Deployment
 Our AI models are containerized and deployed using Azure Container Registry (ACR) and Azure Container Apps:
 
-Model Training: Models are trained in development environments
-Containerization: Models are packaged with FastAPI in Docker containers
-Registry Storage: Containers are pushed to Azure Container Registry
-Deployment: Containers are deployed to Azure Container Apps
-Scaling: Automatic scaling based on request volume
+1. **Model Training**: Models are trained in development environments
+2. **Containerization**: Models are packaged with FastAPI in Docker containers
+3. **Registry Storage**: Containers are pushed to Azure Container Registry
+4. **Deployment**: Containers are deployed to Azure Container Apps
+5. **Scaling**: Automatic scaling based on request volume
 
 This approach enables us to:
+- Update AI models independently
+- Scale based on demand
+- Maintain version control for models
+- Deploy different models for different purposes
 
-Update AI models independently
-Scale based on demand
-Maintain version control for models
-Deploy different models for different purposes
-
-Backend API Deployment
+#### Backend API Deployment
 The Express.js backend follows a similar containerized approach:
 
-Logic Apps: Business logic is organized into modular components
-Container Packaging: Components are packaged into containers
-Azure Deployment: Deployed to Azure Container Apps
-Database Connection: Connected to Aiven PostgreSQL via secure connections
+1. **Logic Apps**: Business logic is organized into modular components
+2. **Container Packaging**: Components are packaged into containers
+3. **Azure Deployment**: Deployed to Azure Container Apps
+4. **Database Connection**: Connected to Aiven PostgreSQL via secure connections
 
-Frontend Deployment
+#### Frontend Deployment
 Our Next.js frontend is deployed through Vercel's platform for optimal performance:
 
-CI/CD Integration: Connected to GitHub repository
-Preview Deployments: Automatic deployments for pull requests
-Edge Network: Global CDN for fast content delivery
-Analytics: Built-in performance monitoring
+1. **CI/CD Integration**: Connected to GitHub repository
+2. **Preview Deployments**: Automatic deployments for pull requests
+3. **Edge Network**: Global CDN for fast content delivery
+4. **Analytics**: Built-in performance monitoring
+
 
 ## 💻 Technical Implementation
 
