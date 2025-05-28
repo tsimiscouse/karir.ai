@@ -138,7 +138,7 @@ const OpportunityForm: React.FC = () => {
   const checkEmailStatus = async (userIdToCheck: string): Promise<boolean> => {
     try {
       const response = await axios.get<{ emailStatus: boolean }>(
-        `https://backend-services-express.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/check-email-status/${userIdToCheck}`
+        `https://express-be-karirai.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/check-email-status/${userIdToCheck}`
       );
       return response.data.emailStatus;
     } catch (error) {
@@ -153,7 +153,7 @@ const OpportunityForm: React.FC = () => {
     setIsResendingVerification(true);
     try {
       await axios.post(
-        `https://backend-services-express.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/resend-verification/${userId}`
+        `https://express-be-karirai.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/resend-verification/${userId}`
       );
       setSubmitStatus((prev) =>
         prev
@@ -197,7 +197,7 @@ const OpportunityForm: React.FC = () => {
 
         try {
           await axios.post(
-            "https://karirai-backend.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/score_resume",
+            "https://fastapi-be-karirai.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/score_resume",
             scoreFormData,
             {
               headers: {
@@ -214,7 +214,7 @@ const OpportunityForm: React.FC = () => {
       // Request job recommendations
       try {
         await axios.get(
-          `https://karirai-backend.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/recommend_jobs/${userIdToProcess}`
+          `https://fastapi-be-karirai.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/recommend_jobs/${userIdToProcess}`
         );
       } catch (recommendError) {
         console.error("Error getting job recommendations:", recommendError);
@@ -281,7 +281,7 @@ const OpportunityForm: React.FC = () => {
     if (userId) {
       try {
         const response = await fetch(
-          `https://backend-services-express.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/reports/${userId}/pdf`
+          `https://express-be-karirai.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/reports/${userId}/pdf`
         );
         if (response.ok) {
           // Create a blob from the PDF Stream
@@ -334,7 +334,7 @@ const OpportunityForm: React.FC = () => {
 
       // Submit to create user input API
       const response = await axios.post<ApiResponse>(
-        "https://backend-services-express.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/users-input",
+        "https://express-be-karirai.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/users-input",
         apiFormData,
         {
           headers: {

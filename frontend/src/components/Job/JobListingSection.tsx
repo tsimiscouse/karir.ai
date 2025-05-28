@@ -57,7 +57,7 @@ const JobListingSection: React.FC = () => {
 
     try {
       const response = await axios.get<ApiResponse>(
-        "https://karirai-backend.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/jobs",
+        "https://fastapi-be-karirai.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/jobs",
         {
           params: {
             page,

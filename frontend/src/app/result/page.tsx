@@ -48,7 +48,7 @@ export default function ResultPage() {
 
     try {
       const response = await fetch(
-        "https://backend-services-express.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/check-email-userid",
+        "https://express-be-karirai.victoriousdune-d492059e.southeastasia.azurecontainerapps.io/api/check-email-userid",
         {
           method: "POST",
           headers: {
